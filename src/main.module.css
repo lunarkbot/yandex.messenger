@@ -1,0 +1,18 @@
+.back {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 25px;
+  color: var(--active-color);
+  cursor: pointer;
+  animation: blink 5s linear 1;
+}
+.back:hover {
+  color: var(--hover-color);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  20%, 40%, 60%, 80% { opacity: 0; }
+  10%, 30%, 50%, 70%, 90% { opacity: 1; }
+}

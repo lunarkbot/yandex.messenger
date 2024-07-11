@@ -1,0 +1,35 @@
+.page {
+  box-shadow: 0 0 6px 0 #00000024;
+  width: 340px;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  padding: 50px 30px 30px;
+  box-sizing: border-box;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 40px;
+  color: var(--default-color);
+  text-align: center;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.link {
+  font-size: 11px;
+  color: var(--active-color);
+  text-decoration: none;
+  width: fit-content;
+  align-self: center;
+}
+
+.signInButton {
+  margin-bottom: 14px;
+}

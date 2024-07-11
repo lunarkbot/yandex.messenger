@@ -1,4 +1,9 @@
-declare module "*.tmpl.js" {
-  const content: any;
-  export default content;
+declare module '*.tmpl.js' {
+  const template: any;
+  export default template;
+}
+
+declare module './plugins/precompileTemplatesPlugin' {
+  const precompileTemplatesPlugin: object;
+  export default precompileTemplatesPlugin;
 }

@@ -1,4 +1,4 @@
-// vite.config.ts
+/* eslint-disable */
 import { defineConfig } from 'vite';
 import precompileTemplatesPlugin from './plugins/precompileTemplatesPlugin';
 

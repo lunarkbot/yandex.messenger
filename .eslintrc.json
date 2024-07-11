@@ -16,8 +16,10 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error"],
-    "no-underscore-dangle": ["error", { "allow": ["__DIRNAME"] }]
+    "no-unused-vars": ["error", { "varsIgnorePattern": "^template$" }],
+    "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^template$" }],
+    "no-underscore-dangle": ["error", { "allow": ["__DIRNAME"] }],
+    "max-len": ["error", 120],
+    "import/extensions": ["error", "ignorePackages"]
   }
 }

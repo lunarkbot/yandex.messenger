@@ -3,7 +3,7 @@ import path from 'path';
 
 /*
 * The idea for the first sprint is as follows: templates are stored in a variable in tmpl.js files (there are
-* no problems with it when building and it is highlighted when working in the IDE for HTML). Then at the
+* no problems with it when building, and it is highlighted when working in the IDE for HTML). Then at the
 * precompilation stage in Vite, we convert the template into a function that takes the context and returns
 * the finished markup. As a result, it will be possible to reuse templates as the application runs without
 * worrying about performance.
@@ -19,13 +19,16 @@ function precompileTemplate(template, fullPath) {
   const templateString = template.match(/`([^`]*)`/);
   if (!templateString) throw Error(`Template string not found in ${fullPath}`);
 
+  /* eslint-disable */
   const functionBody = `return \`${templateString[1].replace(/\{\{(\w+)\}\}/g, '${context.$1}')}\``;
   return new Function('context', functionBody);
+  /* eslint-enable */
 }
 
 export default function precompileTemplatesPlugin() {
   return {
     name: 'precompile-templates',
+    // eslint-disable-next-line
     transform(src, id) {
       if (id.endsWith('.tmpl.js')) {
         const fullPath = path.resolve(id);
