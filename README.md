@@ -9,3 +9,6 @@ https://www.figma.com/proto/4nCFp5KZFZr2T2SjRtW8BL/yandex.messenger?node-id=0-1&
 * npm run dev     - run the project in dev-mode
 * npm run start   - build and run the project on the express server
 * npm run build   - build the project
+
+### Deployed version of the project on Netlify
+https://ydxmessenger.netlify.app/
