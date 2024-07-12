@@ -1,4 +1,4 @@
-import navigation from './pages/navigation';
+import navigation, { navigationLinkClassName } from './pages/navigation';
 import signIn from './pages/signIn';
 import signUp from './pages/signUp';
 import notFound from './pages/notFound';
@@ -38,20 +38,37 @@ function switchPage(href:string):void {
   }
 }
 
+function activateNavigation():void {
+  const container = document.querySelector<HTMLDivElement>('.content')!;
+
+  container.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains(navigationLinkClassName)) {
+      event.preventDefault();
+      const href:string|null = target.getAttribute('href');
+      if (!href) return;
+
+      switchPage(href);
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-        <main class="content"></main>
-        <div class="${styles.back}">Back to navigation</div>
-    `;
+  document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+      <main class="content"></main>
+      <div class="${styles.back}">Back to navigation</div>
+  `;
 
+  switchPage(window.location.pathname);
+
+  const backLink: HTMLDivElement = document.querySelector<HTMLDivElement>(`.${styles.back}`)!;
+  backLink.addEventListener('click', () => {
+    switchPage('/');
+  });
+
+  window.addEventListener('popstate', () => {
     switchPage(window.location.pathname);
+  });
 
-    const backLink: HTMLDivElement = document.querySelector<HTMLDivElement>(`.${styles.back}`)!;
-    backLink.addEventListener('click', () => {
-      switchPage('/');
-    });
-
-    window.addEventListener('popstate', () => {
-      switchPage(window.location.pathname);
-    });
+  activateNavigation();
 });
