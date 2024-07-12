@@ -54,21 +54,21 @@ function activateNavigation():void {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-        <main class="content"></main>
-        <div class="${styles.back}">Back to navigation</div>
-    `;
+  document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+      <main class="content"></main>
+      <div class="${styles.back}">Back to navigation</div>
+  `;
 
+  switchPage(window.location.pathname);
+
+  const backLink: HTMLDivElement = document.querySelector<HTMLDivElement>(`.${styles.back}`)!;
+  backLink.addEventListener('click', () => {
+    switchPage('/');
+  });
+
+  window.addEventListener('popstate', () => {
     switchPage(window.location.pathname);
+  });
 
-    const backLink: HTMLDivElement = document.querySelector<HTMLDivElement>(`.${styles.back}`)!;
-    backLink.addEventListener('click', () => {
-      switchPage('/');
-    });
-
-    window.addEventListener('popstate', () => {
-      switchPage(window.location.pathname);
-    });
-
-   activateNavigation();
+  activateNavigation();
 });
