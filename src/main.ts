@@ -1,7 +1,11 @@
-import navigation, { navigationLinkClass } from './pages/navigation';
+import navigation from './pages/navigation';
 import signIn from './pages/signIn';
 import signUp from './pages/signUp';
+import notFound from './pages/notFound';
 import styles from './main.module.css';
+import serverError from './pages/serverError';
+import profile from './pages/profile';
+import messenger from './pages/messenger';
 
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -9,8 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="${styles.back}">Back to navigation</div>
     `;
 
-    renderPage(signUp);
-    activateNavigation();
+    switchPage(window.location.pathname);
+
+    const backLink: HTMLDivElement = document.querySelector<HTMLDivElement>(`.${styles.back}`)!;
+    backLink.addEventListener('click', () => {
+        switchPage('/');
+    });
+
+    window.addEventListener('popstate', () => {
+        switchPage(window.location.pathname);
+    });
 });
 
 function renderPage(html:string):void {
@@ -18,6 +30,8 @@ function renderPage(html:string):void {
 }
 
 function switchPage(href:string):void {
+    window.history.pushState({}, '', href);
+
     switch (href) {
         case '/':
             renderPage(navigation);
@@ -28,27 +42,16 @@ function switchPage(href:string):void {
         case '/signUp':
             renderPage(signUp);
             break;
+        case '/profile':
+            renderPage(profile);
+            break;
+        case '/messenger':
+            renderPage(messenger);
+            break;
+        case '/serverError':
+            renderPage(serverError);
+            break;
         default:
-            renderPage('<h1>Not Found</h1>');
+            renderPage(notFound);
     }
-}
-
-function activateNavigation():void {
-    const container = document.querySelector<HTMLDivElement>('.content')!;
-    const backLink: HTMLDivElement = document.querySelector<HTMLDivElement>(`.${styles.back}`)!;
-
-    container.addEventListener('click', (event) => {
-        const target = event.target as HTMLElement;
-        if (target.classList.contains(navigationLinkClass)) {
-            event.preventDefault();
-            const href:string|null = target.getAttribute('href');
-            if (!href) return;
-
-            switchPage(href);
-        }
-    });
-
-    backLink.addEventListener('click', () => {
-        switchPage('/');
-    });
 }

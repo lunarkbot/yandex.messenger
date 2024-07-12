@@ -10,17 +10,13 @@ buttonContext.buttonClassName += ` ${styles.signInButton}`;
 const buttonHtml = buttonRender(buttonContext);
 
 const context:Template = {
-  pageClassName: styles.page,
-  headingClassName: styles.heading,
-  inputGroupClassName: styles.inputGroup,
-  linkClassName: styles.link,
   emailInput: getInputHtml('email', 'Почта'),
   loginInput: getInputHtml('login', 'Логин'),
   firstNameInput: getInputHtml('first_name', 'Имя'),
   secondNameInput: getInputHtml('second_name', 'Фамилия'),
   phoneInput: getInputHtml('phone', 'Телефон'),
-  passwordInput: getInputHtml('password', 'Пароль'),
-  passwordCheckInput: getInputHtml('passwordCheck', 'Пароль (ещё раз)'),
+  passwordInput: getInputHtml('password', 'Пароль', 'password'),
+  passwordCheckInput: getInputHtml('passwordCheck', 'Пароль (ещё раз)', 'password'),
   signUpButton: buttonHtml,
 }
 

@@ -1,12 +1,8 @@
-import styles from './input.module.css';
 import inputRender from './input.tmpl.js';
 import { Template } from '../../types';
 
 const inputContext: Template = {
-  containerClass: styles.container,
-  labelClass: styles.label,
-  inputClass: styles.input,
-  errorClass: styles.error,
+  type: 'text',
   name: '',
   placeholder: '',
   value: '',

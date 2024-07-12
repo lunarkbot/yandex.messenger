@@ -1,23 +1,25 @@
+import styles from './navigation.module.css';
+
 const template = `
-<div class="{{pageClassName}}">
-  <ul class="{{linksClassName}}">
+<div class="${styles.page}">
+  <ul class="${styles.links}">
     <li>
-      <a class="{{linkClassName}}" href="/signUp">Registation</a>
+      <a class="${styles.link}" href="/signUp">Registation</a>
     </li>
     <li>
-      <a class="{{linkClassName}}" href="/signIn">Login</a>
+      <a class="${styles.link}" href="/signIn">Login</a>
     </li>
     <li>
-      <a class="{{linkClassName}}" href="/profile">Profile</a>
+      <a class="${styles.link}" href="/profile">Profile</a>
      </li>
     <li>
-      <a class="{{linkClassName}}" href="/chats">Chats</a>
+      <a class="${styles.link}" href="/messenger">Messenger</a>
     </li>
     <li>
-     <a class="{{linkClassName}}" href="/404">Error 404</a>
+     <a class="${styles.link}" href="/notFound">Error 404</a>
     </li>
     <li>
-     <a class="{{linkClassName}}" href="/500">Error 500</a>
+     <a class="${styles.link}" href="/serverError">Error 500</a>
     </li>
   </ul>
 </div>

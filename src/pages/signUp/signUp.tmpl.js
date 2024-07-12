@@ -1,7 +1,9 @@
+import styles from './signUp.module.css';
+
 const template = `
-<div class="{{pageClassName}}">
-  <h1 class="{{headingClassName}}">Регистрация</h1>
-  <div class="{{inputGroupClassName}}">
+<div class="${styles.page}">
+  <h1 class="${styles.heading}">Регистрация</h1>
+  <div class="${styles.inputGroup}">
     {{emailInput}}
     {{loginInput}}
     {{firstNameInput}}
@@ -12,6 +14,6 @@ const template = `
   </div>
   
   {{signUpButton}}
-  <a href="/signIn" class="{{linkClassName}}">Войти</a>
+  <a href="/signIn" class="${styles.link}">Войти</a>
 </div>
 `;

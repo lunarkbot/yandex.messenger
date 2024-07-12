@@ -19,9 +19,12 @@ function precompileTemplate(template, fullPath) {
   const templateString = template.match(/`([^`]*)`/);
   if (!templateString) throw Error(`Template string not found in ${fullPath}`);
 
+  const importCSS = template.match(/'(.+\.css)'/);
+
   /* eslint-disable */
   const functionBody = `return \`${templateString[1].replace(/\{\{(\w+)\}\}/g, '${context.$1}')}\``;
-  return new Function('context', functionBody);
+  //return new Function('context', functionBody);
+  return { functionBody, importCSS };
   /* eslint-enable */
 }
 
@@ -33,11 +36,19 @@ export default function precompileTemplatesPlugin() {
       if (id.endsWith('.tmpl.js')) {
         const fullPath = path.resolve(id);
         const template = readFileSync(fullPath, { encoding: 'utf-8' });
-        const precompiledTemplate = precompileTemplate(template, fullPath);
-        const precompiledString = precompiledTemplate.toString();
+        const { functionBody, importCSS } = precompileTemplate(template, fullPath);
+
+        const importCSSString = importCSS ? `import styles from '${importCSS[1]}';` : '';
+        const renderFunction = new Function('context', functionBody);
+        const renderFunctionString = renderFunction.toString();
+
+        const precompiledString = `
+          ${importCSSString}
+          export default ${renderFunctionString}
+        `;
 
         return {
-          code: `export default ${precompiledString}`,
+          code: precompiledString,
           map: null,
         };
       }

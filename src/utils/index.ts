@@ -11,9 +11,9 @@ export function getTemplateHtml(values: Template, context: Template, render: any
   return render(context);
 }
 
-export function getInputHtml(name:string, placeholder:string): string {
+export function getInputHtml(name:string, placeholder:string, type:string = 'text'): string {
   return getTemplateHtml(
-    {name, placeholder},
+    {name, placeholder, type},
     inputContext,
     inputRender
   )

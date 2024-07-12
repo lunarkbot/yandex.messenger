@@ -1,5 +1,5 @@
-import styles from './button.module.css';
 import buttonRender from './button.tmpl.js';
+import styles from './button.module.css';
 import { Template } from '../../types';
 
 const buttonContext: Template = {
