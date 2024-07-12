@@ -39,6 +39,7 @@ export default function precompileTemplatesPlugin() {
         const { functionBody, importCSS } = precompileTemplate(template, fullPath);
 
         const importCSSString = importCSS ? `import styles from '${importCSS[1]}';` : '';
+        // eslint-disable-next-line
         const renderFunction = new Function('context', functionBody);
         const renderFunctionString = renderFunction.toString();
 

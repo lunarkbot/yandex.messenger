@@ -18,8 +18,8 @@ const context:Template = {
   passwordInput: getInputHtml('password', 'Пароль', 'password'),
   passwordCheckInput: getInputHtml('passwordCheck', 'Пароль (ещё раз)', 'password'),
   signUpButton: buttonHtml,
-}
+};
 
 const signUp:string = renderSignUp(context);
 
-export default signUp
+export default signUp;

@@ -20,6 +20,12 @@
     "@typescript-eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^template$" }],
     "no-underscore-dangle": ["error", { "allow": ["__DIRNAME"] }],
     "max-len": ["error", 120],
-    "import/extensions": ["error", "ignorePackages"]
+    "@typescript-eslint/no-explicit-any": "off",
+    "import/extensions": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {} // Это говорит ESLint использовать TypeScript для разрешения путей к модулям
+    }
   }
 }

@@ -7,6 +7,37 @@ import serverError from './pages/serverError';
 import profile from './pages/profile';
 import messenger from './pages/messenger';
 
+function renderPage(html:string):void {
+  document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
+}
+
+function switchPage(href:string):void {
+  window.history.pushState({}, '', href);
+
+  switch (href) {
+    case '/':
+      renderPage(navigation);
+      break;
+    case '/signIn':
+      renderPage(signIn);
+      break;
+    case '/signUp':
+      renderPage(signUp);
+      break;
+    case '/profile':
+      renderPage(profile);
+      break;
+    case '/messenger':
+      renderPage(messenger);
+      break;
+    case '/serverError':
+      renderPage(serverError);
+      break;
+    default:
+      renderPage(notFound);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <main class="content"></main>
@@ -17,41 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const backLink: HTMLDivElement = document.querySelector<HTMLDivElement>(`.${styles.back}`)!;
     backLink.addEventListener('click', () => {
-        switchPage('/');
+      switchPage('/');
     });
 
     window.addEventListener('popstate', () => {
-        switchPage(window.location.pathname);
+      switchPage(window.location.pathname);
     });
 });
-
-function renderPage(html:string):void {
-    document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
-}
-
-function switchPage(href:string):void {
-    window.history.pushState({}, '', href);
-
-    switch (href) {
-        case '/':
-            renderPage(navigation);
-            break;
-        case '/signIn':
-            renderPage(signIn);
-            break;
-        case '/signUp':
-            renderPage(signUp);
-            break;
-        case '/profile':
-            renderPage(profile);
-            break;
-        case '/messenger':
-            renderPage(messenger);
-            break;
-        case '/serverError':
-            renderPage(serverError);
-            break;
-        default:
-            renderPage(notFound);
-    }
-}

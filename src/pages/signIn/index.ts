@@ -13,8 +13,8 @@ const context:Template = {
   loginInput: getInputHtml('login', 'Логин'),
   passwordInput: getInputHtml('password', 'Пароль'),
   signInButton: buttonHtml,
-}
+};
 
 const signIn:string = renderSignIn(context);
 
-export default signIn
+export default signIn;

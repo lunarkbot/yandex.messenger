@@ -18,7 +18,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "baseUrl": ".", // Устанавливает базовый путь к модулям
+    "paths": {
+      "*": ["./src/*"] // Указывает, что все модули можно импортировать из директории src
+    }
   },
   "include": ["src"]
 }

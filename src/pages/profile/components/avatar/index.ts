@@ -3,7 +3,7 @@ import { Template } from '../../../../types';
 
 const context:Template = {
   avatarSrc: '../../../../avatar_default.png',
-}
+};
 
 const avatar = renderAvatar(context);
 
