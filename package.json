@@ -23,5 +23,8 @@
     "autoprefixer": "^10.4.19",
     "express": "^4.19.2",
     "path": "^0.12.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
