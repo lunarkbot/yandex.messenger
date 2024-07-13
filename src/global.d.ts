@@ -5,6 +5,6 @@ declare module '*.tmpl.js' {
 }
 
 declare module './plugins/precompileTemplatesPlugin' {
-  const precompileTemplatesPlugin: object;
+  const precompileTemplatesPlugin: any;
   export default precompileTemplatesPlugin;
 }

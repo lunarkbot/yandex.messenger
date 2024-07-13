@@ -1,6 +1,7 @@
 import styles from './input.module.css';
 
-const template = `
+export default function (context) {
+  return `
   <div class="${styles.container}">
     <input id="input_{{name}}" 
             name="{{name}}" 
@@ -13,3 +14,4 @@ const template = `
     <span class="${styles.error}">{{error}}</span>
   </div>
 `;
+}

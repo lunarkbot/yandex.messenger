@@ -15,17 +15,9 @@ import path from 'path';
  * @param fullPath {string} - full path to the template file
  * @returns {object} - precompiled template function
  */
-function precompileTemplate(template, fullPath) {
-  const templateString = template.match(/`([^`]*)`/);
-  if (!templateString) throw Error(`Template string not found in ${fullPath}`);
-
-  const importCSS = template.match(/'(.+\.css)'/);
-
-  /* eslint-disable */
-  const functionBody = `return \`${templateString[1].replace(/\{\{(\w+)\}\}/g, '${context.$1}')}\``;
-  //return new Function('context', functionBody);
-  return { functionBody, importCSS };
-  /* eslint-enable */
+function precompileTemplate(template) {
+  // eslint-disable-next-line
+  return template.replace(/\{\{(\w+)\}\}/g, '${context.$1}');
 }
 
 export default function precompileTemplatesPlugin() {
@@ -36,20 +28,10 @@ export default function precompileTemplatesPlugin() {
       if (id.endsWith('.tmpl.js')) {
         const fullPath = path.resolve(id);
         const template = readFileSync(fullPath, { encoding: 'utf-8' });
-        const { functionBody, importCSS } = precompileTemplate(template, fullPath);
-
-        const importCSSString = importCSS ? `import styles from '${importCSS[1]}';` : '';
-        // eslint-disable-next-line
-        const renderFunction = new Function('context', functionBody);
-        const renderFunctionString = renderFunction.toString();
-
-        const precompiledString = `
-          ${importCSSString}
-          export default ${renderFunctionString}
-        `;
+        const precompiledTemplate = precompileTemplate(template);
 
         return {
-          code: precompiledString,
+          code: precompiledTemplate,
           map: null,
         };
       }

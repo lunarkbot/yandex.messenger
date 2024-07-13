@@ -1,5 +1,7 @@
-const template = `
-  <button class="{{buttonClassName}}">
-    {{buttonText}}
-  </button>
-`;
+export default function (context) {
+  return `
+    <button class="{{buttonClassName}}">
+      {{buttonText}}
+    </button>
+  `;
+}
