@@ -2,8 +2,8 @@ import styles from './signIn.module.css';
 
 export default function (context) {
   return `
-    <div class="${styles.page}">
-      <form name="signin">
+    <form name="signin">
+      <div class="${styles.page}">
         <h1 class="${styles.heading}">Вход</h1>
         <div class="${styles.inputGroup}">
           {{loginInput}}
@@ -12,7 +12,7 @@ export default function (context) {
         
         {{signInButton}}
         <a href="/signUp" class="${styles.link}">Нет аккаунта?</a>
-      </form>
-    </div>
+      </div>
+    </form>
   `;
 }
