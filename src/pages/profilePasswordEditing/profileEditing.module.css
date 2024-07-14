@@ -1,0 +1,67 @@
+.form {
+  max-width: 510px;
+  width: 100%;
+}
+
+.page {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.heading {
+  color: var(--default-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 60px;
+  text-align: center;
+}
+
+.profileList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 50px;
+  width: 100%;
+}
+
+.profileList:last-child {
+  margin: 0;
+}
+
+.profileListItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--second-bg-color);
+}
+
+.profileListItem:last-child {
+  border-bottom: none;
+}
+
+.profileLabel {
+  color: var(--default-color);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.profileValue {
+  color: var(--second-color);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.profileEditLink {
+  color: var(--active-color);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.logoutLink {
+  color: var(--danger-color);
+  font-size: 13px;
+  text-decoration: none;
+}

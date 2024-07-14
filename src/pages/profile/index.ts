@@ -1,6 +1,6 @@
 import renderProfile from './profile.tmpl.js';
 import { Template } from '../../types';
-import avatar from './components/avatar';
+import avatar from '../../components/avatar';
 
 const context:Template = {
   avatar,

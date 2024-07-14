@@ -5,6 +5,7 @@ import { Template } from '../../types';
 const buttonContext: Template = {
   buttonClassName: styles.button,
   buttonText: '',
+  type: 'button',
 };
 
 const button = {

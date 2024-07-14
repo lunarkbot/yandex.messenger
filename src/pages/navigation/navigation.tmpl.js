@@ -12,7 +12,13 @@ export default function (context) {
         </li>
         <li>
           <a class="${styles.link}" href="/profile">Profile</a>
-         </li>
+        </li>
+        <li>
+          <a class="${styles.link}" href="/profileEditing">Profile editing</a>
+        </li>
+        <li>
+          <a class="${styles.link}" href="/profilePasswordEditing">Profile password editing</a>
+        </li>
         <li>
           <a class="${styles.link}" href="/messenger">Messenger</a>
         </li>

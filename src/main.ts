@@ -6,6 +6,8 @@ import styles from './main.module.css';
 import serverError from './pages/serverError';
 import profile from './pages/profile';
 import messenger from './pages/messenger';
+import profileEditing from './pages/profileEditing';
+import profilePasswordEditing from './pages/profilePasswordEditing';
 
 function renderPage(html:string):void {
   document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
@@ -26,6 +28,12 @@ function switchPage(href:string):void {
       break;
     case '/profile':
       renderPage(profile);
+      break;
+    case '/profileEditing':
+      renderPage(profileEditing);
+      break;
+    case '/profilePasswordEditing':
+      renderPage(profilePasswordEditing);
       break;
     case '/messenger':
       renderPage(messenger);

@@ -1,5 +1,5 @@
 import renderAvatar from './avatar.tmpl.js';
-import { Template } from '../../../../types';
+import { Template } from '../../types';
 
 const context:Template = {
   avatarSrc: '../../../../avatar_default.png',
