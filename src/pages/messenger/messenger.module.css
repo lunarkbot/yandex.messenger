@@ -1,0 +1,46 @@
+.messenger {
+  max-width: 1280px;
+  min-height: 720px;
+  width: 100%;
+  display: flex;
+}
+
+.sidebar {
+  width: 310px;
+  box-sizing: border-box;
+  padding: 21px 10px 0;
+  overflow: hidden;
+  background-color: #FBFBFB;
+}
+
+.contactList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contactListItem {
+  display: flex;
+  align-items: center;
+  min-height: 67px;
+}
+
+.contactListItem:hover {
+  background-color: var(--active-bg-color);
+}
+
+.main {
+  flex-grow: 1;
+}
+
+.main:empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: var(--second-color);
+}
+.main:empty::before {
+  display: inline;
+  content: 'Select a chat to start messaging';
+}
