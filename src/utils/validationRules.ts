@@ -1,34 +1,24 @@
 import { IValidationRule } from 'types';
-import { capitalizeFirstLetter } from './index.ts';
 
 function isPasswordValid(password: string): boolean {
-  const passwordLength = password.trim().length;
-  // const hasLowerCase = /[a-z]/.test(password);
-  // const hasUpperCase = /[A-Z]/.test(password);
-  // const hasNumber = /\d/.test(password);
-  // const hasSpecialChar = /[!№$%^&*()_+-]/.test(password);
-
-  return passwordLength >= 8 && passwordLength <= 50;// && hasLowerCase && hasUpperCase && hasNumber && hasSpecialChar;
+  const regex = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,40}$/;
+  return regex.test(password);
 }
 
 function isTextInputValid(text: string): boolean {
-  const textLength = text.trim().length;
-
-  return textLength >= 3 && textLength <= 40;
+  const regex = /^[A-ZА-Я][a-zA-Zа-яА-Я-]*$/;
+  return regex.test(text);
 }
 
 function isPhoneInputValid(phone: string): boolean {
   const trimmedValue = phone.trim();
-  const isNumber = /^\d+$/.test(trimmedValue);
-  const lengthInRange = trimmedValue.length >= 11 && trimmedValue.length <= 13;
-  return isNumber && lengthInRange;
+  const regex = /^\+?\d{10,15}$/;
+  return regex.test(trimmedValue);
 }
 
 function isEmailInputValid(email: string): boolean {
-  const trimmedValue = email.trim();
-  const hasAt = trimmedValue.includes('@');
-  const hasDot = trimmedValue.includes('.');
-  return hasAt && hasDot;
+  const regex = /^[a-zA-Z0-9-_]*@[a-zA-Z0-9-_]+\.[a-zA-Z]+$/;
+  return regex.test(email);
 }
 
 function isPasswordMatch(password: string): boolean {
@@ -40,11 +30,16 @@ function isPasswordMatch(password: string): boolean {
   return false;
 }
 
+function isLoginValid(login: string): boolean {
+  const regex = /^(?=.*[a-zA-Z])[\w-]{3,20}$/;
+  return regex.test(login);
+}
+
 export function getTextInputValidationRule(name: string): IValidationRule {
   return {
     field: name,
     method: isTextInputValid,
-    message: `${capitalizeFirstLetter(name).replace('_', ' ')} must be between 3 and 40 characters`,
+    message: 'Field must start with a capital letter and contain only letters and hyphens',
   };
 }
 
@@ -52,20 +47,20 @@ export function getPasswordInputValidationRule(name: string): IValidationRule {
   return {
     field: name,
     method: isPasswordValid,
-    message: 'Password must be between 8 and 50 characters',
+    message: 'Password must contain at least one uppercase letter, one number, and be 8 to 40 characters long',
   };
 }
 
-export const phontValidationRule: IValidationRule = {
+export const phoneValidationRule: IValidationRule = {
   field: 'phone',
   method: isPhoneInputValid,
-  message: '11 to 13 numbers without special characters and spaces',
+  message: 'Phone number must be between 10 and 15 digits',
 };
 
 export const emailValidationRule: IValidationRule = {
   field: 'email',
   method: isEmailInputValid,
-  message: 'Email must contain @ and .',
+  message: 'Email must be in the format',
 };
 
 export const passwordCheckValidationRule: IValidationRule = {
@@ -73,3 +68,9 @@ export const passwordCheckValidationRule: IValidationRule = {
   method: isPasswordMatch,
   message: 'Passwords must match',
 };
+
+export const loginValidationRule: IValidationRule = {
+    field: 'login',
+    method: isLoginValid,
+    message: 'Login must be between 3 and 20 characters and contain only letters, numbers, and hyphens',
+}

@@ -5,8 +5,8 @@ import button from '../../components/button';
 import { getInputHtml } from '../../utils';
 import {
   emailValidationRule, getPasswordInputValidationRule,
-  getTextInputValidationRule, passwordCheckValidationRule,
-  phontValidationRule,
+  getTextInputValidationRule, loginValidationRule, passwordCheckValidationRule,
+  phoneValidationRule,
 } from '../../utils/validationRules.ts';
 
 const { buttonContext, buttonRender } = button;
@@ -30,9 +30,9 @@ const signUp:string = renderSignUp(context);
 export const signUpValidationRules: IValidationRule[] = [
   getTextInputValidationRule('first_name'),
   getTextInputValidationRule('second_name'),
-  getTextInputValidationRule('login'),
+  loginValidationRule,
   emailValidationRule,
-  phontValidationRule,
+  phoneValidationRule,
   passwordCheckValidationRule,
   getPasswordInputValidationRule('password'),
 ];

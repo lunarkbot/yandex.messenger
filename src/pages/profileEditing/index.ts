@@ -5,8 +5,8 @@ import button from '../../components/button';
 import { getProfileInputHtml } from '../../utils';
 import {
   emailValidationRule,
-  getTextInputValidationRule,
-  phontValidationRule,
+  getTextInputValidationRule, loginValidationRule,
+  phoneValidationRule,
 } from '../../utils/validationRules.ts';
 
 const { buttonRender, buttonContext } = button;
@@ -31,9 +31,9 @@ const profileEditing:string = renderProfileEditing(context);
 export const profileEditingValidationRules: IValidationRule[] = [
   getTextInputValidationRule('first_name'),
   getTextInputValidationRule('second_name'),
-  getTextInputValidationRule('login'),
+  loginValidationRule,
   emailValidationRule,
-  phontValidationRule,
+  phoneValidationRule,
 ];
 
 export default profileEditing;

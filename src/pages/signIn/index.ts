@@ -5,7 +5,7 @@ import styles from './signIn.module.css';
 import { getInputHtml } from '../../utils';
 import {
   getPasswordInputValidationRule,
-  getTextInputValidationRule,
+  loginValidationRule,
 } from '../../utils/validationRules.ts';
 
 const { buttonContext, buttonRender } = button;
@@ -22,7 +22,7 @@ const context:ITemplate = {
 const signIn:string = renderSignIn(context);
 
 export const signInValidationRules: IValidationRule[] = [
-  getTextInputValidationRule('login'),
+  loginValidationRule,
   getPasswordInputValidationRule('password'),
 ];
 

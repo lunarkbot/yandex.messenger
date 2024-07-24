@@ -31,7 +31,3 @@ export function getProfileInputHtml(name:string, value:string, type:string = 'te
     profileInput.inputRender,
   );
 }
-
-export function capitalizeFirstLetter(word: string): string {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-}
