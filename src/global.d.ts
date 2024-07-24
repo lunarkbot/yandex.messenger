@@ -1,10 +1,9 @@
 declare module '*.tmpl.js' {
-  // eslint-disable-next-line
-  const template: any;
-  export default template;
+  import { Template } from 'types';
+  export default function(context: Template): string;
 }
 
 declare module './plugins/precompileTemplatesPlugin' {
-  const precompileTemplatesPlugin: any;
+  const precompileTemplatesPlugin: unknown;
   export default precompileTemplatesPlugin;
 }

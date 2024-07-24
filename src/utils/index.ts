@@ -1,9 +1,9 @@
-import { Template } from '../types';
+import { Template } from 'types';
 
 import input from '../components/input';
 import profileInput from '../components/profileInput';
 
-export function getTemplateHtml(values: Template, context: Template, render: any): string {
+export function getTemplateHtml(values: Template, context: Template, render: Function): string {
   Object.keys(values).forEach((key) => {
     context[key] = values[key];
   });
