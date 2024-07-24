@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "start": "tsc && vite build && node server.js",
+    "prebuild": "tsc --noEmit",
+    "build": "npm run prebuild && vite build",
+    "start": "vite build && node server.js",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix"
   },
