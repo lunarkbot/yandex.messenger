@@ -1,8 +1,8 @@
+import { ITemplate } from 'types';
 import renderProfile from './profile.tmpl.js';
-import { Template } from '../../types';
 import avatar from '../../components/avatar';
 
-const context:Template = {
+const context:ITemplate = {
   avatar,
   email: 'pochta@yandex.ru',
   login: 'ivanovivan',

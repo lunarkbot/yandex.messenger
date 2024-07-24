@@ -1,9 +1,14 @@
-import { Template } from 'types';
+import { ITemplate } from 'types';
 
 import input from '../components/input';
 import profileInput from '../components/profileInput';
 
-export function getTemplateHtml(values: Template, context: Template, render: Function): string {
+export function getTemplateHtml(
+  values: ITemplate,
+  context: ITemplate,
+  // eslint-disable-next-line
+  render: (context: ITemplate) => string,
+): string {
   Object.keys(values).forEach((key) => {
     context[key] = values[key];
   });
@@ -25,4 +30,8 @@ export function getProfileInputHtml(name:string, value:string, type:string = 'te
     profileInput.inputContext,
     profileInput.inputRender,
   );
+}
+
+export function capitalizeFirstLetter(word: string): string {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }

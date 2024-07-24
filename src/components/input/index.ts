@@ -1,7 +1,7 @@
+import { ITemplate } from 'types';
 import inputRender from './input.tmpl.js';
-import { Template } from '../../types';
 
-const inputContext: Template = {
+const inputContext: ITemplate = {
   type: 'text',
   name: '',
   placeholder: '',

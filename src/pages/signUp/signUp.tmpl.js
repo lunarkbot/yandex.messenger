@@ -2,7 +2,7 @@ import styles from './signUp.module.css';
 
 export default function (context) {
   return `
-    <form name="signup">
+    <form name="signup" id="signUpForm" novalidate>
       <div class="${styles.page}">
         <h1 class="${styles.heading}">Регистрация</h1>
         <div class="${styles.inputGroup}">
@@ -11,7 +11,9 @@ export default function (context) {
           {{firstNameInput}}
           {{secondNameInput}}
           {{phoneInput}}
-          {{passwordInput}}
+          <div data-type="forPasswordCheck">
+            {{passwordInput}}
+          </div>
           {{passwordCheckInput}}
         </div>
         

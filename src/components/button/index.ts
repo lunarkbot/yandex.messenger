@@ -1,8 +1,8 @@
+import { ITemplate } from 'types';
 import buttonRender from './button.tmpl.js';
 import styles from './button.module.css';
-import { Template } from '../../types';
 
-const buttonContext: Template = {
+const buttonContext: ITemplate = {
   buttonClassName: styles.button,
   buttonText: '',
   type: 'button',

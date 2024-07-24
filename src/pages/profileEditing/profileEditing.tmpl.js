@@ -2,7 +2,7 @@ import styles from './profileEditing.module.css';
 
 export default function (context) {
   return `
-    <form class="${styles.form}" name="editProfile">
+    <form class="${styles.form}" name="editProfile" id="editProfile">
       <div class="${styles.page}">
         {{avatar}}
         <h1 class="${styles.heading}">{{displayNameHeading}}</h1>

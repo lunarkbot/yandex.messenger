@@ -1,7 +1,7 @@
+import { ITemplate } from 'types';
 import renderAvatar from './avatar.tmpl.js';
-import { Template } from '../../types';
 
-const context:Template = {
+const context:ITemplate = {
   avatarSrc: '../../../../avatar_default.png',
 };
 

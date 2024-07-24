@@ -1,13 +1,14 @@
 import navigation, { navigationLinkClassName } from './pages/navigation';
-import signIn from './pages/signIn';
-import signUp from './pages/signUp';
+import signIn, { signInValidationRules } from './pages/signIn';
+import signUp, { signUpValidationRules } from './pages/signUp';
 import notFound from './pages/notFound';
 import styles from './main.module.css';
 import serverError from './pages/serverError';
 import profile from './pages/profile';
 import messenger from './pages/messenger';
-import profileEditing from './pages/profileEditing';
-import profilePasswordEditing from './pages/profilePasswordEditing';
+import profileEditing, { profileEditingValidationRules } from './pages/profileEditing';
+import profilePasswordEditing, { profilePasswordEditingValidationRules } from './pages/profilePasswordEditing';
+import Validator from './utils/Validator.ts';
 
 function renderPage(html:string):void {
   document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
@@ -17,32 +18,49 @@ function switchPage(href:string):void {
   window.history.pushState({}, '', href);
 
   switch (href) {
-    case '/':
+    case '/': {
       renderPage(navigation);
       break;
-    case '/signIn':
+    }
+    case '/signIn': {
       renderPage(signIn);
+      const form = document.querySelector<HTMLFormElement>('#signInForm')!;
+      Validator.setValidation(form, signInValidationRules);
       break;
-    case '/signUp':
+    }
+    case '/signUp': {
       renderPage(signUp);
+      const form = document.querySelector<HTMLFormElement>('#signUpForm')!;
+      Validator.setValidation(form, signUpValidationRules);
       break;
-    case '/profile':
+    }
+    case '/profile': {
       renderPage(profile);
       break;
-    case '/profileEditing':
+    }
+    case '/profileEditing': {
       renderPage(profileEditing);
+      const form = document.querySelector<HTMLFormElement>('#editProfile')!;
+      Validator.setValidation(form, profileEditingValidationRules);
       break;
-    case '/profilePasswordEditing':
+    }
+    case '/profilePasswordEditing': {
       renderPage(profilePasswordEditing);
+      const form = document.querySelector<HTMLFormElement>('#editProfilePassword')!;
+      Validator.setValidation(form, profilePasswordEditingValidationRules);
       break;
-    case '/messenger':
+    }
+    case '/messenger': {
       renderPage(messenger);
       break;
-    case '/serverError':
+    }
+    case '/serverError': {
       renderPage(serverError);
       break;
-    default:
+    }
+    default: {
       renderPage(notFound);
+    }
   }
 }
 

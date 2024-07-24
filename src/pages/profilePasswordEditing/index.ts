@@ -1,8 +1,9 @@
+import { ITemplate, IValidationRule } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
-import { Template } from '../../types';
 import avatar from '../../components/avatar';
 import button from '../../components/button';
 import { getProfileInputHtml } from '../../utils';
+import { getPasswordInputValidationRule, passwordCheckValidationRule } from '../../utils/validationRules.ts';
 
 const { buttonRender, buttonContext } = button;
 buttonContext.type = 'submit';
@@ -11,7 +12,7 @@ const saveButton = buttonRender(buttonContext);
 
 const inputType:string = 'password';
 
-const context:Template = {
+const context:ITemplate = {
   avatar,
   displayNameHeading: 'Иван',
   oldPassword: getProfileInputHtml('oldPassword', 'pochta@yandex.ru', inputType),
@@ -21,5 +22,11 @@ const context:Template = {
 };
 
 const profileEditing:string = renderProfileEditing(context);
+
+export const profilePasswordEditingValidationRules: IValidationRule[] = [
+  getPasswordInputValidationRule('oldPassword'),
+  getPasswordInputValidationRule('newPassword'),
+  passwordCheckValidationRule,
+];
 
 export default profileEditing;
