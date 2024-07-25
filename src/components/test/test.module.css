@@ -1,0 +1,12 @@
+.button {
+  width: 280px;
+  min-height: 37px;
+  color: var(--button-color);
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  border-radius: 8px;
+  background-color: var(--active-color);
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}

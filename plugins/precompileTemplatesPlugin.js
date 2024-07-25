@@ -17,7 +17,7 @@ import path from 'path';
  */
 function precompileTemplate(template) {
   // eslint-disable-next-line
-  return template.replace(/\{\{(\w+)\}\}/g, '${context.$1}');
+  return template.replace(/\{\{\s*(\w+)\s*\}\}/g, '${context.$1}');
 }
 
 export default function precompileTemplatesPlugin() {

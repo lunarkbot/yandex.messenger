@@ -30,5 +30,8 @@ export default function (context) {
         </li>
       </ul>
     </nav>
+    
+    <div data-component="testButton">{{testButton}}</div>
+    <div data-component="testButton2">{{testButton2}}</div>
   `;
 }

@@ -1,4 +1,4 @@
-import navigation, { navigationLinkClassName } from './pages/navigation';
+import navigation, { navigationLinkClassName, navigationTwo  } from './pages/navigation';
 import signIn, { signInValidationRules } from './pages/signIn';
 import signUp, { signUpValidationRules } from './pages/signUp';
 import notFound from './pages/notFound';
@@ -8,7 +8,8 @@ import profile from './pages/profile';
 import messenger from './pages/messenger';
 import profileEditing, { profileEditingValidationRules } from './pages/profileEditing';
 import profilePasswordEditing, { profilePasswordEditingValidationRules } from './pages/profilePasswordEditing';
-import Validator from './utils/Validator.ts';
+import Validator from './utils/validator.ts';
+import { render } from './utils/index.ts';
 
 function renderPage(html:string):void {
   document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
@@ -19,7 +20,7 @@ function switchPage(href:string):void {
 
   switch (href) {
     case '/': {
-      renderPage(navigation);
+      render('.content', navigationTwo);
       break;
     }
     case '/signIn': {

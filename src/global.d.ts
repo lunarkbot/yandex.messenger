@@ -1,8 +1,8 @@
 declare module '*.tmpl.js' {
-  import { ITemplate } from 'types';
+  import { TProps } from 'types';
 
   // eslint-disable-next-line
-  export default function(context: ITemplate): string;
+  export default function(context: TProps): string;
 }
 
 declare module './plugins/precompileTemplatesPlugin' {
