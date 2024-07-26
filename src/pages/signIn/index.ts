@@ -1,4 +1,4 @@
-import { ITemplate, IValidationRule } from 'types';
+import { IValidationRule, TProps } from 'types';
 import renderSignIn from './signIn.tmpl.js';
 import Button from '../../components/button';
 import styles from './signIn.module.css';
@@ -7,6 +7,7 @@ import {
   getPasswordInputValidationRule,
   loginValidationRule,
 } from '../../utils/validationRules.ts';
+import Block from '../../utils/block.ts';
 
 const button = new Button({
   text: 'Авторизоваться',
@@ -14,13 +15,23 @@ const button = new Button({
   type: 'submit',
 });
 
-const context:ITemplate = {
-  loginInput: getInput('login', 'Логин').getContent().innerHTML,
-  passwordInput: getInput('password', 'Пароль', 'password').getContent().innerHTML,
+class SignIn extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
+
+  render(): string {
+    return renderSignIn(this.props);
+  }
+}
+
+const context:TProps = {
+  loginInput: getInput('login', 'Логин'),
+  passwordInput: getInput('password', 'Пароль', 'password'),
   signInButton: button.getContent().innerHTML,
 };
 
-const signIn:string = renderSignIn(context);
+const signIn = new SignIn(context);
 
 export const signInValidationRules: IValidationRule[] = [
   loginValidationRule,

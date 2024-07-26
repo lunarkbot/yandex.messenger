@@ -24,7 +24,7 @@ function switchPage(href:string):void {
       break;
     }
     case '/signIn': {
-      renderPage(signIn);
+      render('.content', signIn);
       const form = document.querySelector<HTMLFormElement>('#signInForm')!;
       Validator.setValidation(form, signInValidationRules);
       break;

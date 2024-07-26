@@ -31,6 +31,6 @@ export default function (context) {
       </ul>
     </nav>
     
-    <div data-component="testButton">{{testButton}}</div>
+    {{{testButton}}}
   `;
 }
