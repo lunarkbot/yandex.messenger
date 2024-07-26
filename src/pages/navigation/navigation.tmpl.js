@@ -30,7 +30,5 @@ export default function (context) {
         </li>
       </ul>
     </nav>
-    
-    {{{testButton}}}
   `;
 }

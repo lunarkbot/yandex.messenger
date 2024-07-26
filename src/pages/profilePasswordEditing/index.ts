@@ -1,9 +1,10 @@
-import { ITemplate, IValidationRule } from 'types';
+import { IValidationRule, TProps } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
 import Avatar from '../../components/avatar';
 import Button from '../../components/button';
 import { getProfileInput } from '../../utils';
 import { getPasswordInputValidationRule, passwordCheckValidationRule } from '../../utils/validationRules.ts';
+import Block from '../../utils/block.ts';
 
 const button = new Button({
   type: 'submit',
@@ -14,16 +15,26 @@ const inputType:string = 'password';
 
 const avatar = new Avatar({});
 
-const context:ITemplate = {
-  avatar: avatar.getContent().innerHTML,
+class ProfilePasswordEditing extends Block {
+    constructor(props: TProps) {
+        super('div', props);
+    }
+
+    render(): string {
+        return renderProfileEditing(this.props);
+    }
+}
+
+const context:TProps = {
+  avatar: avatar,
   displayNameHeading: 'Иван',
-  oldPassword: getProfileInput('oldPassword', 'pochta@yandex.ru', inputType).getContent().innerHTML,
-  newPassword: getProfileInput('newPassword', 'ivanovivan', inputType).getContent().innerHTML,
-  passwordCheck: getProfileInput('passwordCheck', 'ivanovivan', inputType).getContent().innerHTML,
+  oldPassword: getProfileInput('oldPassword', 'pochta@yandex.ru', inputType),
+  newPassword: getProfileInput('newPassword', 'ivanovivan', inputType),
+  passwordCheck: getProfileInput('passwordCheck', 'ivanovivan', inputType),
   saveButton: button.getContent().innerHTML,
 };
 
-const profileEditing:string = renderProfileEditing(context);
+const profilePasswordEditing = new ProfilePasswordEditing(context);
 
 export const profilePasswordEditingValidationRules: IValidationRule[] = [
   getPasswordInputValidationRule('oldPassword'),
@@ -31,4 +42,4 @@ export const profilePasswordEditingValidationRules: IValidationRule[] = [
   passwordCheckValidationRule,
 ];
 
-export default profileEditing;
+export default profilePasswordEditing;

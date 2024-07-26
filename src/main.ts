@@ -45,7 +45,7 @@ function switchPage(href:string):void {
       break;
     }
     case '/profilePasswordEditing': {
-      renderPage(profilePasswordEditing);
+      render('.content', profilePasswordEditing);
       const form = document.querySelector<HTMLFormElement>('#editProfilePassword')!;
       Validator.setValidation(form, profilePasswordEditingValidationRules);
       break;
