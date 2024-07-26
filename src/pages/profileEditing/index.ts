@@ -1,6 +1,6 @@
 import { ITemplate, IValidationRule } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
-import avatar from '../../components/avatar';
+import Avatar from '../../components/avatar';
 import Button from '../../components/button';
 import { getProfileInputHtml } from '../../utils';
 import {
@@ -14,8 +14,10 @@ const button = new Button({
   text: 'Сохранить',
 });
 
+const avatar = new Avatar({});
+
 const context:ITemplate = {
-  avatar,
+  avatar: avatar.getContent().innerHTML,
   displayNameHeading: 'Иван',
   email: getProfileInputHtml('email', 'pochta@yandex.ru'),
   login: getProfileInputHtml('login', 'ivanovivan'),

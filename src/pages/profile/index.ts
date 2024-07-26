@@ -1,9 +1,11 @@
 import { ITemplate } from 'types';
 import renderProfile from './profile.tmpl.js';
-import avatar from '../../components/avatar';
+import Avatar from '../../components/avatar';
+
+const avatar = new Avatar({});
 
 const context:ITemplate = {
-  avatar,
+  avatar: avatar.getContent().innerHTML,
   email: 'pochta@yandex.ru',
   login: 'ivanovivan',
   firstName: 'Иван',

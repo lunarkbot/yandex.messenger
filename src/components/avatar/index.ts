@@ -1,10 +1,13 @@
-import { ITemplate } from 'types';
 import renderAvatar from './avatar.tmpl.js';
+import Block from '../../utils/block.ts';
+import { TProps } from 'types';
 
-const context:ITemplate = {
-  avatarSrc: '../../../../avatar_default.png',
-};
+export default class Avatar extends Block {
+    constructor(props: TProps) {
+        super('div', props);
+    }
 
-const avatar = renderAvatar(context);
-
-export default avatar;
+    render(): string {
+        return renderAvatar(this.props);
+    }
+}
