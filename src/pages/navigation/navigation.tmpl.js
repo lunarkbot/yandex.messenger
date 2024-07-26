@@ -26,7 +26,7 @@ export default function (context) {
          <a class="${styles.link}" href="/notFound">Error 404</a>
         </li>
         <li>
-         <a class="${styles.link}" href="/serverError">Error 500</a>
+         <a class="${styles.link}" href="/error">Error 500</a>
         </li>
       </ul>
     </nav>

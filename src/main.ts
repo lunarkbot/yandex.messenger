@@ -1,15 +1,14 @@
 import navigation, { navigationLinkClassName  } from './pages/navigation';
 import signIn, { signInValidationRules } from './pages/signIn';
 import signUp, { signUpValidationRules } from './pages/signUp';
-import notFound from './pages/notFound';
 import styles from './main.module.css';
-import serverError from './pages/serverError';
 import profile from './pages/profile';
 import messenger from './pages/messenger';
 import profileEditing, { profileEditingValidationRules } from './pages/profileEditing';
 import profilePasswordEditing, { profilePasswordEditingValidationRules } from './pages/profilePasswordEditing';
 import Validator from './utils/validator.ts';
 import { render } from './utils/index.ts';
+import ErrorPage from './pages/error';
 
 function renderPage(html:string):void {
   document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
@@ -55,12 +54,22 @@ function switchPage(href:string):void {
       renderPage(messenger);
       break;
     }
-    case '/serverError': {
-      renderPage(serverError);
+    case '/error': {
+      const serverErrorPage = new ErrorPage({
+        text: 'Уже фиксим',
+        error: '500',
+      });
+
+      render('.content', serverErrorPage);
       break;
     }
     default: {
-      renderPage(notFound);
+      const notFoundPage = new ErrorPage({
+        text: 'Не туда попали',
+        error: '400',
+      });
+
+      render('.content', notFoundPage);
     }
   }
 }
