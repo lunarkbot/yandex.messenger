@@ -39,7 +39,7 @@ function switchPage(href:string):void {
       break;
     }
     case '/profileEditing': {
-      renderPage(profileEditing);
+      render('.content', profileEditing);
       const form = document.querySelector<HTMLFormElement>('#editProfile')!;
       Validator.setValidation(form, profileEditingValidationRules);
       break;

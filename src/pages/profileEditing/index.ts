@@ -1,4 +1,4 @@
-import { ITemplate, IValidationRule } from 'types';
+import { IValidationRule, TProps } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
 import Avatar from '../../components/avatar';
 import Button from '../../components/button';
@@ -8,6 +8,7 @@ import {
   getTextInputValidationRule, loginValidationRule,
   phoneValidationRule,
 } from '../../utils/validationRules.ts';
+import Block from '../../utils/block.ts';
 
 const button = new Button({
   type: 'submit',
@@ -16,19 +17,29 @@ const button = new Button({
 
 const avatar = new Avatar({});
 
-const context:ITemplate = {
-  avatar: avatar.getContent().innerHTML,
+class ProfileEditing extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
+
+  render(): string {
+    return renderProfileEditing(this.props);
+  }
+}
+
+const context:TProps = {
+  avatar,
   displayNameHeading: 'Иван',
-  email: getProfileInput('email', 'pochta@yandex.ru').getContent().innerHTML,
-  login: getProfileInput('login', 'ivanovivan').getContent().innerHTML,
-  firstName: getProfileInput('first_name', 'Иван').getContent().innerHTML,
-  secondName: getProfileInput('second_name', 'Иванов').getContent().innerHTML,
-  displayName: getProfileInput('display_name', 'Иван').getContent().innerHTML,
-  phone: getProfileInput('phone', '79099673030').getContent().innerHTML,
-  saveButton: button.getContent().innerHTML,
+  email: getProfileInput('email', 'pochta@yandex.ru'),
+  login: getProfileInput('login', 'ivanovivan'),
+  firstName: getProfileInput('first_name', 'Иван'),
+  secondName: getProfileInput('second_name', 'Иванов'),
+  displayName: getProfileInput('display_name', 'Иван'),
+  phone: getProfileInput('phone', '79099673030'),
+  saveButton: button,
 };
 
-const profileEditing:string = renderProfileEditing(context);
+const profileEditing = new ProfileEditing(context);
 
 export const profileEditingValidationRules: IValidationRule[] = [
   getTextInputValidationRule('first_name'),
