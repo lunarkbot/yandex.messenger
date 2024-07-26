@@ -1,4 +1,4 @@
-import { ITemplate, IValidationRule } from 'types';
+import { IValidationRule, TProps } from 'types';
 import renderSignUp from './signUp.tmpl.js';
 import styles from './signUp.module.css';
 import Button from '../../components/button';
@@ -8,6 +8,7 @@ import {
   getTextInputValidationRule, loginValidationRule, passwordCheckValidationRule,
   phoneValidationRule,
 } from '../../utils/validationRules.ts';
+import Block from '../../utils/block.ts';
 
 const button = new Button({
   class: styles.signUpButton,
@@ -15,18 +16,28 @@ const button = new Button({
   type: 'submit',
 });
 
-const context:ITemplate = {
-  emailInput: getInput('email', 'Почта').getContent().innerHTML,
-  loginInput: getInput('login', 'Логин').getContent().innerHTML,
-  firstNameInput: getInput('first_name', 'Имя').getContent().innerHTML,
-  secondNameInput: getInput('second_name', 'Фамилия').getContent().innerHTML,
-  phoneInput: getInput('phone', 'Телефон').getContent().innerHTML,
-  passwordInput: getInput('password', 'Пароль', 'password').getContent().innerHTML,
-  passwordCheckInput: getInput('passwordCheck', 'Пароль (ещё раз)', 'password').getContent().innerHTML,
-  signUpButton: button.getContent().innerHTML,
+const context:TProps = {
+  emailInput: getInput('email', 'Почта'),
+  loginInput: getInput('login', 'Логин'),
+  firstNameInput: getInput('first_name', 'Имя'),
+  secondNameInput: getInput('second_name', 'Фамилия'),
+  phoneInput: getInput('phone', 'Телефон'),
+  passwordInput: getInput('password', 'Пароль', 'password'),
+  passwordCheckInput: getInput('passwordCheck', 'Пароль (ещё раз)', 'password'),
+  signUpButton: button,
 };
 
-const signUp:string = renderSignUp(context);
+class SignUp extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
+
+  render(): string {
+    return renderSignUp(this.props);
+  }
+}
+
+const signUp = new SignUp(context);
 
 export const signUpValidationRules: IValidationRule[] = [
   getTextInputValidationRule('first_name'),

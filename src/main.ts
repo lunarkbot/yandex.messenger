@@ -29,7 +29,7 @@ function switchPage(href:string):void {
       break;
     }
     case '/signUp': {
-      renderPage(signUp);
+      render('.content', signUp);
       const form = document.querySelector<HTMLFormElement>('#signUpForm')!;
       Validator.setValidation(form, signUpValidationRules);
       break;
