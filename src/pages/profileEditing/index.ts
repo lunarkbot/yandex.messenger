@@ -1,7 +1,7 @@
 import { ITemplate, IValidationRule } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
 import avatar from '../../components/avatar';
-import button from '../../components/button';
+import Button from '../../components/button';
 import { getProfileInputHtml } from '../../utils';
 import {
   emailValidationRule,
@@ -9,10 +9,10 @@ import {
   phoneValidationRule,
 } from '../../utils/validationRules.ts';
 
-const { buttonRender, buttonContext } = button;
-buttonContext.type = 'submit';
-buttonContext.buttonText = 'Сохранить';
-const saveButton = buttonRender(buttonContext);
+const button = new Button({
+  type: 'submit',
+  text: 'Сохранить',
+});
 
 const context:ITemplate = {
   avatar,
@@ -23,7 +23,7 @@ const context:ITemplate = {
   secondName: getProfileInputHtml('second_name', 'Иванов'),
   displayName: getProfileInputHtml('display_name', 'Иван'),
   phone: getProfileInputHtml('phone', '79099673030'),
-  saveButton,
+  saveButton: button.getContent().innerHTML,
 };
 
 const profileEditing:string = renderProfileEditing(context);

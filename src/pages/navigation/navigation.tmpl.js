@@ -32,6 +32,5 @@ export default function (context) {
     </nav>
     
     <div data-component="testButton">{{testButton}}</div>
-    <div data-component="testButton2">{{testButton2}}</div>
   `;
 }

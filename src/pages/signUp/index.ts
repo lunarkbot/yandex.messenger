@@ -1,7 +1,7 @@
 import { ITemplate, IValidationRule } from 'types';
 import renderSignUp from './signUp.tmpl.js';
 import styles from './signUp.module.css';
-import button from '../../components/button';
+import Button from '../../components/button';
 import { getInputHtml } from '../../utils';
 import {
   emailValidationRule, getPasswordInputValidationRule,
@@ -9,10 +9,11 @@ import {
   phoneValidationRule,
 } from '../../utils/validationRules.ts';
 
-const { buttonContext, buttonRender } = button;
-buttonContext.buttonText = 'Зарегистрироваться';
-buttonContext.buttonClassName += ` ${styles.signInButton}`;
-const buttonHtml = buttonRender(buttonContext);
+const button = new Button({
+  class: styles.signUpButton,
+  text: 'Зарегистрироваться',
+  type: 'submit',
+});
 
 const context:ITemplate = {
   emailInput: getInputHtml('email', 'Почта'),
@@ -22,7 +23,7 @@ const context:ITemplate = {
   phoneInput: getInputHtml('phone', 'Телефон'),
   passwordInput: getInputHtml('password', 'Пароль', 'password'),
   passwordCheckInput: getInputHtml('passwordCheck', 'Пароль (ещё раз)', 'password'),
-  signUpButton: buttonHtml,
+  signUpButton: button.getContent().innerHTML,
 };
 
 const signUp:string = renderSignUp(context);

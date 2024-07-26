@@ -1,4 +1,4 @@
-import { ITemplate } from 'types';
+import { IBlock, ITemplate } from 'types';
 
 import input from '../components/input';
 import profileInput from '../components/profileInput';
@@ -32,9 +32,17 @@ export function getProfileInputHtml(name:string, value:string, type:string = 'te
   );
 }
 
-export function render(query: string, block) {
+export function clearNode(node: Element): void {
+  node.innerHTML = '';
+}
+
+export function render(query: string, block: IBlock) {
   const root = document.querySelector(query);
-  root.appendChild(block.getContent());
+  if (!root) return;
+  clearNode(root);
+
+  root.appendChild(block?.getContent());
   block.dispatchComponentDidMount();
+
   return root;
 }

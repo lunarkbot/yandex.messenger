@@ -1,14 +1,14 @@
 import { ITemplate, IValidationRule } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
 import avatar from '../../components/avatar';
-import button from '../../components/button';
+import Button from '../../components/button';
 import { getProfileInputHtml } from '../../utils';
 import { getPasswordInputValidationRule, passwordCheckValidationRule } from '../../utils/validationRules.ts';
 
-const { buttonRender, buttonContext } = button;
-buttonContext.type = 'submit';
-buttonContext.buttonText = 'Сохранить';
-const saveButton = buttonRender(buttonContext);
+const button = new Button({
+  type: 'submit',
+  text: 'Сохранить',
+});
 
 const inputType:string = 'password';
 
@@ -18,7 +18,7 @@ const context:ITemplate = {
   oldPassword: getProfileInputHtml('oldPassword', 'pochta@yandex.ru', inputType),
   newPassword: getProfileInputHtml('newPassword', 'ivanovivan', inputType),
   passwordCheck: getProfileInputHtml('passwordCheck', 'ivanovivan', inputType),
-  saveButton,
+  saveButton: button.getContent().innerHTML,
 };
 
 const profileEditing:string = renderProfileEditing(context);

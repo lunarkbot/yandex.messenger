@@ -1,4 +1,4 @@
-import navigation, { navigationLinkClassName, navigationTwo  } from './pages/navigation';
+import navigation, { navigationLinkClassName  } from './pages/navigation';
 import signIn, { signInValidationRules } from './pages/signIn';
 import signUp, { signUpValidationRules } from './pages/signUp';
 import notFound from './pages/notFound';
@@ -20,7 +20,7 @@ function switchPage(href:string):void {
 
   switch (href) {
     case '/': {
-      render('.content', navigationTwo);
+      render('.content', navigation);
       break;
     }
     case '/signIn': {

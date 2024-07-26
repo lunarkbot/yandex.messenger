@@ -16,4 +16,5 @@ export interface IValidationRule {
 export interface IBlock {
     getContent: () => HTMLElement;
     dispatchComponentDidMount: () => void;
+    setProps: (props: TProps) => void;
 }

@@ -109,7 +109,11 @@ export  default class Block {
     return '';
   }
 
-  public getContent(): HTMLElement | null {
+  public getContent(): HTMLElement {
+    if (!this.element) {
+      throw new Error('Element is not defined');
+    }
+
     return this.element;
   }
 
