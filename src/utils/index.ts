@@ -1,7 +1,7 @@
 import { IBlock, ITemplate } from 'types';
 
-import input from '../components/input';
 import ProfileInput from '../components/profileInput';
+import Input from '../components/input';
 
 export function getTemplateHtml(
   values: ITemplate,
@@ -16,12 +16,12 @@ export function getTemplateHtml(
   return render(context);
 }
 
-export function getInputHtml(name:string, placeholder:string, type:string = 'text'): string {
-  return getTemplateHtml(
-    { name, placeholder, type },
-    input.inputContext,
-    input.inputRender,
-  );
+export function getInput(name:string, placeholder:string, type:string = 'text') {
+  return new Input({
+    name,
+    placeholder,
+    type
+  });
 }
 
 export function getProfileInput(name:string, value:string, type:string = 'text') {

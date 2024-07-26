@@ -2,7 +2,7 @@ import { ITemplate, IValidationRule } from 'types';
 import renderSignUp from './signUp.tmpl.js';
 import styles from './signUp.module.css';
 import Button from '../../components/button';
-import { getInputHtml } from '../../utils';
+import { getInput } from '../../utils';
 import {
   emailValidationRule, getPasswordInputValidationRule,
   getTextInputValidationRule, loginValidationRule, passwordCheckValidationRule,
@@ -16,13 +16,13 @@ const button = new Button({
 });
 
 const context:ITemplate = {
-  emailInput: getInputHtml('email', 'Почта'),
-  loginInput: getInputHtml('login', 'Логин'),
-  firstNameInput: getInputHtml('first_name', 'Имя'),
-  secondNameInput: getInputHtml('second_name', 'Фамилия'),
-  phoneInput: getInputHtml('phone', 'Телефон'),
-  passwordInput: getInputHtml('password', 'Пароль', 'password'),
-  passwordCheckInput: getInputHtml('passwordCheck', 'Пароль (ещё раз)', 'password'),
+  emailInput: getInput('email', 'Почта').getContent().innerHTML,
+  loginInput: getInput('login', 'Логин').getContent().innerHTML,
+  firstNameInput: getInput('first_name', 'Имя').getContent().innerHTML,
+  secondNameInput: getInput('second_name', 'Фамилия').getContent().innerHTML,
+  phoneInput: getInput('phone', 'Телефон').getContent().innerHTML,
+  passwordInput: getInput('password', 'Пароль', 'password').getContent().innerHTML,
+  passwordCheckInput: getInput('passwordCheck', 'Пароль (ещё раз)', 'password').getContent().innerHTML,
   signUpButton: button.getContent().innerHTML,
 };
 

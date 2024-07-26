@@ -2,7 +2,7 @@ import { ITemplate, IValidationRule } from 'types';
 import renderSignIn from './signIn.tmpl.js';
 import Button from '../../components/button';
 import styles from './signIn.module.css';
-import { getInputHtml } from '../../utils';
+import { getInput } from '../../utils';
 import {
   getPasswordInputValidationRule,
   loginValidationRule,
@@ -15,8 +15,8 @@ const button = new Button({
 });
 
 const context:ITemplate = {
-  loginInput: getInputHtml('login', 'Логин'),
-  passwordInput: getInputHtml('password', 'Пароль', 'password'),
+  loginInput: getInput('login', 'Логин').getContent().innerHTML,
+  passwordInput: getInput('password', 'Пароль', 'password').getContent().innerHTML,
   signInButton: button.getContent().innerHTML,
 };
 

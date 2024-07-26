@@ -1,6 +1,16 @@
 import styles from './input.module.css';
 
-export default function (context) {
+const defaultContext = {
+  type: 'text',
+  name: '',
+  placeholder: '',
+  value: '',
+  error: '',
+}
+
+export default function (props) {
+  const context = { ...defaultContext, ...props };
+
   return `
   <div class="${styles.container}">
     <input id="input_{{name}}" 
