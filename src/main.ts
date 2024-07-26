@@ -35,7 +35,7 @@ function switchPage(href:string):void {
       break;
     }
     case '/profile': {
-      renderPage(profile);
+      render('.content', profile);
       break;
     }
     case '/profileEditing': {
