@@ -2,7 +2,7 @@ import { ITemplate, IValidationRule } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
 import Avatar from '../../components/avatar';
 import Button from '../../components/button';
-import { getProfileInputHtml } from '../../utils';
+import { getProfileInput } from '../../utils';
 import {
   emailValidationRule,
   getTextInputValidationRule, loginValidationRule,
@@ -19,12 +19,12 @@ const avatar = new Avatar({});
 const context:ITemplate = {
   avatar: avatar.getContent().innerHTML,
   displayNameHeading: 'Иван',
-  email: getProfileInputHtml('email', 'pochta@yandex.ru'),
-  login: getProfileInputHtml('login', 'ivanovivan'),
-  firstName: getProfileInputHtml('first_name', 'Иван'),
-  secondName: getProfileInputHtml('second_name', 'Иванов'),
-  displayName: getProfileInputHtml('display_name', 'Иван'),
-  phone: getProfileInputHtml('phone', '79099673030'),
+  email: getProfileInput('email', 'pochta@yandex.ru').getContent().innerHTML,
+  login: getProfileInput('login', 'ivanovivan').getContent().innerHTML,
+  firstName: getProfileInput('first_name', 'Иван').getContent().innerHTML,
+  secondName: getProfileInput('second_name', 'Иванов').getContent().innerHTML,
+  displayName: getProfileInput('display_name', 'Иван').getContent().innerHTML,
+  phone: getProfileInput('phone', '79099673030').getContent().innerHTML,
   saveButton: button.getContent().innerHTML,
 };
 

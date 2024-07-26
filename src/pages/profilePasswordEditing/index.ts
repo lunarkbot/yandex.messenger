@@ -2,7 +2,7 @@ import { ITemplate, IValidationRule } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
 import Avatar from '../../components/avatar';
 import Button from '../../components/button';
-import { getProfileInputHtml } from '../../utils';
+import { getProfileInput } from '../../utils';
 import { getPasswordInputValidationRule, passwordCheckValidationRule } from '../../utils/validationRules.ts';
 
 const button = new Button({
@@ -17,9 +17,9 @@ const avatar = new Avatar({});
 const context:ITemplate = {
   avatar: avatar.getContent().innerHTML,
   displayNameHeading: 'Иван',
-  oldPassword: getProfileInputHtml('oldPassword', 'pochta@yandex.ru', inputType),
-  newPassword: getProfileInputHtml('newPassword', 'ivanovivan', inputType),
-  passwordCheck: getProfileInputHtml('passwordCheck', 'ivanovivan', inputType),
+  oldPassword: getProfileInput('oldPassword', 'pochta@yandex.ru', inputType).getContent().innerHTML,
+  newPassword: getProfileInput('newPassword', 'ivanovivan', inputType).getContent().innerHTML,
+  passwordCheck: getProfileInput('passwordCheck', 'ivanovivan', inputType).getContent().innerHTML,
   saveButton: button.getContent().innerHTML,
 };
 
