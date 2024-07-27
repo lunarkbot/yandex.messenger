@@ -4,6 +4,7 @@ import { TProps } from 'types';
 type TMeta = {
   tagName: string;
   props: TProps;
+  className?: string;
 }
 
 export  default class Block {
@@ -19,10 +20,11 @@ export  default class Block {
   public props: TProps;
   private eventBus: () => EventBus;
 
-  constructor(tagName: string = "div", props: TProps = {}) {
+  constructor(tagName: string = "div", props: TProps = {}, className?: string) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
+      className,
       props
     };
 
@@ -42,8 +44,8 @@ export  default class Block {
   }
 
   private _createResources(): void {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
+    const { tagName, className } = this._meta
+    this._element = this._createDocumentElement(tagName, className);
   }
 
   public init(): void {
@@ -94,7 +96,6 @@ export  default class Block {
       // Проверяем, есть ли в props компоненты
       Object.entries(this.props).forEach(([key, prop]) => {
         if (prop instanceof Block) {
-          console.log(key)
           const placeholder = this._element!.querySelector(`[data-component="${key}"]`);
           if (placeholder) {
             placeholder.replaceWith(prop.getContent()!);
@@ -130,9 +131,12 @@ export  default class Block {
     });
   }
 
-  private _createDocumentElement(tagName: string): HTMLElement {
+  private _createDocumentElement(tagName: string, className: string | undefined): HTMLElement {
     // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-    return document.createElement(tagName);
+    const element = document.createElement(tagName);
+    if (className) element.classList.add(className);
+
+    return element;
   }
 
   public show(): void {

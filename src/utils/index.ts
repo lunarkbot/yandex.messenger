@@ -46,3 +46,32 @@ export function render(query: string, block: IBlock) {
 
   return root;
 }
+
+export function addSearchContact(inputClassName: string, listClassName: string, listItemsClassName: string) {
+  const searchInput = document.querySelector(`.${inputClassName}`) as HTMLInputElement;
+  if (searchInput) {
+    searchInput.addEventListener('input', function (this: HTMLInputElement) {
+      handleSearch(this.value, `.${listClassName}`, `.${listItemsClassName}`);
+    });
+  }
+}
+
+function handleSearch(inputValue: string, listClassName: string, listItemsClassName: string) {
+  const searchValue = inputValue.toLowerCase();
+  const contactListWrapper = document.querySelector(listClassName);
+  if (!contactListWrapper) return;
+
+  const contactListItems: NodeListOf<HTMLLIElement> = document.querySelectorAll(listItemsClassName);
+
+  contactListItems.forEach(item => {
+    const contactNameWrapper = item.querySelector('[data-contact-name]');
+    if (!contactNameWrapper) return;
+    const contactName = contactNameWrapper.getAttribute('data-contact-name')?.toLowerCase();
+
+    if (contactName && contactName.includes(searchValue)) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}

@@ -7,7 +7,7 @@ export const navigationLinkClassName: string = styles.link;
 
 class Navigation extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super('nav', props, styles.page);
   }
 
   render(): string {

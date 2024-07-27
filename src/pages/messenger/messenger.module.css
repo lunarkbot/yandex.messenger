@@ -8,25 +8,139 @@
 .sidebar {
   width: 310px;
   box-sizing: border-box;
-  padding: 21px 10px 0;
+  padding: 21px 0 0;
   overflow: hidden;
   background-color: #FBFBFB;
+}
+
+.profileBar {
+  display: flex;
+  justify-content: right;
+  padding: 0 10px;
+  margin-bottom: 23px
+}
+
+.profileLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--second-color);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.profileLink:hover {
+  color: var(--second-color);
+}
+
+.profileLink::after {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 10px;
+  background-image: url('/public/rarr.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.search {
+  margin-bottom: 14px;
+  padding: 0 10px;
+  position: relative;
+}
+
+.searchInput {
+  width: 100%;
+  height: 32px;
+  box-sizing: border-box;
+  background-color: var(--second-bg-color);
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 10px 0 44%;
+  color: #1e1e1e;
+  font: 500 12px/12px Inter, sans-serif;
+  transition: all 0.3s;
+}
+
+.searchInput::placeholder {
+  color: #999;
+  font: 500 12px/12px Inter, sans-serif;
+}
+
+.searchInput:focus,
+.searchInput:not(:placeholder-shown) {
+  text-align: left;
+  padding-left: 34px;
+}
+
+.searchLabel {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  gap: 4px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+  padding: 2px 10px 0 36%;
+  color: #999;
+  font: 500 12px/12px Inter, sans-serif;
+  transition: all 0.3s;
+}
+
+.searchPlaceholder {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: fit-content;
+  overflow: hidden;
+}
+
+.searchLabel::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url('/public/search.svg');
+}
+
+.searchInput:focus + .searchLabel,
+.searchInput:not(:placeholder-shown) + .searchLabel {
+  padding-left: 10px;
+}
+
+.searchInput:focus + .searchLabel .searchPlaceholder,
+.searchInput:not(:placeholder-shown) + .searchLabel .searchPlaceholder {
+  display: none;
 }
 
 .contactList {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  max-height: 617px;
+  overflow: auto;
+  scrollbar-width: thin; /* Для Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Для Firefox */
 }
 
-.contactListItem {
-  display: flex;
-  align-items: center;
-  min-height: 67px;
+.contactList::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.contactListItem:hover {
-  background-color: var(--active-bg-color);
+.contactList::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.contactList::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .main {

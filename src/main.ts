@@ -3,16 +3,16 @@ import signIn, { signInValidationRules } from './pages/signIn';
 import signUp, { signUpValidationRules } from './pages/signUp';
 import styles from './main.module.css';
 import profile from './pages/profile';
-import messenger from './pages/messenger';
+import messenger, { searchClasses } from './pages/messenger';
 import profileEditing, { profileEditingValidationRules } from './pages/profileEditing';
 import profilePasswordEditing, { profilePasswordEditingValidationRules } from './pages/profilePasswordEditing';
 import Validator from './utils/validator.ts';
-import { render } from './utils/index.ts';
+import { addSearchContact, render } from './utils/index.ts';
 import ErrorPage from './pages/error';
 
-function renderPage(html:string):void {
-  document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
-}
+// function renderPage(html:string):void {
+//   document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
+// }
 
 function switchPage(href:string):void {
   window.history.pushState({}, '', href);
@@ -51,7 +51,8 @@ function switchPage(href:string):void {
       break;
     }
     case '/messenger': {
-      renderPage(messenger);
+      render('.content', messenger);
+      addSearchContact(searchClasses.inputClassName, searchClasses.listClassName, searchClasses.listItemsClassName);
       break;
     }
     case '/error': {

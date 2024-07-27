@@ -1,0 +1,89 @@
+.contactListItem {
+  box-sizing: border-box;
+  padding: 2px 0;
+  border-top: 1px solid var(--second-bg-color);
+}
+
+.contactListItem:last-child {
+  padding-bottom: 0;
+}
+
+.contactContent {
+  display: grid;
+  grid-template-columns: 47px 1fr;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  min-height: 67px;
+  box-sizing: border-box;
+  padding: 12px 10px;
+  column-gap: 10px;
+  row-gap: 4px;
+}
+
+.contactContent:hover {
+  background-color: var(--active-bg-color);
+}
+
+.contactAvatarWrap {
+  grid-column: 1/2;
+  grid-row: 1/3;
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--second-bg-color);
+}
+
+.contactNameWrap {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.contactName {
+  color: #1e1e1e;
+  font: 600 13px/13px Inter, sans-serif;
+}
+
+.contactTime {
+  color: var(--second-color);
+  font: 500 9px/13px Inter, sans-serif;
+}
+
+.contactTextWrap {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.contactText {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--second-color);
+  font: 500 12px/12px Inter, sans-serif;
+}
+
+.contactCounter {
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--active-color);
+  color: var(--button-color);
+  font: 500 11px/12px Inter, sans-serif;
+  pointer-events: none;
+}
+
+.contactCounter:empty {
+  opacity: 0;
+}
