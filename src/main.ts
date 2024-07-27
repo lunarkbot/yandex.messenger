@@ -9,6 +9,7 @@ import profilePasswordEditing, { profilePasswordEditingValidationRules } from '.
 import Validator from './utils/validator.ts';
 import { addSearchContact, render } from './utils/index.ts';
 import ErrorPage from './pages/error';
+import { chatMessageValidationRule } from './utils/validationRules.ts';
 
 // function renderPage(html:string):void {
 //   document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
@@ -52,6 +53,8 @@ function switchPage(href:string):void {
     }
     case '/messenger': {
       render('.content', messenger);
+      const form = document.querySelector<HTMLFormElement>('#chatMessage')!;
+      Validator.setValidation(form, [chatMessageValidationRule]);
       addSearchContact(searchClasses.inputClassName, searchClasses.listClassName, searchClasses.listItemsClassName);
       break;
     }

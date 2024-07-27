@@ -56,14 +56,14 @@ export default function (context) {
                 <div class="${styles.chatMessageTime}">12:00</div>
             </div>
           </div>
-          <div class="${styles.messageInputWrap}">
+          <form class="${styles.messageInputWrap}" name="chatMessage" id="chatMessage" novalidate>
             <div class="${styles.attach}">
               <input type="file" id="attach" class="${styles.attachInput}" value="">
               <label for="attach" class="${styles.attachButton}"></label>
             </div>
-            <textarea placeholder="Сообщение" class="${styles.messageInput}"></textarea>
+            <textarea placeholder="Сообщение" name="message" class="${styles.messageInput}" required></textarea>
             <button type="submit" class="${styles.messageSubmitButton}"></button>
-          </div>
+          </form>
       </section>
   `;
 }

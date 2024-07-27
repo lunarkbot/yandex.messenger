@@ -188,8 +188,8 @@
   gap: 10px;
   padding: 10px;
   box-sizing: border-box;
-  overflow: hidden;
-  max-height: 753px;
+  overflow: auto;
+  max-height: 610px;
 }
 
 .chatDate {
@@ -208,10 +208,13 @@
   font: 500 12px/15px Inter, sans-serif;
   color: #1e1e1e;
   background-color: #f8f8f8;
+  border-radius: 12px 12px 12px 0;
 }
 
 .chatMessage[data-type="outgoing"] {
   margin-left: auto;
+  background-color: #E4EDFD;
+  border-radius: 12px 12px 0 12px;
 }
 
 .chatMessageText > p:first-child {
@@ -230,6 +233,19 @@
   color: var(--second-color);
   shape-outside: inset(100px 100px 100px 100px);
   float: right;
+}
+
+.chatMessage[data-type="outgoing"] .chatMessageTime {
+  color: var(--active-color);
+}
+
+.chatMessage[data-type="outgoing"] .chatMessageTime::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 5px;
+  background-image: url('/public/status.svg');
+  margin-right: 4px;
 }
 
 .chatImage {
