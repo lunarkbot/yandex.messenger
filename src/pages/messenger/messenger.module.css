@@ -3,6 +3,7 @@
   min-height: 720px;
   width: 100%;
   display: flex;
+  gap: 20px;
 }
 
 .sidebar {
@@ -125,26 +126,14 @@
   margin: 0;
   max-height: 617px;
   overflow: auto;
-  scrollbar-width: thin; /* Для Firefox */
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Для Firefox */
 }
 
-.contactList::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.contactList::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-}
-
-.contactList::-webkit-scrollbar-track {
-  background: transparent;
-}
+/**/
 
 .main {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .main:empty {
@@ -158,4 +147,171 @@
 .main:empty::before {
   display: inline;
   content: 'Select a chat to start messaging';
+}
+
+.header {
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: 34px 1fr 25px;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--second-bg-color);
+}
+
+.headerAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--second-bg-color);
+}
+
+.headerName {
+  font: 600 13px/13px Inter, sans-serif;
+  color: #1e1e1e;
+}
+
+.headerMenuButton {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background-image: url('/public/dots.svg');
+  background-repeat: no-repeat;
+  background-size: 4px 16px;
+  background-position: center;
+}
+
+.chat {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  max-height: 753px;
+}
+
+.chatDate {
+  display: block;
+  text-align: center;
+  margin: 30px 0;
+  font: 500 12px/12px Inter, sans-serif;
+  color: var(--second-color);
+}
+
+.chatMessage {
+  max-width: 380px;
+  position: relative;
+  box-sizing: border-box;
+  padding: 11px 11px 22px;
+  font: 500 12px/15px Inter, sans-serif;
+  color: #1e1e1e;
+  background-color: #f8f8f8;
+}
+
+.chatMessage[data-type="outgoing"] {
+  margin-left: auto;
+}
+
+.chatMessageText > p:first-child {
+  margin-top: 0;
+}
+
+.chatMessageText > p:last-child {
+  margin-bottom: 0;
+}
+
+.chatMessageTime {
+  position: absolute;
+  bottom: 11px;
+  right: 11px;
+  font: 500 9px/9px Inter, sans-serif;
+  color: var(--second-color);
+  shape-outside: inset(100px 100px 100px 100px);
+  float: right;
+}
+
+.chatImage {
+  max-width: 316px;
+  position: relative;
+}
+
+.chatImageItem {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.chatImageTime {
+  position: absolute;
+  bottom: 11px;
+  right: 11px;
+  font: 500 9px/9px Inter, sans-serif;
+  background-color: rgba(82, 82, 82, 0.5);
+  padding: 2px 7px;
+  border-radius: 30px;
+  color: #fff;
+}
+
+.messageInputWrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  border-top: 1px solid var(--second-bg-color);
+}
+
+.attach {
+  width: 32px;
+}
+
+.attachInput {
+  display: none;
+}
+
+.attachButton {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  cursor: pointer;
+  background-image: url('/public/attach.svg');
+  background-repeat: no-repeat;
+  background-size: 29px;
+  background-position: center;
+}
+
+.messageInput {
+  display: flex;
+  flex-grow: 1;
+  height: 32px;
+  box-sizing: border-box;
+  background-color: var(--second-bg-color);
+  outline: none;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  color: #1e1e1e;
+  font: 500 12px/12px Inter, sans-serif;
+  transition: all 0.3s;
+  resize: none;
+}
+
+.messageInput::placeholder {
+  color: #999;
+  font: 500 12px/12px Inter, sans-serif;
+}
+
+.messageSubmitButton {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  background-image: url('/public/send.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  outline: none;
+  border: none;
+  background-color: transparent;
 }

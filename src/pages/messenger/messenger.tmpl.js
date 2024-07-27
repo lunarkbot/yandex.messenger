@@ -13,28 +13,56 @@ export default function (context) {
               <span class="${styles.searchPlaceholder}">Поиск</span>
             </label>
           </div>
-          <ul class="${styles.contactList}">
+          <ul class="${styles.contactList} light-scrollbar">
             {{contactListItem}}
           </ul>
         </aside>
         <section class="${styles.main}">
           <div class="${styles.header}">
             <div class="${styles.headerAvatar}">
-                <img src="/avatar_default.png" alt="avatar" class="${styles.contactAvatar}">
+                
             </div>
             <div class="${styles.headerName}">Андрей</div>
-            <div class="${styles.menuButton}">Меню</div>
+            <div>
+              <div class="${styles.headerMenuButton}"></div>
+            </div>
           </div>
-          <div class="${styles.chat}">
-            <div clqss="${styles.chatDate}">Сегодня</div>
-            <div class="${styles.chatMessage}"></div>
-            <div class="${styles.chatImage}"></div>
-            <div class="${styles.chatMessage}"></div>
+          <div class="${styles.chat} light-scrollbar">
+            <div class="${styles.chatDate}">Сегодня</div>
+            <div class="${styles.chatMessage}" data-type="incoming">
+              <div class="${styles.chatMessageText}">
+                <p>Привет! Смотри, тут всплыл интересный кусок лунной космической 
+                истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. 
+                Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер 
+                все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.</p>
+                <p>Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и 
+                не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.</p>
+              </div>
+              <div class="${styles.chatMessageTime}">12:00</div>
+            </div>
+            <div class="${styles.chatImage}">
+                <img src="/cam.png" alt="avatar" class="${styles.chatImageItem}">
+                <div class="${styles.chatImageTime}">12:00</div>
+            </div>
+            <div class="${styles.chatMessage}" data-type="outgoing">
+                <div class="${styles.chatMessageText}">
+                    <p>Привет! Смотри, тут всплыл интересный кусок лунной космической 
+                    истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. 
+                    Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер 
+                    все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.</p>
+                    <p>Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и 
+                    не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.</p>
+                </div>
+                <div class="${styles.chatMessageTime}">12:00</div>
+            </div>
           </div>
-          <div class="${styles.input}">
-            <div class="${styles.attach}">+</div>
-            <textarea class="" placeholder="Сообщение"></textarea>
-            <button>Отправить</button>
+          <div class="${styles.messageInputWrap}">
+            <div class="${styles.attach}">
+              <input type="file" id="attach" class="${styles.attachInput}" value="">
+              <label for="attach" class="${styles.attachButton}"></label>
+            </div>
+            <textarea placeholder="Сообщение" class="${styles.messageInput}"></textarea>
+            <button type="submit" class="${styles.messageSubmitButton}"></button>
           </div>
       </section>
   `;

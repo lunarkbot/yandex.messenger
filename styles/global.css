@@ -39,3 +39,22 @@ a {
 a:hover {
   color: var(--hover-color);
 }
+
+.light-scrollbar {
+  scrollbar-width: thin; /* Для Firefox */
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Для Firefox */
+}
+
+.light-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.light-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
