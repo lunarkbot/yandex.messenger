@@ -1,5 +1,6 @@
 .container {
   position: relative;
+  margin-bottom: 32px;
 }
 
 .input {
@@ -11,17 +12,10 @@
   padding: 0;
   outline: none;
   box-sizing: border-box;
-  margin-bottom: 30px;
   color: var(--default-color);
-  font-family: 'Inter', Helvetica, Arial, sans-serif;
+  font-family: Inter, Helvetica, Arial, sans-serif;
   font-weight: 500;
   font-size: 13px;
-}
-
-.input:focus + .label,
-.input:not(:placeholder-shown).input:not(:focus) + .label {
-  top: -9px;
-  font-size: 9px;
 }
 
 .label {
@@ -34,10 +28,24 @@
   pointer-events: none;
 }
 
-.error {
+.input:focus + .label,
+.input:not(:placeholder-shown).input:not(:focus) + .label {
+  top: -9px;
+  font-size: 9px;
+}
+
+.errorLabel {
   display: none;
   color: red;
-  font-size: 12px;
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  font-size: 10px;
+  line-height: 10px;
+}
+
+[data-valid] ~ [data-error] {
+  display: block;
 }
 
 .input.invalid + .label + .error {

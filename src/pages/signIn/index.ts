@@ -1,20 +1,41 @@
+import { IValidationRule, TProps } from 'types';
 import renderSignIn from './signIn.tmpl.js';
-import button from '../../components/button';
+import Button from '../../components/button';
 import styles from './signIn.module.css';
-import { Template } from '../../types';
-import { getInputHtml } from '../../utils';
+import { getInput } from '../../utils';
+import {
+  getPasswordInputValidationRule,
+  loginValidationRule,
+} from '../../utils/validationRules.ts';
+import Block from '../../utils/block.ts';
 
-const { buttonContext, buttonRender } = button;
-buttonContext.buttonText = 'Авторизоваться';
-buttonContext.buttonClassName += ` ${styles.signInButton}`;
-const buttonHtml = buttonRender(buttonContext);
+const button = new Button({
+  text: 'Авторизоваться',
+  class: styles.signInButton,
+  type: 'submit',
+});
 
-const context:Template = {
-  loginInput: getInputHtml('login', 'Логин'),
-  passwordInput: getInputHtml('password', 'Пароль'),
-  signInButton: buttonHtml,
+class SignIn extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
+
+  render(): string {
+    return renderSignIn(this.props);
+  }
+}
+
+const context:TProps = {
+  loginInput: getInput('login', 'Логин'),
+  passwordInput: getInput('password', 'Пароль', 'password'),
+  signInButton: button.getContent().innerHTML,
 };
 
-const signIn:string = renderSignIn(context);
+const signIn = new SignIn(context);
+
+export const signInValidationRules: IValidationRule[] = [
+  loginValidationRule,
+  getPasswordInputValidationRule('password'),
+];
 
 export default signIn;

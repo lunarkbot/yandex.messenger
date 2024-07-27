@@ -1,0 +1,12 @@
+.input {
+  width: 200px;
+  border: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  color: var(--second-color);
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  text-align: right;
+}

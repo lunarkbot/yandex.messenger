@@ -1,40 +1,80 @@
 import navigation, { navigationLinkClassName } from './pages/navigation';
-import signIn from './pages/signIn';
-import signUp from './pages/signUp';
-import notFound from './pages/notFound';
+import signIn, { signInValidationRules } from './pages/signIn';
+import signUp, { signUpValidationRules } from './pages/signUp';
 import styles from './main.module.css';
-import serverError from './pages/serverError';
 import profile from './pages/profile';
-import messenger from './pages/messenger';
+import messenger, { searchClasses } from './pages/messenger';
+import profileEditing, { profileEditingValidationRules } from './pages/profileEditing';
+import profilePasswordEditing, { profilePasswordEditingValidationRules } from './pages/profilePasswordEditing';
+import Validator from './utils/validator.ts';
+import { addSearchContact, render } from './utils/index.ts';
+import ErrorPage from './pages/error';
+import { chatMessageValidationRule } from './utils/validationRules.ts';
 
-function renderPage(html:string):void {
-  document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
-}
+// function renderPage(html:string):void {
+//   document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
+// }
 
 function switchPage(href:string):void {
   window.history.pushState({}, '', href);
 
   switch (href) {
-    case '/':
-      renderPage(navigation);
+    case '/': {
+      render('.content', navigation);
       break;
-    case '/signIn':
-      renderPage(signIn);
+    }
+    case '/signIn': {
+      render('.content', signIn);
+      const form = document.querySelector<HTMLFormElement>('#signInForm')!;
+      Validator.setValidation(form, signInValidationRules);
       break;
-    case '/signUp':
-      renderPage(signUp);
+    }
+    case '/signUp': {
+      render('.content', signUp);
+      const form = document.querySelector<HTMLFormElement>('#signUpForm')!;
+      Validator.setValidation(form, signUpValidationRules);
       break;
-    case '/profile':
-      renderPage(profile);
+    }
+    case '/profile': {
+      render('.content', profile);
       break;
-    case '/messenger':
-      renderPage(messenger);
+    }
+    case '/profileEditing': {
+      render('.content', profileEditing);
+      const form = document.querySelector<HTMLFormElement>('#editProfile')!;
+      Validator.setValidation(form, profileEditingValidationRules);
       break;
-    case '/serverError':
-      renderPage(serverError);
+    }
+    case '/profilePasswordEditing': {
+      render('.content', profilePasswordEditing);
+      const form = document.querySelector<HTMLFormElement>('#editProfilePassword')!;
+      Validator.setValidation(form, profilePasswordEditingValidationRules);
       break;
-    default:
-      renderPage(notFound);
+    }
+    case '/messenger': {
+      render('.content', messenger);
+      const form = document.querySelector<HTMLFormElement>('#chatMessage')!;
+      Validator.setValidation(form, [chatMessageValidationRule]);
+      addSearchContact(searchClasses.inputClassName, searchClasses.listClassName, searchClasses.listItemsClassName);
+      break;
+    }
+    case '/error': {
+      const serverErrorPage = new ErrorPage({
+        text: 'Уже фиксим',
+        error: '500',
+      });
+
+      render('.content', serverErrorPage);
+      break;
+    }
+    default: {
+      const notFoundPage = new ErrorPage({
+        text: 'Не туда попали',
+        error: '400',
+      });
+
+      render('.content', notFoundPage);
+    }
   }
 }
 
