@@ -1,5 +1,5 @@
-import EventBus from './eventBus';
 import { TProps } from 'types';
+import EventBus from './eventBus';
 
 type TMeta = {
   tagName: string;
@@ -7,25 +7,28 @@ type TMeta = {
   className?: string;
 }
 
-export  default class Block {
+export default class Block {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render"
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   };
 
   private _element: HTMLElement | null = null;
+
   private _meta: TMeta;
+
   public props: TProps;
+
   private eventBus: () => EventBus;
 
-  constructor(tagName: string = "div", props: TProps = {}, className?: string) {
+  constructor(tagName: string = 'div', props: TProps = {}, className?: string) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
       className,
-      props
+      props,
     };
 
     this.props = this._makePropsProxy(props);
@@ -44,7 +47,7 @@ export  default class Block {
   }
 
   private _createResources(): void {
-    const { tagName, className } = this._meta
+    const { tagName, className } = this._meta;
     this._element = this._createDocumentElement(tagName, className);
   }
 
@@ -66,7 +69,8 @@ export  default class Block {
 
   private _componentDidUpdate(oldProps: TProps, newProps: TProps): void {
     const response = this.componentDidUpdate(oldProps, newProps);
-    console.log(response)
+    // eslint-disable-next-line
+    console.log(response);
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -127,7 +131,7 @@ export  default class Block {
       },
       deleteProperty() {
         throw new Error('нет доступа');
-      }
+      },
     });
   }
 

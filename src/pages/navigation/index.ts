@@ -1,6 +1,6 @@
+import { IBlock, TProps } from 'types';
 import renderNavigation from './navigation.tmpl.js';
 import styles from './navigation.module.css';
-import { IBlock, TProps } from 'types';
 import Block from '../../utils/block.ts';
 
 export const navigationLinkClassName: string = styles.link;

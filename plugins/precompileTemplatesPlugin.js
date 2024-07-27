@@ -16,12 +16,11 @@ import path from 'path';
  * @returns {object} - precompiled template function
  */
 function precompileTemplate(template) {
-  // eslint-disable-next-line
   return template
+    // eslint-disable-next-line
     .replace(/\{\{\{\s*(\w+)\s*\}\}\}/g, '<div data-component="$1">${context.$1}</div>')
-    .replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => {
-      return `\${Array.isArray(context.${key}) ? context.${key}.join('') : context.${key}}`;
-    });
+    // eslint-disable-next-line
+    .replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => `\${Array.isArray(context.${key}) ? context.${key}.join('') : context.${key}}`);
 }
 
 export default function precompileTemplatesPlugin() {

@@ -20,7 +20,7 @@ export function getInput(name:string, placeholder:string, type:string = 'text') 
   return new Input({
     name,
     placeholder,
-    type
+    type,
   });
 }
 
@@ -28,7 +28,7 @@ export function getProfileInput(name:string, value:string, type:string = 'text')
   return new ProfileInput({
     name,
     value,
-    type
+    type,
   });
 }
 
@@ -47,15 +47,6 @@ export function render(query: string, block: IBlock) {
   return root;
 }
 
-export function addSearchContact(inputClassName: string, listClassName: string, listItemsClassName: string) {
-  const searchInput = document.querySelector(`.${inputClassName}`) as HTMLInputElement;
-  if (searchInput) {
-    searchInput.addEventListener('input', function (this: HTMLInputElement) {
-      handleSearch(this.value, `.${listClassName}`, `.${listItemsClassName}`);
-    });
-  }
-}
-
 function handleSearch(inputValue: string, listClassName: string, listItemsClassName: string) {
   const searchValue = inputValue.toLowerCase();
   const contactListWrapper = document.querySelector(listClassName);
@@ -63,7 +54,7 @@ function handleSearch(inputValue: string, listClassName: string, listItemsClassN
 
   const contactListItems: NodeListOf<HTMLLIElement> = document.querySelectorAll(listItemsClassName);
 
-  contactListItems.forEach(item => {
+  contactListItems.forEach((item) => {
     const contactNameWrapper = item.querySelector('[data-contact-name]');
     if (!contactNameWrapper) return;
     const contactName = contactNameWrapper.getAttribute('data-contact-name')?.toLowerCase();
@@ -74,4 +65,13 @@ function handleSearch(inputValue: string, listClassName: string, listItemsClassN
       item.style.display = 'none';
     }
   });
+}
+
+export function addSearchContact(inputClassName: string, listClassName: string, listItemsClassName: string) {
+  const searchInput = document.querySelector(`.${inputClassName}`) as HTMLInputElement;
+  if (searchInput) {
+    searchInput.addEventListener('input', function (this: HTMLInputElement) {
+      handleSearch(this.value, `.${listClassName}`, `.${listItemsClassName}`);
+    });
+  }
 }

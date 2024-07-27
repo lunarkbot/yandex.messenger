@@ -70,13 +70,13 @@ export const passwordCheckValidationRule: IValidationRule = {
 };
 
 export const loginValidationRule: IValidationRule = {
-    field: 'login',
-    method: isLoginValid,
-    message: 'Login must be between 3 and 20 characters and contain only letters, numbers, and hyphens',
-}
+  field: 'login',
+  method: isLoginValid,
+  message: 'Login must be between 3 and 20 characters and contain only letters, numbers, and hyphens',
+};
 
 export const chatMessageValidationRule: IValidationRule = {
-    field: 'message',
-    method: (message: string) => message.length > 0,
-    message: 'Message must not be empty',
-}
+  field: 'message',
+  method: (message: string) => message.length > 0,
+  message: 'Message must not be empty',
+};

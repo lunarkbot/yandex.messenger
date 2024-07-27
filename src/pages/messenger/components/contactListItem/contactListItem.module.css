@@ -16,8 +16,7 @@
   min-height: 67px;
   box-sizing: border-box;
   padding: 12px 10px;
-  column-gap: 10px;
-  row-gap: 4px;
+  gap: 4px 10px;
 }
 
 .contactContent:hover {

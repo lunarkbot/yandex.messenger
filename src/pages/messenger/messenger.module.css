@@ -128,7 +128,7 @@
   overflow: auto;
 }
 
-/**/
+/* main section */
 
 .main {
   flex-grow: 1;
@@ -214,7 +214,7 @@
 .chatMessage[data-type="outgoing"] {
   margin-left: auto;
   background-color: #E4EDFD;
-  border-radius: 12px 12px 0 12px;
+  border-radius: 12px 12px 0;
 }
 
 .chatMessageText > p:first-child {
@@ -264,7 +264,7 @@
   bottom: 11px;
   right: 11px;
   font: 500 9px/9px Inter, sans-serif;
-  background-color: rgba(82, 82, 82, 0.5);
+  background-color: rgb(82 82 82 / 50%);
   padding: 2px 7px;
   border-radius: 30px;
   color: #fff;

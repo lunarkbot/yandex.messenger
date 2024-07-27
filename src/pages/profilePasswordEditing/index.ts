@@ -16,17 +16,17 @@ const inputType:string = 'password';
 const avatar = new Avatar({});
 
 class ProfilePasswordEditing extends Block {
-    constructor(props: TProps) {
-        super('div', props);
-    }
+  constructor(props: TProps) {
+    super('div', props);
+  }
 
-    render(): string {
-        return renderProfileEditing(this.props);
-    }
+  render(): string {
+    return renderProfileEditing(this.props);
+  }
 }
 
 const context:TProps = {
-  avatar: avatar,
+  avatar,
   displayNameHeading: 'Иван',
   oldPassword: getProfileInput('oldPassword', 'pochta@yandex.ru', inputType),
   newPassword: getProfileInput('newPassword', 'ivanovivan', inputType),

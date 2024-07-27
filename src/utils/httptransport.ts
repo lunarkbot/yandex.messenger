@@ -4,7 +4,7 @@ enum METHOD {
   PUT = 'PUT',
   PATCH = 'PATCH',
   DELETE = 'DELETE'
-};
+}
 
 type Options = {
   method: METHOD;
@@ -19,8 +19,8 @@ type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export default class HTTPTransport {
   get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, {...options, method: METHOD.GET});
-  };
+    return this.request(url, { ...options, method: METHOD.GET });
+  }
 
   post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
     return this.request(url, { ...options, method: METHOD.POST });
@@ -39,13 +39,13 @@ export default class HTTPTransport {
   }
 
   request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
-    const {method, data} = options;
+    const { method, data } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
-      xhr.onload = function() {
+      xhr.onload = function () {
         resolve(xhr);
       };
 
@@ -59,5 +59,5 @@ export default class HTTPTransport {
         xhr.send(data);
       }
     });
-  };
+  }
 }

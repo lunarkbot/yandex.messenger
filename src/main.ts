@@ -1,4 +1,4 @@
-import navigation, { navigationLinkClassName  } from './pages/navigation';
+import navigation, { navigationLinkClassName } from './pages/navigation';
 import signIn, { signInValidationRules } from './pages/signIn';
 import signUp, { signUpValidationRules } from './pages/signUp';
 import styles from './main.module.css';
