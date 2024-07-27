@@ -10,6 +10,7 @@
     ]
   },
   "ignoreFiles": [
-    "build/*"
+    "build/*",
+    "styles/global.css"
   ]
 }
