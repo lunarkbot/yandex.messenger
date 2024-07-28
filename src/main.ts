@@ -10,10 +10,9 @@ import Validator from './utils/validator.ts';
 import { addSearchContact, render } from './utils/index.ts';
 import ErrorPage from './pages/error';
 import { chatMessageValidationRule } from './utils/validationRules.ts';
+import PopstateEventManager from './utils/popstateEventManager.ts';
 
-// function renderPage(html:string):void {
-//   document.querySelector<HTMLDivElement>('.content')!.innerHTML = html;
-// }
+PopstateEventManager.getInstance();
 
 function switchPage(href:string):void {
   window.history.pushState({}, '', href);
@@ -87,7 +86,6 @@ function activateNavigation():void {
       event.preventDefault();
       const href:string|null = target.getAttribute('href');
       if (!href) return;
-
       switchPage(href);
     }
   });

@@ -16,14 +16,25 @@ export default class Validator {
 
   private formElements: IFormElements = {};
 
+  private eventHandlers: { [key: string]: EventListener } = {};
+
+  // eslint-disable-next-line no-use-before-define
+  private static instances: Map<HTMLFormElement, Validator> = new Map();
+
   constructor(form: HTMLFormElement, rules: IValidationRule[]) {
     this.form = form;
     this.rules = rules;
   }
 
-  static setValidation(form: HTMLFormElement, rules: IValidationRule[]): void {
+  static setValidation(form: HTMLFormElement, rules: IValidationRule[]): Validator {
+    if (Validator.instances.has(form)) {
+      return Validator.instances.get(form)!;
+    }
+
     const validator = new Validator(form, rules);
     validator.init();
+    Validator.instances.set(form, validator);
+    return validator;
   }
 
   private init() {
@@ -53,11 +64,17 @@ export default class Validator {
   }
 
   private addEvents() {
-    this.form.addEventListener('submit', this.handleSubmit.bind(this));
+    const submitHandler = this.handleSubmit.bind(this);
+    this.form.addEventListener('submit', submitHandler);
+    this.eventHandlers.submit = submitHandler;
 
     Object.keys(this.formElements).forEach((fieldName) => {
-      this.formElements[fieldName].field.addEventListener('blur', this.handleBlur(fieldName));
+      const handler = this.handleBlur(fieldName);
+      this.formElements[fieldName].field.addEventListener('blur', handler);
+      this.eventHandlers[`blur-${fieldName}`] = handler;
     });
+
+    addEventListener('popstate', this.removeAllEventListeners.bind(this), { once: true });
   }
 
   private handleBlur = (fieldName: string) => (event: Event) => {
@@ -135,5 +152,15 @@ export default class Validator {
 
     // eslint-disable-next-line no-console
     console.log(formValues);
+  }
+
+  public removeAllEventListeners() {
+    this.form.removeEventListener('submit', this.eventHandlers.submit);
+
+    Object.keys(this.formElements).forEach((fieldName) => {
+      this.formElements[fieldName].field.removeEventListener('blur', this.eventHandlers[`blur-${fieldName}`]);
+    });
+
+    Validator.instances.delete(this.form);
   }
 }

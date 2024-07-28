@@ -27,7 +27,8 @@
     "no-param-reassign": "off",
     "no-shadow": "off",
     "func-names": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "no-restricted-globals": "off"
   },
   "settings": {
     "import/resolver": {
