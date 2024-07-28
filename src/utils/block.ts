@@ -1,13 +1,13 @@
 import { TProps } from 'types';
 import EventBus from './eventBus';
 
-type TMeta = {
+type TMeta<Props> = {
   tagName: string;
-  props: TProps;
+  props: Props;
   className?: string;
 }
 
-export default class Block {
+export default abstract class Block<Props extends Record<string, any> = Record<string, any>> {
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -17,13 +17,13 @@ export default class Block {
 
   private _element: HTMLElement | null = null;
 
-  private _meta: TMeta;
+  private _meta: TMeta<Props>;
 
-  public props: TProps;
+  public props: Props;
 
   private eventBus: () => EventBus;
 
-  constructor(tagName: string = 'div', props: TProps = {}, className?: string) {
+  constructor(tagName: string = 'div', props: Props = {} as Props, className?: string) {
     const eventBus = new EventBus();
     this._meta = {
       tagName,
@@ -122,10 +122,10 @@ export default class Block {
     return this.element;
   }
 
-  private _makePropsProxy(props: TProps): TProps {
+  private _makePropsProxy(props: Props): Props {
     return new Proxy(props, {
-      set: (target: TProps, prop: string, value) => {
-        target[prop] = value;
+      set: (target, prop: string, value) => {
+        (target as Record<string, any>)[prop] = value;
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
         return true;
       },

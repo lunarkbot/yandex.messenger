@@ -5,38 +5,36 @@ enum METHOD {
   PATCH = 'PATCH',
   DELETE = 'DELETE'
 }
+// eslint-disable-next-line
+type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>;
 
 type Options = {
   method: METHOD;
   data?: any;
 };
 
-// Тип Omit принимает два аргумента: первый — тип, второй — строка
-// и удаляет из первого типа ключ, переданный вторым аргументом
 type OptionsWithoutMethod = Omit<Options, 'method'>;
-// Этот тип эквивалентен следующему:
-// type OptionsWithoutMethod = { data?: any };
 
 export default class HTTPTransport {
-  get(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.GET });
-  }
+  get: HTTPMethod = (url, options = {}) => (
+    this.request(url, { ...options, method: METHOD.GET })
+  );
 
-  post(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.POST });
-  }
+  post: HTTPMethod = (url, options = {}) => (
+    this.request(url, { ...options, method: METHOD.POST })
+  );
 
-  put(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.PUT });
-  }
+  put: HTTPMethod = (url, options = {}) => (
+    this.request(url, { ...options, method: METHOD.PUT })
+  );
 
-  patch(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.PATCH });
-  }
+  patch: HTTPMethod = (url, options = {}) => (
+    this.request(url, { ...options, method: METHOD.PATCH })
+  );
 
-  delete(url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.DELETE });
-  }
+  delete: HTTPMethod = (url, options = {}) => (
+    this.request(url, { ...options, method: METHOD.DELETE })
+  );
 
   request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
     const { method, data } = options;
