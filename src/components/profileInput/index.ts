@@ -1,16 +1,13 @@
+import { TProps } from 'types';
 import inputRender from './input.tmpl.js';
-import { Template } from '../../types';
+import Block from '../../utils/block.ts';
 
-const inputContext: Template = {
-  type: 'text',
-  name: '',
-  placeholder: '',
-  value: '',
-};
+export default class ProfileInput extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
 
-const input = {
-  inputRender,
-  inputContext,
-};
-
-export default input;
+  render(): string {
+    return inputRender(this.props);
+  }
+}

@@ -16,8 +16,11 @@ import path from 'path';
  * @returns {object} - precompiled template function
  */
 function precompileTemplate(template) {
-  // eslint-disable-next-line
-  return template.replace(/\{\{(\w+)\}\}/g, '${context.$1}');
+  return template
+    // eslint-disable-next-line
+    .replace(/\{\{\{\s*(\w+)\s*\}\}\}/g, '<div data-component="$1">${context.$1}</div>')
+    // eslint-disable-next-line
+    .replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => `\${Array.isArray(context.${key}) ? context.${key}.join('') : context.${key}}`);
 }
 
 export default function precompileTemplatesPlugin() {

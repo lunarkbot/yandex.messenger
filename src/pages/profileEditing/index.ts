@@ -1,26 +1,52 @@
+import { IValidationRule, TProps } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
-import { Template } from '../../types';
-import avatar from '../../components/avatar';
-import button from '../../components/button';
-import { getProfileInputHtml } from '../../utils';
+import Avatar from '../../components/avatar';
+import Button from '../../components/button';
+import { getProfileInput } from '../../utils';
+import {
+  emailValidationRule,
+  getTextInputValidationRule, loginValidationRule,
+  phoneValidationRule,
+} from '../../utils/validationRules.ts';
+import Block from '../../utils/block.ts';
 
-const { buttonRender, buttonContext } = button;
-buttonContext.type = 'submit';
-buttonContext.buttonText = 'Сохранить';
-const saveButton = buttonRender(buttonContext);
+const button = new Button({
+  type: 'submit',
+  text: 'Сохранить',
+});
 
-const context:Template = {
+const avatar = new Avatar({});
+
+class ProfileEditing extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
+
+  render(): string {
+    return renderProfileEditing(this.props);
+  }
+}
+
+const context:TProps = {
   avatar,
   displayNameHeading: 'Иван',
-  email: getProfileInputHtml('email', 'pochta@yandex.ru'),
-  login: getProfileInputHtml('login', 'ivanovivan'),
-  firstName: getProfileInputHtml('first_name', 'Иван'),
-  secondName: getProfileInputHtml('second_name', 'Иванов'),
-  displayName: getProfileInputHtml('display_name', 'Иван'),
-  phone: getProfileInputHtml('phone', '+7 (909) 967 30 30'),
-  saveButton,
+  email: getProfileInput('email', 'pochta@yandex.ru'),
+  login: getProfileInput('login', 'ivanovivan'),
+  firstName: getProfileInput('first_name', 'Иван'),
+  secondName: getProfileInput('second_name', 'Иванов'),
+  displayName: getProfileInput('display_name', 'Иван'),
+  phone: getProfileInput('phone', '79099673030'),
+  saveButton: button,
 };
 
-const profileEditing:string = renderProfileEditing(context);
+const profileEditing = new ProfileEditing(context);
+
+export const profileEditingValidationRules: IValidationRule[] = [
+  getTextInputValidationRule('first_name'),
+  getTextInputValidationRule('second_name'),
+  loginValidationRule,
+  emailValidationRule,
+  phoneValidationRule,
+];
 
 export default profileEditing;

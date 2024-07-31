@@ -1,6 +1,16 @@
 import styles from './input.module.css';
 
-export default function (context) {
+const defaultContext = {
+  type: 'text',
+  name: '',
+  placeholder: '',
+  value: '',
+  error: '',
+}
+
+export default function (props) {
+  const context = { ...defaultContext, ...props };
+
   return `
   <div class="${styles.container}">
     <input id="input_{{name}}" 
@@ -11,7 +21,7 @@ export default function (context) {
             type="{{type}}"
             required />
     <label for="input_{{name}}" class="${styles.label}">{{placeholder}}</label>
-    <span class="${styles.error}">{{error}}</span>
+    <span data-error="{{name}}" class="${styles.errorLabel}">{{error}}</span>
   </div>
 `;
 }

@@ -1,25 +1,45 @@
+import { IValidationRule, TProps } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
-import { Template } from '../../types';
-import avatar from '../../components/avatar';
-import button from '../../components/button';
-import { getProfileInputHtml } from '../../utils';
+import Avatar from '../../components/avatar';
+import Button from '../../components/button';
+import { getProfileInput } from '../../utils';
+import { getPasswordInputValidationRule, passwordCheckValidationRule } from '../../utils/validationRules.ts';
+import Block from '../../utils/block.ts';
 
-const { buttonRender, buttonContext } = button;
-buttonContext.type = 'submit';
-buttonContext.buttonText = 'Сохранить';
-const saveButton = buttonRender(buttonContext);
+const button = new Button({
+  type: 'submit',
+  text: 'Сохранить',
+});
 
 const inputType:string = 'password';
 
-const context:Template = {
+const avatar = new Avatar({});
+
+class ProfilePasswordEditing extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
+
+  render(): string {
+    return renderProfileEditing(this.props);
+  }
+}
+
+const context:TProps = {
   avatar,
   displayNameHeading: 'Иван',
-  oldPassword: getProfileInputHtml('oldPassword', 'pochta@yandex.ru', inputType),
-  newPassword: getProfileInputHtml('newPassword', 'ivanovivan', inputType),
-  passwordCheck: getProfileInputHtml('passwordCheck', 'ivanovivan', inputType),
-  saveButton,
+  oldPassword: getProfileInput('oldPassword', 'pochta@yandex.ru', inputType),
+  newPassword: getProfileInput('newPassword', 'ivanovivan', inputType),
+  passwordCheck: getProfileInput('passwordCheck', 'ivanovivan', inputType),
+  saveButton: button.getContent().innerHTML,
 };
 
-const profileEditing:string = renderProfileEditing(context);
+const profilePasswordEditing = new ProfilePasswordEditing(context);
 
-export default profileEditing;
+export const profilePasswordEditingValidationRules: IValidationRule[] = [
+  getPasswordInputValidationRule('oldPassword'),
+  getPasswordInputValidationRule('newPassword'),
+  passwordCheckValidationRule,
+];
+
+export default profilePasswordEditing;

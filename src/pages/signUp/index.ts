@@ -1,25 +1,52 @@
+import { IValidationRule, TProps } from 'types';
 import renderSignUp from './signUp.tmpl.js';
 import styles from './signUp.module.css';
-import button from '../../components/button';
-import { Template } from '../../types';
-import { getInputHtml } from '../../utils';
+import Button from '../../components/button';
+import { getInput } from '../../utils';
+import {
+  emailValidationRule, getPasswordInputValidationRule,
+  getTextInputValidationRule, loginValidationRule, passwordCheckValidationRule,
+  phoneValidationRule,
+} from '../../utils/validationRules.ts';
+import Block from '../../utils/block.ts';
 
-const { buttonContext, buttonRender } = button;
-buttonContext.buttonText = 'Зарегистрироваться';
-buttonContext.buttonClassName += ` ${styles.signInButton}`;
-const buttonHtml = buttonRender(buttonContext);
+const button = new Button({
+  class: styles.signUpButton,
+  text: 'Зарегистрироваться',
+  type: 'submit',
+});
 
-const context:Template = {
-  emailInput: getInputHtml('email', 'Почта'),
-  loginInput: getInputHtml('login', 'Логин'),
-  firstNameInput: getInputHtml('first_name', 'Имя'),
-  secondNameInput: getInputHtml('second_name', 'Фамилия'),
-  phoneInput: getInputHtml('phone', 'Телефон'),
-  passwordInput: getInputHtml('password', 'Пароль', 'password'),
-  passwordCheckInput: getInputHtml('passwordCheck', 'Пароль (ещё раз)', 'password'),
-  signUpButton: buttonHtml,
+const context:TProps = {
+  emailInput: getInput('email', 'Почта'),
+  loginInput: getInput('login', 'Логин'),
+  firstNameInput: getInput('first_name', 'Имя'),
+  secondNameInput: getInput('second_name', 'Фамилия'),
+  phoneInput: getInput('phone', 'Телефон'),
+  passwordInput: getInput('password', 'Пароль', 'password'),
+  passwordCheckInput: getInput('passwordCheck', 'Пароль (ещё раз)', 'password'),
+  signUpButton: button,
 };
 
-const signUp:string = renderSignUp(context);
+class SignUp extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
+
+  render(): string {
+    return renderSignUp(this.props);
+  }
+}
+
+const signUp = new SignUp(context);
+
+export const signUpValidationRules: IValidationRule[] = [
+  getTextInputValidationRule('first_name'),
+  getTextInputValidationRule('second_name'),
+  loginValidationRule,
+  emailValidationRule,
+  phoneValidationRule,
+  passwordCheckValidationRule,
+  getPasswordInputValidationRule('password'),
+];
 
 export default signUp;

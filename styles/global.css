@@ -1,18 +1,15 @@
 :root {
-  font-family: 'Inter', Helvetica, Arial, sans-serif;
-
+  font-family: Inter, Helvetica, Arial, sans-serif;
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  --default-color: #1E1E1E;
+  --default-color: #1e1e1e;
   --second-color: #999;
   --active-color: #3369F3;
-  --danger-color: #FF0000;
+  --danger-color: #F00;
   --hover-color: #535bf2;
   --button-color: #fff;
-
   --default-bg-color: #fff;
   --second-bg-color: #EFEFEF;
   --active-bg-color: #E4EDFD;
@@ -24,7 +21,8 @@ body {
   color: var(--default-color);
 }
 
-.content {
+.content,
+.content > div:not([class]) {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,6 +33,26 @@ body {
 a {
   color: var(--default-color);
 }
+
 a:hover {
   color: var(--hover-color);
+}
+
+.light-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 20%) transparent;
+}
+
+.light-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 20%);
+  border-radius: 10px;
+}
+
+.light-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }

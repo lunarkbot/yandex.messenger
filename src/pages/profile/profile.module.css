@@ -2,6 +2,7 @@
   max-width: 510px;
   width: 100%;
   display: flex;
+  flex-grow: 1;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;

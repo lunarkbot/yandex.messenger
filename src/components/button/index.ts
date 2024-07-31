@@ -1,16 +1,13 @@
+import { TProps } from 'types';
 import buttonRender from './button.tmpl.js';
-import styles from './button.module.css';
-import { Template } from '../../types';
+import Block from '../../utils/block.ts';
 
-const buttonContext: Template = {
-  buttonClassName: styles.button,
-  buttonText: '',
-  type: 'button',
-};
+export default class Button extends Block {
+  constructor(props: TProps) {
+    super('div', props);
+  }
 
-const button = {
-  buttonRender,
-  buttonContext,
-};
-
-export default button;
+  render(): string {
+    return buttonRender(this.props);
+  }
+}
