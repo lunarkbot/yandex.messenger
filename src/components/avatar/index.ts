@@ -4,7 +4,10 @@ import Block from '../../utils/block.ts';
 
 export default class Avatar extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+      tagName: 'div',
+      props,
+    });
   }
 
   render(): string {

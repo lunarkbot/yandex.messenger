@@ -17,7 +17,10 @@ const avatar = new Avatar({});
 
 class ProfilePasswordEditing extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+      tagName: 'div',
+      props,
+    });
   }
 
   render(): string {

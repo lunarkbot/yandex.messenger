@@ -17,7 +17,10 @@ const button = new Button({
 
 class SignIn extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+        tagName: 'div',
+        props,
+    });
   }
 
   render(): string {

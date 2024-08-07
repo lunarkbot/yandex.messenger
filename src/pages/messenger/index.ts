@@ -7,7 +7,11 @@ import getRandomObject from '../../utils/mock.ts';
 
 class Messeger extends Block {
   constructor(props: TProps) {
-    super('div', props, styles.messenger);
+    super({
+      tagName: 'div',
+      props,
+      className: styles.messenger,
+    })
   }
 
   render(): string {

@@ -7,7 +7,11 @@ export const navigationLinkClassName: string = styles.link;
 
 class Navigation extends Block {
   constructor(props: TProps) {
-    super('nav', props, styles.page);
+    super({
+      tagName: 'nav',
+      props,
+      className: styles.page,
+    });
   }
 
   render(): string {

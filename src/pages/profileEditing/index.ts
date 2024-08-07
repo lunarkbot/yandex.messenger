@@ -19,7 +19,10 @@ const avatar = new Avatar({});
 
 class ProfileEditing extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+      tagName: 'div',
+      props,
+    });
   }
 
   render(): string {

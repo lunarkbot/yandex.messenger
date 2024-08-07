@@ -29,7 +29,10 @@ const context:TProps = {
 
 class SignUp extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+      tagName: 'div',
+      props,
+    });
   }
 
   render(): string {

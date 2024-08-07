@@ -1,10 +1,14 @@
 import { TProps } from 'types';
 import EventBus from './eventBus';
 
+type TEvents = Record<string, (event: Event) => void>
+
 type TMeta<Props> = {
   tagName: string;
   props: Props;
   className?: string;
+  events?: TEvents;
+  options?: Record<string, string | TEvents>;
 }
 
 export default abstract class Block<Props extends Record<string, any> = Record<string, any>> {
@@ -23,15 +27,18 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
 
   private eventBus: () => EventBus;
 
-  constructor(tagName: string = 'div', props: Props = {} as Props, className?: string) {
+  constructor(
+    options: TMeta<Props>,
+  ) {
     const eventBus = new EventBus();
     this._meta = {
-      tagName,
-      className,
-      props,
+      tagName: options?.tagName || 'div',
+      className: options.className,
+      props: options?.props || {},
+      events: options?.events || {},
     };
 
-    this.props = this._makePropsProxy(props);
+    this.props = this._makePropsProxy(this._meta.props);
 
     this.eventBus = () => eventBus;
 
@@ -49,6 +56,16 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
   private _createResources(): void {
     const { tagName, className } = this._meta;
     this._element = this._createDocumentElement(tagName, className);
+    this._addEvents();
+  }
+
+  private _addEvents(): void {
+    const { events } = this._meta;
+    if (events && this._element) {
+      Object.entries(events).forEach(([event, handler]) => {
+        this._element!.addEventListener(event, handler);
+      });
+    }
   }
 
   public init(): void {

@@ -7,7 +7,11 @@ export const listItemsClassName = styles.contactListItem;
 
 export default class contactListItem extends Block {
   constructor(props: TProps) {
-    super('li', props, listItemsClassName);
+    super({
+      tagName: 'li',
+      props,
+      className: listItemsClassName,
+    });
   }
 
   render(): string {
