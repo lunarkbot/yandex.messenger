@@ -1,4 +1,4 @@
-## Messenger [Sprint 2]
+## Messenger [Sprint 3]
 _Study project for [Yandex Practicum](https://practicum.yandex.kz/)_
 
 ### Prototype / Layout:
