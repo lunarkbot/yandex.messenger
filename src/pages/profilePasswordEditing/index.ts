@@ -2,9 +2,9 @@ import { IValidationRule, TProps } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
 import Avatar from '../../components/avatar';
 import Button from '../../components/button';
-import { getProfileInput } from '../../utils';
-import { getPasswordInputValidationRule, passwordCheckValidationRule } from '../../utils/validationRules.ts';
-import Block from '../../utils/block.ts';
+import { getProfileInput } from '../../utils/helpers';
+import { getPasswordInputValidationRule, passwordCheckValidationRule } from '../../utils/helpers/validationRules.ts';
+import Block from '../../utils/classes/core/block.ts';
 
 const button = new Button({
   type: 'submit',

@@ -74,7 +74,7 @@ export default class Validator {
       this.eventHandlers[`blur-${fieldName}`] = handler;
     });
 
-    addEventListener('popstate', this.removeAllEventListeners.bind(this), { once: true });
+    //addEventListener('popstate', this.removeAllEventListeners.bind(this), { once: true });
   }
 
   private handleBlur = (fieldName: string) => (event: Event) => {
@@ -154,13 +154,13 @@ export default class Validator {
     console.log(formValues);
   }
 
-  public removeAllEventListeners() {
-    this.form.removeEventListener('submit', this.eventHandlers.submit);
-
-    Object.keys(this.formElements).forEach((fieldName) => {
-      this.formElements[fieldName].field.removeEventListener('blur', this.eventHandlers[`blur-${fieldName}`]);
-    });
-
-    Validator.instances.delete(this.form);
-  }
+  // public removeAllEventListeners() {
+  //   this.form.removeEventListener('submit', this.eventHandlers.submit);
+  //
+  //   Object.keys(this.formElements).forEach((fieldName) => {
+  //     this.formElements[fieldName].field.removeEventListener('blur', this.eventHandlers[`blur-${fieldName}`]);
+  //   });
+  //
+  //   Validator.instances.delete(this.form);
+  // }
 }

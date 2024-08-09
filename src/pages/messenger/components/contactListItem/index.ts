@@ -1,7 +1,7 @@
 import { TProps } from 'types';
 import renderContactListItem from './contactListItem.tmpl.js';
 import styles from './contactListItem.module.css';
-import Block from '../../../../utils/block.ts';
+import Block from '../../../../utils/classes/core/block.ts';
 
 export const listItemsClassName = styles.contactListItem;
 

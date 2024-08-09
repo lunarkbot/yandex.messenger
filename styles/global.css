@@ -56,3 +56,7 @@ a:hover {
 .light-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
+
+.hidden {
+  display: none !important;
+}

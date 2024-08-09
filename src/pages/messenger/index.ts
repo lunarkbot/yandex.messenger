@@ -1,9 +1,9 @@
 import { TProps } from 'types';
 import renderMessenger from './messenger.tmpl.js';
 import ContactListItem, { listItemsClassName } from './components/contactListItem';
-import Block from '../../utils/block.ts';
+import Block from '../../utils/classes/core/block.ts';
 import styles from './messenger.module.css';
-import getRandomObject from '../../utils/mock.ts';
+import getRandomObject from '../../utils/helpers/mock.ts';
 
 class Messeger extends Block {
   constructor(props: TProps) {

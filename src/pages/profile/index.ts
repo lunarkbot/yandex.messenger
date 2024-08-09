@@ -1,7 +1,7 @@
 import { ITemplate, TProps } from 'types';
 import renderProfile from './profile.tmpl.js';
 import Avatar from '../../components/avatar';
-import Block from '../../utils/block.ts';
+import Block from '../../utils/classes/core/block.ts';
 
 const avatar = new Avatar({});
 

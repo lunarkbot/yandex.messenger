@@ -1,15 +1,17 @@
-import { TProps } from 'types';
-import EventBus from './eventBus';
+import { IValidationRule, TProps } from 'types';
+import EventBus from '../events/eventBus.ts';
+import Validator from '../validation/validator.ts';
 
 type TEvents = Record<string, (event: Event) => void>
 
 type TMeta<Props> = {
   tagName: string;
-  props: Props;
   className?: string;
+  props?: Props;
   events?: TEvents;
-  options?: Record<string, string | TEvents>;
-}
+  validationRules?: IValidationRule[];
+  formId?: string;
+};
 
 export default abstract class Block<Props extends Record<string, any> = Record<string, any>> {
   static EVENTS = {
@@ -33,12 +35,14 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
     const eventBus = new EventBus();
     this._meta = {
       tagName: options?.tagName || 'div',
-      className: options.className,
-      props: options?.props || {},
+      className: options?.className,
+      props: options?.props || {} as Props,
       events: options?.events || {},
+      validationRules: options?.validationRules,
+      formId: options?.formId,
     };
 
-    this.props = this._makePropsProxy(this._meta.props);
+    this.props = this._makePropsProxy(this._meta.props as Props);
 
     this.eventBus = () => eventBus;
 
@@ -124,6 +128,19 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
         }
       });
     }
+
+    this._initValidator();
+  }
+
+  private _initValidator(): void {
+    const { validationRules, formId } = this._meta;
+    if (validationRules && formId) {
+      const form = this.element!.querySelector(`#${formId}`) as HTMLFormElement;
+
+      if (form) {
+        Validator.setValidation(form, validationRules);
+      }
+    }
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -162,11 +179,11 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
 
   public show(): void {
     const content = this.getContent();
-    if (content) content.style.display = 'block';
+    if (content) content.classList.remove('hidden');
   }
 
   public hide(): void {
     const content = this.getContent();
-    if (content) content.style.display = 'none';
+    if (content) content.classList.add('hidden');
   }
 }

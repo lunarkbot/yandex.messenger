@@ -1,6 +1,6 @@
 import { TProps } from 'types';
 import buttonRender from './button.tmpl.js';
-import Block from '../../utils/block.ts';
+import Block from '../../utils/classes/core/block.ts';
 
 export default class Button extends Block {
   constructor(props: TProps) {
