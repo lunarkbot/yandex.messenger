@@ -28,5 +28,6 @@ export default function (context) {
        <a class="${styles.link}" data-router-link href="/error">Error 500</a>
       </li>
     </ul>
+    {{name}}{{email}}
   `;
 }

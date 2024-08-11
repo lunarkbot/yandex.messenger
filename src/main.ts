@@ -1,17 +1,15 @@
-import navigation, { navigationLinkClassName } from './pages/navigation';
-import signIn, { signInValidationRules } from './pages/signIn';
-import signUp, { signUpValidationRules } from './pages/signUp';
-import styles from './main.module.css';
+import navigation from './pages/navigation';
+import signIn from './pages/signIn';
+import signUp from './pages/signUp';
 import profile from './pages/profile';
-import messenger, { searchClasses } from './pages/messenger';
-import profileEditing, { profileEditingValidationRules } from './pages/profileEditing';
-import profilePasswordEditing, { profilePasswordEditingValidationRules } from './pages/profilePasswordEditing';
-import Validator from './utils/classes/validation/validator.ts';
-import { addSearchContact, render } from './utils/helpers';
+import messenger from './pages/messenger';
+import profileEditing from './pages/profileEditing';
+import profilePasswordEditing from './pages/profilePasswordEditing';
 import ErrorPage from './pages/error';
-import { chatMessageValidationRule } from './utils/helpers/validationRules.ts';
 import PopstateEventManager from './utils/classes/events/popstateEventManager.ts';
 import Router from './utils/classes/routing/router.ts';
+import store from './utils/classes/store/store.ts';
+import UserSignInController from './controllers/authSignInController.ts';
 
 PopstateEventManager.getInstance();
 
@@ -57,23 +55,6 @@ PopstateEventManager.getInstance();
 //       Validator.setValidation(form, [chatMessageValidationRule]);
 //       addSearchContact(searchClasses.inputClassName, searchClasses.listClassName, searchClasses.listItemsClassName);
 //       break;
-//     }
-//     case '/error': {
-//       const serverErrorPage = new ErrorPage({
-//         text: 'Уже фиксим',
-//         error: '500',
-//       });
-//
-//       render('.content', serverErrorPage);
-//       break;
-//     }
-//     default: {
-//       const notFoundPage = new ErrorPage({
-//         text: 'Не туда попали',
-//         error: '400',
-//       });
-//
-//       render('.content', notFoundPage);
 //     }
 //   }
 // }
@@ -122,14 +103,16 @@ document.addEventListener('DOMContentLoaded', () => {
   setupRouterLinkHandler(router, rootQuery);
 
 
+  store.set('user',{
+    name: 'Vasya',
+    email: 'eee@eee.pe'
+  });
 
+  const userSignInController = new UserSignInController();
 
-  //switchPage(window.location.pathname);
-
-
-  // window.addEventListener('popstate', () => {
-  //   switchPage(window.location.pathname);
-  // });
-
+  userSignInController.signIn({
+      password: 'p@ssw0rd',
+      login: 'a.morgan'
+    });
 
 });

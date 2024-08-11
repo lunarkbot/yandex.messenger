@@ -5,17 +5,26 @@ enum METHOD {
   PATCH = 'PATCH',
   DELETE = 'DELETE'
 }
+
+const BASE_URL = 'https://ya-praktikum.tech/api/v2';
+
 // eslint-disable-next-line
 type HTTPMethod = (url: string, options?: OptionsWithoutMethod) => Promise<XMLHttpRequest>;
 
 type Options = {
   method: METHOD;
-  data?: any;
+  [key: string]: any;
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-export default class HTTPTransport {
+export default class HTTP {
+  private readonly baseUrl: string;
+
+  constructor(basePath: string) {
+    this.baseUrl = `${BASE_URL}/${basePath}`;
+  }
+
   get: HTTPMethod = (url, options = {}) => (
     this.request(url, { ...options, method: METHOD.GET })
   );
@@ -41,7 +50,10 @@ export default class HTTPTransport {
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+      xhr.open(method, this.baseUrl + url);
+
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
       xhr.onload = function () {
         resolve(xhr);
@@ -54,6 +66,7 @@ export default class HTTPTransport {
       if (method === METHOD.GET || !data) {
         xhr.send();
       } else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(data);
       }
     });
