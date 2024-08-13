@@ -1,14 +1,11 @@
-import { IValidationRule, TProps } from 'types';
+import { TProps } from 'types';
 import renderSignUp from './signUp.tmpl.js';
-import styles from './signUp.module.css';
 import Button from '../../components/button';
+import styles from './signUp.module.css';
 import { getInput } from '../../utils/helpers';
-import {
-  emailValidationRule, getPasswordInputValidationRule,
-  getTextInputValidationRule, loginValidationRule, passwordCheckValidationRule,
-  phoneValidationRule,
-} from '../../utils/helpers/validationRules.ts';
 import Block from '../../utils/classes/core/block.ts';
+import connect from '../../hoc/connect.ts';
+import authSignUpController from '../../controllers/authSignUpController.ts';
 
 const button = new Button({
   class: styles.signUpButton,
@@ -27,23 +24,13 @@ const context:TProps = {
   signUpButton: button,
 };
 
-export const signUpValidationRules: IValidationRule[] = [
-  getTextInputValidationRule('first_name'),
-  getTextInputValidationRule('second_name'),
-  loginValidationRule,
-  emailValidationRule,
-  phoneValidationRule,
-  passwordCheckValidationRule,
-  getPasswordInputValidationRule('password'),
-];
-
 class SignUp extends Block {
   constructor(props: TProps) {
     super({
       tagName: 'div',
       props,
-      validationRules: signUpValidationRules,
-      formId: 'signUpForm',
+      controller: authSignUpController,
+      type: 'page'
     });
   }
 
@@ -52,6 +39,8 @@ class SignUp extends Block {
   }
 }
 
-const signUp = new SignUp(context);
+const signUpWithStore = connect()(SignUp);
+
+const signUp = new signUpWithStore(context);
 
 export default signUp;

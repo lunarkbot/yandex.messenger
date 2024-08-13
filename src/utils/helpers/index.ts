@@ -20,8 +20,9 @@ export function getProfileInput(name:string, value:string, type:string = 'text')
   });
 }
 
-export function clearNode(node: Element): void {
-  node.innerHTML = '';
+export function clearNode(): void {
+  const root = document.querySelector('.content');
+  if (root) root.innerHTML = '';
 }
 
 export function render(query: string, block: IBlock) {

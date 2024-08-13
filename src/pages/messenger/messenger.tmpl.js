@@ -5,7 +5,7 @@ export default function (context) {
       <div class="${styles.messenger}">
         <aside class="${styles.sidebar}">
           <div class="${styles.profileBar}">
-            <a href="/profile" class="${styles.profileLink}">Профиль</a>
+            <a href="/settings" data-router-link="/settings" class="${styles.profileLink}">Профиль</a>
           </div>
           <div class="${styles.search}">
             <input type="text" id="search" placeholder="" value="" class="${styles.searchInput}">
@@ -22,7 +22,7 @@ export default function (context) {
             <div class="${styles.headerAvatar}">
                 
             </div>
-            <div class="${styles.headerName}">Андрей</div>
+            <div class="${styles.headerName}">{{name}}</div>
             <div>
               <div class="${styles.headerMenuButton}"></div>
             </div>

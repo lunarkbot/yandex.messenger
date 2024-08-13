@@ -4,7 +4,7 @@ import { Indexed } from 'types';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 
-export default function connect(mapStateToProps: (state: Indexed) => Indexed) {
+export default function connect(mapStateToProps: (state: Indexed) => Indexed = (state: Indexed) => state) {
   return function<T extends Constructor<Block>>(Component: T) {
     return class extends Component {
       constructor(...args: any[]) {

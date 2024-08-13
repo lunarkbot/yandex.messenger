@@ -36,6 +36,7 @@ export default class Router {
     const route: Route | undefined = this.getRoute(pathname);
 
     if (!route) {
+      this.go('/404');
       return;
     }
 
@@ -43,9 +44,9 @@ export default class Router {
       this._currentRoute.leave();
     }
 
-    this._currentRoute = route;
+    this._currentRoute = route!;
     //route.render(route, pathname);
-    route.render();
+    route!.render();
   }
 
   go(pathname: string): void {

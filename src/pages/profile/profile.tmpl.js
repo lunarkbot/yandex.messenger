@@ -33,13 +33,19 @@ export default function (context) {
       </ul>
       <ul class="${styles.profileList}">
         <li class="${styles.profileListItem}">
-          <a href="/profile/edit" class="${styles.profileEditLink}" data-type="edit-profile">Изменить данные</a>
+          <a href="/settings/edit" 
+             data-router-link="/settings/edit" 
+             class="${styles.profileEditLink}" 
+             data-type="edit-profile">Изменить данные</a>
         </li>
         <li class="${styles.profileListItem}">
-          <a href="/profile/password" class="${styles.profileEditLink}" data-type="edit-password">Изменить пароль</a>
+          <a href="/settings/password" 
+             data-router-link="/settings/password"
+             class="${styles.profileEditLink}" 
+             data-type="edit-password">Изменить пароль</a>
         </li>
         <li class="${styles.profileListItem}">
-          <a href="/logout" class="${styles.logoutLink}">Выйти</a>
+          <a href="/logout" data-router-link="/logout" class="${styles.logoutLink}">Выйти</a>
         </li>
       </ul>
     </div>

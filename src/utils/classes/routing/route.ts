@@ -49,6 +49,9 @@ export default class Route {
         render(this._props.rootQuery, this._block);
       }
 
+      requestAnimationFrame(() => {
+        this._block.initController();
+      });
       return
     }
 

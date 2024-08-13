@@ -10,6 +10,7 @@ class Profile extends Block {
     super({
         tagName: 'div',
         props,
+        type: 'page',
     });
   }
 

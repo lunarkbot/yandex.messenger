@@ -18,20 +18,36 @@ export default class Validator {
 
   private eventHandlers: { [key: string]: EventListener } = {};
 
+  private submitRequest: (data: any) => void;
+
+  private exceptions?: string[];
+
   // eslint-disable-next-line no-use-before-define
   private static instances: Map<HTMLFormElement, Validator> = new Map();
 
-  constructor(form: HTMLFormElement, rules: IValidationRule[]) {
+  constructor(
+    form: HTMLFormElement,
+    rules: IValidationRule[],
+    sumitRequest: (data: any) => void,
+    exceptions?: string[]) {
+
     this.form = form;
     this.rules = rules;
+    this.submitRequest = sumitRequest;
+    this.exceptions = exceptions;
   }
 
-  static setValidation(form: HTMLFormElement, rules: IValidationRule[]): Validator {
+  static setValidation(
+    form: HTMLFormElement,
+    rules: IValidationRule[],
+    submitRequest: (data: any) => void,
+    exceptions?: string[]
+  ): Validator {
     if (Validator.instances.has(form)) {
       return Validator.instances.get(form)!;
     }
 
-    const validator = new Validator(form, rules);
+    const validator = new Validator(form, rules, submitRequest, exceptions);
     validator.init();
     Validator.instances.set(form, validator);
     return validator;
@@ -103,7 +119,7 @@ export default class Validator {
     if (!isValid) {
       this.showValidationResult();
     } else {
-      this.logFormValues();
+      this.submitRequest(this.getFormData());
     }
   }
 
@@ -143,15 +159,16 @@ export default class Validator {
     }
   }
 
-  private logFormValues(): void {
+  private getFormData(): string {
     const formValues: { [key: string]: string } = {};
 
     Object.keys(this.formElements).forEach((fieldName) => {
+      if (this.exceptions && this.exceptions.includes(fieldName)) return;
       formValues[fieldName] = this.formElements[fieldName].field.value;
     });
 
     // eslint-disable-next-line no-console
-    console.log(formValues);
+    return JSON.stringify(formValues);
   }
 
   //

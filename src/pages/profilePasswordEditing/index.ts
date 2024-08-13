@@ -20,6 +20,7 @@ class ProfilePasswordEditing extends Block {
     super({
       tagName: 'div',
       props,
+      type: 'page',
     });
   }
 

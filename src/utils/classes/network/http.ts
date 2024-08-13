@@ -46,7 +46,7 @@ export default class HTTP {
   );
 
   request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
-    const { method, data } = options;
+    const { method, data, type = null } = options;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -66,6 +66,9 @@ export default class HTTP {
       if (method === METHOD.GET || !data) {
         xhr.send();
       } else {
+        if (type) {
+          xhr.setRequestHeader('Content-Type', type);
+        }
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(data);
       }

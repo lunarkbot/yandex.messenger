@@ -4,6 +4,7 @@ import ContactListItem, { listItemsClassName } from './components/contactListIte
 import Block from '../../utils/classes/core/block.ts';
 import styles from './messenger.module.css';
 import getRandomObject from '../../utils/helpers/mock.ts';
+import store from '../../utils/classes/store/store.ts';
 
 class Messeger extends Block {
   constructor(props: TProps) {
@@ -11,6 +12,7 @@ class Messeger extends Block {
       tagName: 'div',
       props,
       className: styles.messenger,
+      type: 'page',
     })
   }
 
@@ -30,8 +32,11 @@ export const searchClasses = {
   listItemsClassName,
 };
 
+console.log(store.getState());
+
 const messenger = new Messeger({
   contactListItem: contactListItems,
+  name: 'Messenger',
 });
 
 export default messenger;

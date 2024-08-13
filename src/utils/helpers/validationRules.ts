@@ -1,7 +1,7 @@
 import { IValidationRule } from 'types';
 
 function isPasswordValid(password: string): boolean {
-  const regex = /^(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,40}$/;
+  const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*]{8,40}$/;
   return regex.test(password);
 }
 
@@ -17,7 +17,7 @@ function isPhoneInputValid(phone: string): boolean {
 }
 
 function isEmailInputValid(email: string): boolean {
-  const regex = /^[a-zA-Z0-9-_]*@[a-zA-Z0-9-_]+\.[a-zA-Z]+$/;
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return regex.test(email);
 }
 

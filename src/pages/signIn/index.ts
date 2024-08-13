@@ -1,13 +1,11 @@
-import { IValidationRule, TProps } from 'types';
+import { TProps } from 'types';
 import renderSignIn from './signIn.tmpl.js';
 import Button from '../../components/button';
 import styles from './signIn.module.css';
 import { getInput } from '../../utils/helpers';
-import {
-  getPasswordInputValidationRule,
-  loginValidationRule,
-} from '../../utils/helpers/validationRules.ts';
 import Block from '../../utils/classes/core/block.ts';
+import connect from '../../hoc/connect.ts';
+import authSignInController from '../../controllers/authSignInController.ts';
 
 const button = new Button({
   text: 'Авторизоваться',
@@ -21,18 +19,13 @@ const context:TProps = {
   signInButton: button.getContent().innerHTML,
 };
 
-export const signInValidationRules: IValidationRule[] = [
-  loginValidationRule,
-  getPasswordInputValidationRule('password'),
-];
-
 class SignIn extends Block {
   constructor(props: TProps) {
     super({
       tagName: 'div',
       props,
-      validationRules: signInValidationRules,
-      formId: 'signInForm',
+      controller: authSignInController,
+      type: 'page'
     });
   }
 
@@ -41,6 +34,8 @@ class SignIn extends Block {
   }
 }
 
-const signIn = new SignIn(context);
+const signInWithStore = connect()(SignIn);
+
+const signIn = new signInWithStore(context);
 
 export default signIn;

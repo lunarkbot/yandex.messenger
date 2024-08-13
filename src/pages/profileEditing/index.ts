@@ -22,6 +22,7 @@ class ProfileEditing extends Block {
     super({
       tagName: 'div',
       props,
+      type: 'page',
     });
   }
 

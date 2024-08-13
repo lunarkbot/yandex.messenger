@@ -1,6 +1,5 @@
-import { IValidationRule, TProps } from 'types';
+import { TProps } from 'types';
 import EventBus from '../events/eventBus.ts';
-import Validator from '../validation/validator.ts';
 
 type TEvents = Record<string, (event: Event) => void>
 
@@ -9,8 +8,8 @@ type TMeta<Props> = {
   className?: string;
   props?: Props;
   events?: TEvents;
-  validationRules?: IValidationRule[];
-  formId?: string;
+  controller?: any;
+  type?: string;
 };
 
 export default abstract class Block<Props extends Record<string, any> = Record<string, any>> {
@@ -29,6 +28,8 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
 
   private eventBus: () => EventBus;
 
+  private rootPath= document.querySelector('.content');
+
   constructor(
     options: TMeta<Props>,
   ) {
@@ -38,8 +39,8 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
       className: options?.className,
       props: options?.props || {} as Props,
       events: options?.events || {},
-      validationRules: options?.validationRules,
-      formId: options?.formId,
+      controller: options?.controller,
+      type: options?.type,
     };
 
     this.props = this._makePropsProxy(this._meta.props as Props);
@@ -118,7 +119,7 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
     if (this._element) {
       this._element.innerHTML = block;
 
-      // Проверяем, есть ли в props компоненты
+      // Check if there are components in props
       Object.entries(this.props).forEach(([key, prop]) => {
         if (prop instanceof Block) {
           const placeholder = this._element!.querySelector(`[data-component="${key}"]`);
@@ -127,19 +128,15 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
           }
         }
       });
-    }
 
-    this._initValidator();
+    }
   }
 
-  private _initValidator(): void {
-    const { validationRules, formId } = this._meta;
-    if (validationRules && formId) {
-      const form = this.element!.querySelector(`#${formId}`) as HTMLFormElement;
-
-      if (form) {
-        Validator.setValidation(form, validationRules);
-      }
+  public initController(): void {
+    const { controller } = this._meta;
+    if (controller) {
+      const controllerInstance = new controller();
+      controllerInstance.init();
     }
   }
 
@@ -179,11 +176,23 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
 
   public show(): void {
     const content = this.getContent();
-    if (content) content.classList.remove('hidden');
+    if (!content) return;
+
+    if (this._meta.type === 'page' && this.rootPath) {
+      this.rootPath.appendChild(content);
+      this.initController();
+    } else {
+      content.classList.remove('hidden');
+    }
   }
 
   public hide(): void {
-    const content = this.getContent();
-    if (content) content.classList.add('hidden');
+    if (this._meta.type === 'page' && this.rootPath) {
+      this.rootPath.innerHTML = '';
+    } else {
+      const content = this.getContent();
+      if (content) content.classList.add('hidden');
+    }
   }
+
 }

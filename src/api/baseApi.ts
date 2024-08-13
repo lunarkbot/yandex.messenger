@@ -6,4 +6,9 @@ export class BaseApi {
   update(_data?: any) { throw new Error('Not implemented'); }
 
   delete(_data?: any) { throw new Error('Not implemented'); }
+
+  protected async parseJSON(response: Promise<XMLHttpRequest>): Promise<any> {
+    const xhr = await response;
+    return xhr.response;
+  }
 }

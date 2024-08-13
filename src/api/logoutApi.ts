@@ -1,11 +1,11 @@
 import HTTP from '../utils/classes/network/http';
 import { BaseApi } from './baseApi.ts';
 
-const userAPIInstance = new HTTP(`auth`);
+const logoutAPIInstance = new HTTP(`auth`);
 
-export default class UserAPI extends BaseApi {
+export default class LogoutAPI extends BaseApi {
   async request() {
-    const response = userAPIInstance.get('/user');
+    const response = logoutAPIInstance.post('/logout');
     return this.parseJSON(response);
   }
 }

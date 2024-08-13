@@ -1,15 +1,16 @@
-import navigation from './pages/navigation';
 import signIn from './pages/signIn';
 import signUp from './pages/signUp';
 import profile from './pages/profile';
 import messenger from './pages/messenger';
 import profileEditing from './pages/profileEditing';
 import profilePasswordEditing from './pages/profilePasswordEditing';
-import ErrorPage from './pages/error';
+import errorPage from './pages/errorPage';
+import logoutPage from './pages/logout';
 import PopstateEventManager from './utils/classes/events/popstateEventManager.ts';
 import Router from './utils/classes/routing/router.ts';
 import store from './utils/classes/store/store.ts';
-import UserSignInController from './controllers/authSignInController.ts';
+import UserController from './controllers/userController.ts';
+import fillSignUpForm from './utils/helpers/mockSignUp.ts';
 
 PopstateEventManager.getInstance();
 
@@ -66,38 +67,42 @@ function setupRouterLinkHandler(router: Router, rootQuery: string):void {
     const target = event.target as HTMLElement;
     if (target.hasAttribute('data-router-link')) {
       event.preventDefault();
-      const href:string|null = target.getAttribute('href');
-      if (!href) return;
+      const path:string|null = target.getAttribute('data-router-link');
+      if (!path) return;
 
-      router.go(href);
+      router.go(path);
     }
   });
 }
 
-const serverErrorPage = new ErrorPage({
-        text: 'Уже фиксим',
-        error: '500',
+const notFoundPage = new errorPage({
+        text: 'Не туда попали',
+        heading: '400',
+        linkPath: '/messenger',
+        linkText: 'Вернуться к чатам',
       });
 
-const notFoundPage = new ErrorPage({
-        text: 'Не туда попали',
-        error: '400',
-      });
+const logout = new logoutPage({
+        text: 'Вы вышли из аккаунта',
+        heading: '👋',
+        linkPath: '/',
+        linkText: 'Вернуться на главную',
+});
 
 
 document.addEventListener('DOMContentLoaded', () => {
   const rootQuery = '.content';
   const router = new Router(rootQuery);
   router
-    .use('/', navigation)
-    .use('/signIn', signIn)
-    .use('/signUp', signUp)
-    .use('/profile', profile)
-    .use('/profileEditing', profileEditing)
-    .use('/profilePasswordEditing', profilePasswordEditing)
+    //.use('/', navigation))
+    .use('/404', notFoundPage)
+    .use('/', signIn)
+    .use('/sign-up', signUp)
+    .use('/settings', profile)
+    .use('/settings/edit', profileEditing)
+    .use('/settings/password', profilePasswordEditing)
     .use('/messenger', messenger)
-    .use('/notFound', notFoundPage)
-    .use('/error', serverErrorPage)
+    .use('/logout', logout)
     .start();
 
   setupRouterLinkHandler(router, rootQuery);
@@ -107,12 +112,19 @@ document.addEventListener('DOMContentLoaded', () => {
     name: 'Vasya',
     email: 'eee@eee.pe'
   });
+  //
+  // const userSignInController = new UserSignInController();
+  //
+  // userSignInController.signIn({
+  //     password: 'p@ssw0rd',
+  //     login: 'a.morgan'
+  //   });
 
-  const userSignInController = new UserSignInController();
+  const userController = new UserController();
 
-  userSignInController.signIn({
-      password: 'p@ssw0rd',
-      login: 'a.morgan'
-    });
+  userController.checkUser();
 
+  setTimeout(() => {
+    fillSignUpForm()
+  }, 1000);
 });
