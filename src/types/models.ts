@@ -11,3 +11,17 @@ export type SignUpModel = {
   phone: string;
   password: string;
 }
+
+export type ProfileModel = {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  phone: string;
+  display_name: string;
+}
+
+export type PasswordModel = {
+  oldPassword: string;
+  newPassword: string;
+}

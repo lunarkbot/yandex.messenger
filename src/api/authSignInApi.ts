@@ -9,8 +9,8 @@ export default class AuthSignInAPI extends BaseApi {
     const response = authSignInAPIInstance.post(
       '/signin',
       {
-        data: JSON.stringify(data),
+        data,
       });
-    return this.parseJSON(response);
+    return response;
   }
 }

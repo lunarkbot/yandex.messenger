@@ -66,10 +66,11 @@ export default class HTTP {
       if (method === METHOD.GET || !data) {
         xhr.send();
       } else {
-        if (type) {
+        if (type && type !== 'auto') {
           xhr.setRequestHeader('Content-Type', type);
+        } else if (type !== 'auto') {
+          xhr.setRequestHeader('Content-Type', 'application/json');
         }
-        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(data);
       }
     });

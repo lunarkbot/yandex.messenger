@@ -6,6 +6,9 @@ import {
 } from '../utils/helpers/validationRules.ts';
 import { IValidationRule } from 'types';
 import Validator from '../utils/classes/validation/validator.ts';
+import Router from '../utils/classes/routing/router.ts';
+import { ROOT_QUERY } from '../constants.ts';
+import UserController from './userController.ts';
 
 const formId = 'signInForm';
 const AuthSignInApi = new AuthSignInAPI();
@@ -17,9 +20,14 @@ const signInValidationRules: IValidationRule[] = [
 export default class AuthSignInController {
   private async submitRequest(data: SignInModel) {
     try {
-      const user = await AuthSignInApi.request(data);
+      const result = await AuthSignInApi.request(data);
+      if (result.status === 200) {
+        const router = new Router(ROOT_QUERY);
+        router.go('/messenger');
 
-      console.log(user);
+        const userController = new UserController();
+        userController.getInfo();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -27,9 +35,8 @@ export default class AuthSignInController {
 
   public init() {
     const form = document.getElementById(formId) as HTMLFormElement;
-    console.log(form)
-    if (!form) throw new Error('Form not found');
-
-    Validator.setValidation(form, signInValidationRules, this.submitRequest);
+    if (form) {
+      Validator.setValidation(form, signInValidationRules, this.submitRequest);
+    }
   }
 }

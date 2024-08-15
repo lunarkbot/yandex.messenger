@@ -7,6 +7,10 @@ import {
 } from '../utils/helpers/validationRules.ts';
 import { IValidationRule } from 'types';
 import Validator from '../utils/classes/validation/validator.ts';
+import Router from '../utils/classes/routing/router.ts';
+import store from '../utils/classes/store/store.ts';
+import { ROOT_QUERY } from '../constants.ts';
+import UserController from './userController.ts';
 
 const formId = 'signUpForm';
 const AuthSignUpApi = new AuthSignUpAPI();
@@ -23,9 +27,18 @@ const signUpValidationRules: IValidationRule[] = [
 export default class AuthSignUpController {
   private async submitRequest(data: SignUpModel) {
     try {
-      const user = await AuthSignUpApi.request(data);
+      const result = await AuthSignUpApi.request(data);
 
-      console.log(user);
+      if (result.hasOwnProperty('id')) {
+        store.set('user', {
+          id: result.id,
+        });
+        const router = new Router(ROOT_QUERY);
+        router.go('/messenger');
+
+        const userController = new UserController();
+        userController.getInfo();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -33,8 +46,9 @@ export default class AuthSignUpController {
 
   public init() {
     const form = document.getElementById(formId) as HTMLFormElement;
-    if (!form) throw new Error('Form not found');
-
-    Validator.setValidation(form, signUpValidationRules, this.submitRequest, ['passwordCheck']);
+    console.log('form', form);
+    if (form) {
+      Validator.setValidation(form, signUpValidationRules, this.submitRequest, ['passwordCheck']);
+    }
   }
 }

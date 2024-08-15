@@ -2,7 +2,11 @@ import { IBlock } from 'types';
 
 import ProfileInput from '../../components/profileInput';
 import Input from '../../components/input';
+import connect from '../../hoc/connect.ts';
 
+export function disableSpinner(): void {
+  document.body.classList.remove('loading');
+}
 
 export function getInput(name:string, placeholder:string, type:string = 'text') {
   return new Input({
@@ -13,7 +17,11 @@ export function getInput(name:string, placeholder:string, type:string = 'text') 
 }
 
 export function getProfileInput(name:string, value:string, type:string = 'text') {
-  return new ProfileInput({
+  const profileInputWithStore = connect(state => ({
+    value: state.user[name] || '',
+  }))(ProfileInput);
+
+  return new profileInputWithStore({
     name,
     value,
     type,

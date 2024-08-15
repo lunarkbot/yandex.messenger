@@ -80,6 +80,10 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
 
   private _componentDidMount(): void {
     this.componentDidMount();
+
+    setTimeout(() => {
+      this.initController();
+    }, 1000);
   }
 
   // Может переопределять пользователь, необязательно трогать

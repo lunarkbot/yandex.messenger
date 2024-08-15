@@ -11,6 +11,12 @@
   box-sizing: border-box;
 }
 
+.avatarWrap {
+  margin-bottom: 20px;
+  width: 130px;
+  height: 130px;
+}
+
 .heading {
   color: var(--default-color);
   font-size: 16px;
@@ -64,4 +70,13 @@
   color: var(--danger-color);
   font-size: 13px;
   text-decoration: none;
+}
+
+.link {
+  font-size: 11px;
+  color: var(--active-color);
+  text-decoration: none;
+  width: fit-content;
+  align-self: center;
+  margin-top: 20px;
 }

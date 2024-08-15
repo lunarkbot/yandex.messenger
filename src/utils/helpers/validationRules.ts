@@ -6,7 +6,7 @@ function isPasswordValid(password: string): boolean {
 }
 
 function isTextInputValid(text: string): boolean {
-  const regex = /^[A-ZА-Я][a-zA-Zа-яА-Я-]*$/;
+  const regex = /^[A-ZА-ЯЁ][a-zA-Zа-яА-ЯёЁ-]*$/;
   return regex.test(text);
 }
 

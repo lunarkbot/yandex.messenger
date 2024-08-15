@@ -162,6 +162,8 @@ export default class Validator {
   private getFormData(): string {
     const formValues: { [key: string]: string } = {};
 
+    this.getFormElements();
+
     Object.keys(this.formElements).forEach((fieldName) => {
       if (this.exceptions && this.exceptions.includes(fieldName)) return;
       formValues[fieldName] = this.formElements[fieldName].field.value;

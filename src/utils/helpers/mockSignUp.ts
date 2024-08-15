@@ -2,7 +2,6 @@ export default function fillSignUpForm(): void {
   // Ищем форму с ID signUpForm
   const form = document.getElementById('signUpForm') as HTMLFormElement | null;
   if (!form) {
-    console.error('Форма с ID signUpForm не найдена.');
     return;
   }
 
@@ -43,7 +42,7 @@ export default function fillSignUpForm(): void {
     'first_name': setFirstLetterUpperCase(generateRandomString(Math.floor(Math.random() * 18) + 3)),
     'second_name': setFirstLetterUpperCase(generateRandomString(Math.floor(Math.random() * 18) + 3)),
     'phone': generateRandomPhoneNumber(),
-    'password': 'pAssw0rd',
+    'password': 'pAssw0rd', // PAssw0rd
     'passwordCheck': 'pAssw0rd'
   };
 
