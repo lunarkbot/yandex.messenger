@@ -13,9 +13,7 @@ export default function (context) {
               <span class="${styles.searchPlaceholder}">Поиск</span>
             </label>
           </div>
-          <ul class="${styles.contactList} light-scrollbar">
-            {{contactListItem}}
-          </ul>
+           {{{contactList}}}
         </aside>
         <section class="${styles.main}">
           <div class="${styles.header}">
@@ -27,35 +25,7 @@ export default function (context) {
               <div class="${styles.headerMenuButton}"></div>
             </div>
           </div>
-          <div class="${styles.chat} light-scrollbar">
-            <div class="${styles.chatDate}">Сегодня</div>
-            <div class="${styles.chatMessage}" data-type="incoming">
-              <div class="${styles.chatMessageText}">
-                <p>Привет! Смотри, тут всплыл интересный кусок лунной космической 
-                истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. 
-                Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер 
-                все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.</p>
-                <p>Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и 
-                не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.</p>
-              </div>
-              <div class="${styles.chatMessageTime}">12:00</div>
-            </div>
-            <div class="${styles.chatImage}">
-                <img src="/cam.png" alt="avatar" class="${styles.chatImageItem}">
-                <div class="${styles.chatImageTime}">12:00</div>
-            </div>
-            <div class="${styles.chatMessage}" data-type="outgoing">
-                <div class="${styles.chatMessageText}">
-                    <p>Привет! Смотри, тут всплыл интересный кусок лунной космической 
-                    истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. 
-                    Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер 
-                    все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.</p>
-                    <p>Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и 
-                    не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.</p>
-                </div>
-                <div class="${styles.chatMessageTime}">12:00</div>
-            </div>
-          </div>
+          {{{chat}}}
           <form class="${styles.messageInputWrap}" name="chatMessage" id="chatMessage" novalidate>
             <div class="${styles.attach}">
               <input type="file" id="attach" class="${styles.attachInput}" value="">

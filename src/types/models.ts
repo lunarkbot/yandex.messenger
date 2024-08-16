@@ -25,3 +25,7 @@ export type PasswordModel = {
   oldPassword: string;
   newPassword: string;
 }
+
+export type MessageModel = {
+  message: string;
+}

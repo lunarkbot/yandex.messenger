@@ -5,7 +5,7 @@ type TEvents = Record<string, (event: Event) => void>
 
 type TMeta<Props> = {
   tagName: string;
-  className?: string;
+  className?: string | string[];
   props?: Props;
   events?: TEvents;
   controller?: any;
@@ -94,9 +94,7 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
   }
 
   private _componentDidUpdate(oldProps: TProps, newProps: TProps): void {
-    const response = this.componentDidUpdate(oldProps, newProps);
-    // eslint-disable-next-line
-    console.log(response);
+    this.componentDidUpdate(oldProps, newProps);
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -123,16 +121,25 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
     if (this._element) {
       this._element.innerHTML = block;
 
-      // Check if there are components in props
       Object.entries(this.props).forEach(([key, prop]) => {
         if (prop instanceof Block) {
           const placeholder = this._element!.querySelector(`[data-component="${key}"]`);
           if (placeholder) {
             placeholder.replaceWith(prop.getContent()!);
           }
+        } else if (Array.isArray(prop)) {
+          const fragment = document.createDocumentFragment();
+          prop.forEach((item) => {
+            if (item instanceof Block) {
+              fragment.appendChild(item.getContent()!);
+            }
+          });
+          const placeholder = this._element!.querySelector(`[data-component="${key}"]`);
+          if (placeholder) {
+            placeholder.replaceWith(fragment);
+          }
         }
       });
-
     }
   }
 
@@ -170,10 +177,15 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
     });
   }
 
-  private _createDocumentElement(tagName: string, className: string | undefined): HTMLElement {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+  private _createDocumentElement(tagName: string, className: string | string[] | undefined): HTMLElement {
     const element = document.createElement(tagName);
-    if (className) element.classList.add(className);
+    if (className) {
+      if (Array.isArray(className)) {
+        className.forEach((name) => element.classList.add(name));
+      } else {
+        element.classList.add(className);
+      }
+    }
 
     return element;
   }

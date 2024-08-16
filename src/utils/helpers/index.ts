@@ -48,6 +48,7 @@ export function render(query: string, block: IBlock) {
 function handleSearch(inputValue: string, listClassName: string, listItemsClassName: string) {
   const searchValue = inputValue.toLowerCase();
   const contactListWrapper = document.querySelector(listClassName);
+  console.log(listClassName)
   if (!contactListWrapper) return;
 
   const contactListItems: NodeListOf<HTMLLIElement> = document.querySelectorAll(listItemsClassName);

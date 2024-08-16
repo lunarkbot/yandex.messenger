@@ -20,7 +20,8 @@ function precompileTemplate(template) {
     // eslint-disable-next-line
     .replace(/\{\{\{\s*(\w+)\s*\}\}\}/g, '<div data-component="$1">${context.$1}</div>')
     // eslint-disable-next-line
-    .replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => `\${Array.isArray(context.${key}) ? context.${key}.join('') : context.${key}}`);
+    //.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => `\${Array.isArray(context.${key}) ? context.${key}.join('') : context.${key}}`);
+    .replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => `\${context.${key}}`);
 }
 
 export default function precompileTemplatesPlugin() {

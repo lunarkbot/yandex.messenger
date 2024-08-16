@@ -1,0 +1,7 @@
+.contactList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 617px;
+  overflow: auto;
+}

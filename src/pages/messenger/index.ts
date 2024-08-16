@@ -1,18 +1,26 @@
 import { TProps } from 'types';
 import renderMessenger from './messenger.tmpl.js';
-import ContactListItem, { listItemsClassName } from './components/contactListItem';
+import { listItemsClassName } from './components/contactListItem';
 import Block from '../../utils/classes/core/block.ts';
 import styles from './messenger.module.css';
-import getRandomObject from '../../utils/helpers/mock.ts';
-import store from '../../utils/classes/store/store.ts';
+import MessengerController from '../../controllers/messengerController.ts';
+import contactList, { contactListClassName } from './components/contactList/index.ts';
+import chat from './components/chat/index.ts';
 
-class Messeger extends Block {
+export const searchClasses = {
+  inputClassName: styles.searchInput,
+  listClassName: contactListClassName,
+  listItemsClassName,
+};
+
+class Messenger extends Block {
   constructor(props: TProps) {
     super({
       tagName: 'div',
       props,
       className: styles.messenger,
       type: 'page',
+      controller: MessengerController,
     })
   }
 
@@ -21,22 +29,13 @@ class Messeger extends Block {
   }
 }
 
-const contactListItems = [];
-for (let i = 0; i < 10; i += 1) {
-  contactListItems.push(new ContactListItem(getRandomObject()).getContent().outerHTML);
-}
 
-export const searchClasses = {
-  inputClassName: styles.searchInput,
-  listClassName: styles.contactList,
-  listItemsClassName,
-};
 
-console.log(store.getState());
-
-const messenger = new Messeger({
-  contactListItem: contactListItems,
+const messenger = new Messenger({
+  contactList: contactList,
   name: 'Messenger',
+  chat
 });
+
 
 export default messenger;

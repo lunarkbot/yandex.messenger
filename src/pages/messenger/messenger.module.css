@@ -120,14 +120,6 @@
   display: none;
 }
 
-.contactList {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  max-height: 617px;
-  overflow: auto;
-}
-
 /* main section */
 
 .main {
@@ -181,93 +173,12 @@
   background-position: center;
 }
 
-.chat {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  box-sizing: border-box;
-  overflow: auto;
-  max-height: 610px;
-}
-
 .chatDate {
   display: block;
   text-align: center;
   margin: 30px 0;
   font: 500 12px/12px Inter, sans-serif;
   color: var(--second-color);
-}
-
-.chatMessage {
-  max-width: 380px;
-  position: relative;
-  box-sizing: border-box;
-  padding: 11px 11px 22px;
-  font: 500 12px/15px Inter, sans-serif;
-  color: #1e1e1e;
-  background-color: #f8f8f8;
-  border-radius: 12px 12px 12px 0;
-}
-
-.chatMessage[data-type="outgoing"] {
-  margin-left: auto;
-  background-color: #E4EDFD;
-  border-radius: 12px 12px 0;
-}
-
-.chatMessageText > p:first-child {
-  margin-top: 0;
-}
-
-.chatMessageText > p:last-child {
-  margin-bottom: 0;
-}
-
-.chatMessageTime {
-  position: absolute;
-  bottom: 11px;
-  right: 11px;
-  font: 500 9px/9px Inter, sans-serif;
-  color: var(--second-color);
-  shape-outside: inset(100px 100px 100px 100px);
-  float: right;
-}
-
-.chatMessage[data-type="outgoing"] .chatMessageTime {
-  color: var(--active-color);
-}
-
-.chatMessage[data-type="outgoing"] .chatMessageTime::before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 5px;
-  background-image: url('/public/status.svg');
-  margin-right: 4px;
-}
-
-.chatImage {
-  max-width: 316px;
-  position: relative;
-}
-
-.chatImageItem {
-  display: block;
-  width: 100%;
-  border-radius: 12px;
-}
-
-.chatImageTime {
-  position: absolute;
-  bottom: 11px;
-  right: 11px;
-  font: 500 9px/9px Inter, sans-serif;
-  background-color: rgb(82 82 82 / 50%);
-  padding: 2px 7px;
-  border-radius: 30px;
-  color: #fff;
 }
 
 .messageInputWrap {
