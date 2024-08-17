@@ -3,14 +3,17 @@ import renderChat from './chat.tmpl.js';
 import styles from './chat.module.css';
 import Block from '../../../../utils/classes/core/block.ts';
 import createMessageBlock, { MessageType } from '../message/index.ts';
+import connect from '../../../../hoc/connect.ts';
+import store from '../../../../utils/classes/store/store.ts';
 
+export const chatClassName = styles.chat;
 
 class Chat extends Block {
   constructor(props: TProps) {
     super({
       tagName: 'div',
       props,
-      className: [styles.chat, 'light-scrollbar'],
+      className: [chatClassName, 'light-scrollbar'],
     });
   }
 
@@ -52,7 +55,17 @@ messages.push(createMessageBlock({
   type: MessageType.TEXT,
 }));
 
-const chat = new Chat({
+store.set('chat', {
+  messages: messages
+});
+
+//store.set('messages', messages);
+
+const chatWithStore = connect((state) => ({
+  messages: state.chat.messages,
+}))(Chat);
+
+const chat = new chatWithStore({
   messages
 });
 

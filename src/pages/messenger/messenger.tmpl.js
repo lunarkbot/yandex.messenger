@@ -13,7 +13,8 @@ export default function (context) {
               <span class="${styles.searchPlaceholder}">Поиск</span>
             </label>
           </div>
-           {{{contactList}}}
+           {{{chatList}}}
+           <span class="${styles.addChatButton}" data-modal="newChat" title="Создать чат"></span>
         </aside>
         <section class="${styles.main}">
           <div class="${styles.header}">
@@ -21,8 +22,18 @@ export default function (context) {
                 
             </div>
             <div class="${styles.headerName}">{{name}}</div>
-            <div>
+            <div class="${styles.headerMenu}">
               <div class="${styles.headerMenuButton}"></div>
+              <ul class="${styles.headerMenuList}">
+                <li class="${styles.headerMenuItem}" data-modal="addUser">
+                  <span class="${styles.headerMenuIconAdd}"></span>
+                  <span>Добавить пользователя</span>
+                </li>
+                <li class="${styles.headerMenuItem}" data-modal="deleteUser">
+                  <span class="${styles.headerMenuIconDelete}"></span>
+                  <span>Удалить пользователя</span>
+                </li>
+              </ul>
             </div>
           </div>
           {{{chat}}}
@@ -35,5 +46,8 @@ export default function (context) {
             <button type="submit" class="${styles.messageSubmitButton}"></button>
           </form>
       </section>
+      {{{modal_newChat}}}
+      {{{modal_addUser}}}
+      {{{modal_deleteUser}}}
   `;
 }

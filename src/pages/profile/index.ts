@@ -31,12 +31,12 @@ const context:TProps = {
 };
 
 const profileWithUser = connect(state => ({
-  first_name: state.user.first_name,
-  email: state.user.email,
-  login: state.user.login,
-  second_name: state.user.second_name,
-  display_name: state.user.display_name || state.user.first_name,
-  phone: state.user.phone,
+  first_name: state?.user?.first_name,
+  email: state?.user?.email,
+  login: state?.user?.login,
+  second_name: state?.user?.second_name,
+  display_name: state?.user?.display_name || state?.user?.first_name,
+  phone: state?.user?.phone,
 }))(Profile);
 
 const profile = new profileWithUser(context);
