@@ -17,33 +17,15 @@ export default function (context) {
            <span class="${styles.addChatButton}" data-modal="newChat" title="Создать чат"></span>
         </aside>
         <section class="${styles.main}">
-          <div class="${styles.header}">
-            <div class="${styles.headerAvatar}">
-                
-            </div>
-            <div class="${styles.headerName}">{{name}}</div>
-            <div class="${styles.headerMenu}">
-              <div class="${styles.headerMenuButton}"></div>
-              <ul class="${styles.headerMenuList}">
-                <li class="${styles.headerMenuItem}" data-modal="addUser">
-                  <span class="${styles.headerMenuIconAdd}"></span>
-                  <span>Добавить пользователя</span>
-                </li>
-                <li class="${styles.headerMenuItem}" data-modal="deleteUser">
-                  <span class="${styles.headerMenuIconDelete}"></span>
-                  <span>Удалить пользователя</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          {{{header}}}
           {{{chat}}}
           <form class="${styles.messageInputWrap}" name="chatMessage" id="chatMessage" novalidate>
             <div class="${styles.attach}">
               <input type="file" id="attach" class="${styles.attachInput}" value="">
               <label for="attach" class="${styles.attachButton}"></label>
             </div>
-            <textarea placeholder="Сообщение" name="message" class="${styles.messageInput}" required></textarea>
-            <button type="submit" class="${styles.messageSubmitButton}"></button>
+            <textarea {{formState}} placeholder="Сообщение" name="message" class="${styles.messageInput}" required></textarea>
+            <button {{formState}} type="submit" class="${styles.messageSubmitButton}"></button>
           </form>
       </section>
       {{{modal_newChat}}}

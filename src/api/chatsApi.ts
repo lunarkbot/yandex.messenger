@@ -5,6 +5,24 @@ const chatsAPIInstance = new HTTP(`chats`);
 
 export default class ChatsAPI extends BaseApi {
   async getChats() {
-    return chatsAPIInstance.get('/chats');
+    return chatsAPIInstance.get('/');
+  }
+
+  async createChat(data: string) {
+    return chatsAPIInstance.post('/', {
+        data
+    });
+  }
+
+  async addUser(data: string) {
+    return chatsAPIInstance.put('/users', {
+        data
+    });
+  }
+
+  async deleteUser(data: string) {
+    return chatsAPIInstance.delete('/users', {
+        data
+    });
   }
 }

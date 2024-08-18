@@ -1,0 +1,92 @@
+.header {
+  display: grid;
+  column-gap: 10px;
+  /*grid-template-columns: 34px 1fr 25px;*/
+  grid-template-columns: 1fr 25px;
+  align-items: center;
+  padding: 10px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--second-bg-color);
+}
+
+.headerAvatar {
+  display: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: var(--second-bg-color);
+}
+
+.headerName {
+  font: 600 13px/13px Inter, sans-serif;
+  color: #1e1e1e;
+}
+
+.headerMenu {
+  position: relative;
+}
+
+.headerMenuButton {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background-image: url('/public/dots.svg');
+  background-repeat: no-repeat;
+  background-size: 4px 16px;
+  background-position: center;
+}
+
+.headerMenuList {
+  width: 210px;
+  min-height: 90px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.14);
+  padding: 11px 5px;
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: 35px;
+  background-color: var(--default-bg-color);
+  gap: 1px;
+}
+
+.active + .headerMenuList {
+  display: flex;
+}
+
+.headerMenuItem {
+  display: flex;
+  gap: 15px;
+  padding: 7px 5px;
+  align-items: center;
+  color: var(--default-color);
+  font: 500 12px/14px Inter, sans-serif;
+  height: 22px;
+  cursor: pointer;
+}
+
+.headerMenuItem > span {
+  pointer-events: none;
+}
+
+.headerMenuItem:hover {
+  background-color: var(--active-bg-color);
+}
+
+.headerMenuIconAdd,
+.headerMenuIconDelete {
+  width: 22px;
+  height: 22px;
+  display: block;
+  background-image: url('/public/add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  border: 1px solid var(--active-color);
+}
+
+.headerMenuIconDelete {
+  background-image: url('/public/delete.svg');
+}

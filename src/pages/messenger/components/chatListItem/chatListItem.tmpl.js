@@ -12,12 +12,12 @@ export default function (props) {
       <div class="${styles.chatAvatarWrap}">
       </div>
       <div class="${styles.chatNameWrap}">
-          <div class="${styles.chatName}" data-chat-name="{{name}}">{{name}}</div>
-          <div class="${styles.chatTime}">{{time}}</div>
+          <div class="${styles.chatName}" data-chat-name="{{title}}">{{title}}</div>
+          <div class="${styles.chatTime}"></div>
       </div>
       <div class="${styles.chatTextWrap}">
-        <div class="${styles.chatText}">{{text}}</div>
-        <div class="${styles.chatCounter}">{{counter}}</div>
+        <div class="${styles.chatText}">{{last_message}}</div>
+        <div class="${styles.chatCounter}">{{unread_count}}</div>
       </div>
     </div>
   `;

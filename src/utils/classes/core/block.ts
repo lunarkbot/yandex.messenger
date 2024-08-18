@@ -10,6 +10,7 @@ type TMeta<Props> = {
   events?: TEvents;
   controller?: any;
   type?: string;
+  attributes?: Record<string, string>;
 };
 
 export default abstract class Block<Props extends Record<string, any> = Record<string, any>> {
@@ -41,6 +42,7 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
       events: options?.events || {},
       controller: options?.controller,
       type: options?.type,
+      attributes: options?.attributes || {},
     };
 
     this.props = this._makePropsProxy(this._meta.props as Props);
@@ -59,8 +61,8 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
   }
 
   private _createResources(): void {
-    const { tagName, className } = this._meta;
-    this._element = this._createDocumentElement(tagName, className);
+    const { tagName, className, attributes } = this._meta;
+    this._element = this._createDocumentElement(tagName, className, attributes);
     this._addEvents();
   }
 
@@ -146,7 +148,9 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
   public initController(): void {
     const { controller } = this._meta;
     if (controller) {
-      const controllerInstance = new controller();
+      const controllerInstance = typeof controller === 'function'
+        ? new controller()
+        : controller;
       controllerInstance.init();
     }
   }
@@ -177,7 +181,11 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
     });
   }
 
-  private _createDocumentElement(tagName: string, className: string | string[] | undefined): HTMLElement {
+  private _createDocumentElement(
+    tagName: string,
+    className: string | string[] | undefined,
+    attributes?: Record<string, string>): HTMLElement {
+
     const element = document.createElement(tagName);
     if (className) {
       if (Array.isArray(className)) {
@@ -185,6 +193,12 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
       } else {
         element.classList.add(className);
       }
+    }
+
+    if (attributes) {
+      Object.entries(attributes).forEach(([key, value]) => {
+        element.setAttribute(`data-${key}`, value);
+      });
     }
 
     return element;

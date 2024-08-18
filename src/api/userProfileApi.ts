@@ -35,4 +35,14 @@ export default class UserProfileApi extends BaseApi {
     );
     return response;
   }
+
+  async searchUsers(data: string) {
+    const response = userAPIInstance.post(
+      '/search',
+      {
+        data,
+      }
+    );
+    return this.parseJSON(response);
+  }
 }

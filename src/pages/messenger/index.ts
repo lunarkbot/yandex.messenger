@@ -6,13 +6,19 @@ import styles from './messenger.module.css';
 import MessengerController from '../../controllers/messengerController.ts';
 import chatList, { chatListClassName } from './components/chatList/index.ts';
 import chat from './components/chat/index.ts';
+import header from './components/header/index.ts';
 import Modal from './components/modal/index.ts';
+import connect from '../../hoc/connect.ts';
+import { MessageType } from 'pages/messenger/components/message';
 
 export const searchClasses = {
   inputClassName: styles.searchInput,
   listClassName: chatListClassName,
   listItemsClassName,
 };
+
+const emptyChat = `<div class="${styles.mainEmpty}"></div>`;
+const emptyHeader = `<div style="border-bottom: 1px solid var(--second-bg-color)"></div>`;
 
 class Messenger extends Block {
   constructor(props: TProps) {
@@ -39,14 +45,6 @@ class Messenger extends Block {
           if (modalIds.includes(modalId)) {
             props.modals[modalId].showModal();
           }
-
-          const headerButton = document.querySelector(`.${styles.headerMenuButton}`) as HTMLElement;
-
-          if (target && target === headerButton) {
-            headerButton.classList.toggle(styles.active);
-          } else {
-            headerButton?.classList?.remove(styles.active);
-          }
         }
       }
     })
@@ -57,40 +55,62 @@ class Messenger extends Block {
   }
 }
 
-const modalNewChat = new Modal({
+export const modalNewChat = new Modal({
   id: 'newChat',
   title: 'Новый чат',
   inputName: 'title',
   inputPlaceholder: 'Введите название чата',
   buttonText: 'Создать чат',
+  error: '',
 });
 
-const modalAddUser = new Modal({
+export const modalAddUser = new Modal({
   id: 'addUser',
   title: 'Добавить пользователя',
   inputName: 'login',
   inputPlaceholder: 'Логин',
   buttonText: 'Добавить',
+  error: '',
 });
 
-const modalDeleteUser = new Modal({
+export const modalDeleteUser = new Modal({
   id: 'deleteUser',
   title: 'Удалить пользователя',
   inputName: 'login',
   inputPlaceholder: 'Логин',
   buttonText: 'Удалить',
+  error: '',
 });
 
+const MessengerWithChat = connect((state) => {
+  const activeChat = state?.chat?.active || {};
 
-const messenger = new Messenger({
+  return {
+    name: activeChat?.title || '',
+    id: activeChat?.id || '',
+    header: activeChat?.title
+      ? header
+      : emptyHeader,
+    chat: activeChat?.id
+      ? chat
+      : emptyChat,
+    formState: activeChat?.id
+      ? ''
+      : 'disabled',
+  }
+})(Messenger);
+
+const messenger = new MessengerWithChat({
   chatList: chatList,
   name: 'Messenger',
-  chat,
+  chat: emptyChat,
   modals: {
     newChat: modalNewChat,
     addUser: modalAddUser,
     deleteUser: modalDeleteUser,
   },
+  header: emptyHeader,
+  formState: 'disabled',
 });
 
 

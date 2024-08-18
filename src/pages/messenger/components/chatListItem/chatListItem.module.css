@@ -4,13 +4,27 @@
   border-top: 1px solid var(--second-bg-color);
 }
 
+.chatListItem:hover {
+  background-color: var(--active-bg-color);
+}
+
+.chatListItem > * {
+  pointer-events: none;
+  user-select: none;
+}
+
+.chatListItemActive {
+  background-color: rgba(189, 197, 238, 0.4);
+}
+
 .chatListItem:last-child {
   padding-bottom: 0;
 }
 
 .chatContent {
   display: grid;
-  grid-template-columns: 47px 1fr;
+  /*grid-template-columns: 47px 1fr;*/
+  grid-template-columns: 0 1fr;
   grid-template-rows: auto 1fr;
   align-items: center;
   min-height: 67px;
@@ -24,6 +38,7 @@
 }
 
 .chatAvatarWrap {
+  display: none;
   grid-column: 1/2;
   grid-row: 1/3;
   width: 47px;
@@ -45,6 +60,7 @@
 .chatName {
   color: #1e1e1e;
   font: 600 13px/13px Inter, sans-serif;
+  flex-grow: 1;
 }
 
 .chatTime {
@@ -68,6 +84,7 @@
   text-overflow: ellipsis;
   color: var(--second-color);
   font: 500 12px/12px Inter, sans-serif;
+  flex-grow: 1;
 }
 
 .chatCounter {

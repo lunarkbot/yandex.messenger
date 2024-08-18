@@ -146,7 +146,7 @@ export default class Validator {
     }
 
     // eslint-disable-next-line no-console
-    console.log(this.errors[fieldName]);
+    //console.log(this.errors[fieldName]);
   }
 
   private showValidationResult(fieldName: string | null = null): void {

@@ -10,6 +10,11 @@ function isTextInputValid(text: string): boolean {
   return regex.test(text);
 }
 
+function isChatInputValid(text: string): boolean {
+    const regex = /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё0-9\s]*$/;
+    return regex.test(text);
+}
+
 function isPhoneInputValid(phone: string): boolean {
   const trimmedValue = phone.trim();
   const regex = /^\+?\d{10,15}$/;
@@ -40,6 +45,14 @@ export function getTextInputValidationRule(name: string): IValidationRule {
     field: name,
     method: isTextInputValid,
     message: 'Field must start with a capital letter and contain only letters and hyphens',
+  };
+}
+
+export function getChatInputValidationRule(name: string): IValidationRule {
+  return {
+    field: name,
+    method: isChatInputValid,
+    message: 'Field must start with a letter and contain only letters and numbers',
   };
 }
 
