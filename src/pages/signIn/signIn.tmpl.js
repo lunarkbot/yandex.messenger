@@ -11,7 +11,7 @@ export default function (context) {
         </div>
         
         {{{signInButton}}}
-        <a href="/signUp" class="${styles.link}">Нет аккаунта?</a>
+        <a href="/sign-up" data-router-link="/sign-up" class="${styles.link}">Нет аккаунта?</a>
       </div>
     </form>
   `;

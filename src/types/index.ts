@@ -18,3 +18,16 @@ export interface IBlock {
     dispatchComponentDidMount: () => void;
     setProps: (props: TProps) => void;
 }
+
+export type Indexed<T = any> = {
+  [key in string]: T;
+};
+
+export type PlainObject<T = unknown> = {
+  [k in string]: T;
+};
+
+export type TSocketMessage = {
+  content: string;
+  type: string;
+}

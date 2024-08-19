@@ -1,10 +1,13 @@
 import { TProps } from 'types';
 import inputRender from './input.tmpl.js';
-import Block from '../../utils/block.ts';
+import Block from '../../utils/classes/core/block.ts';
 
 export default class ProfileInput extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+      tagName: 'div',
+      props,
+    });
   }
 
   render(): string {

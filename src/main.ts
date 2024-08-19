@@ -1,112 +1,75 @@
-import navigation, { navigationLinkClassName } from './pages/navigation';
-import signIn, { signInValidationRules } from './pages/signIn';
-import signUp, { signUpValidationRules } from './pages/signUp';
-import styles from './main.module.css';
+import signIn from './pages/signIn';
+import signUp from './pages/signUp';
 import profile from './pages/profile';
-import messenger, { searchClasses } from './pages/messenger';
-import profileEditing, { profileEditingValidationRules } from './pages/profileEditing';
-import profilePasswordEditing, { profilePasswordEditingValidationRules } from './pages/profilePasswordEditing';
-import Validator from './utils/validator.ts';
-import { addSearchContact, render } from './utils/index.ts';
-import ErrorPage from './pages/error';
-import { chatMessageValidationRule } from './utils/validationRules.ts';
-import PopstateEventManager from './utils/popstateEventManager.ts';
+import messenger from './pages/messenger';
+import profileEditing from './pages/profileEditing';
+import profilePasswordEditing from './pages/profilePasswordEditing';
+import errorPage from './pages/errorPage';
+import logoutPage from './pages/logout';
+import PopstateEventManager from './utils/classes/events/popstateEventManager.ts';
+import Router from './utils/classes/routing/router.ts';
+import UserController from './controllers/userController.ts';
+import { ROOT_QUERY } from './constants.ts';
+import store from './utils/classes/store/store.ts';
+import MessengerController from './controllers/messengerController.ts';
 
 PopstateEventManager.getInstance();
 
-function switchPage(href:string):void {
-  window.history.pushState({}, '', href);
-
-  switch (href) {
-    case '/': {
-      render('.content', navigation);
-      break;
-    }
-    case '/signIn': {
-      render('.content', signIn);
-      const form = document.querySelector<HTMLFormElement>('#signInForm')!;
-      Validator.setValidation(form, signInValidationRules);
-      break;
-    }
-    case '/signUp': {
-      render('.content', signUp);
-      const form = document.querySelector<HTMLFormElement>('#signUpForm')!;
-      Validator.setValidation(form, signUpValidationRules);
-      break;
-    }
-    case '/profile': {
-      render('.content', profile);
-      break;
-    }
-    case '/profileEditing': {
-      render('.content', profileEditing);
-      const form = document.querySelector<HTMLFormElement>('#editProfile')!;
-      Validator.setValidation(form, profileEditingValidationRules);
-      break;
-    }
-    case '/profilePasswordEditing': {
-      render('.content', profilePasswordEditing);
-      const form = document.querySelector<HTMLFormElement>('#editProfilePassword')!;
-      Validator.setValidation(form, profilePasswordEditingValidationRules);
-      break;
-    }
-    case '/messenger': {
-      render('.content', messenger);
-      const form = document.querySelector<HTMLFormElement>('#chatMessage')!;
-      Validator.setValidation(form, [chatMessageValidationRule]);
-      addSearchContact(searchClasses.inputClassName, searchClasses.listClassName, searchClasses.listItemsClassName);
-      break;
-    }
-    case '/error': {
-      const serverErrorPage = new ErrorPage({
-        text: 'Уже фиксим',
-        error: '500',
-      });
-
-      render('.content', serverErrorPage);
-      break;
-    }
-    default: {
-      const notFoundPage = new ErrorPage({
-        text: 'Не туда попали',
-        error: '400',
-      });
-
-      render('.content', notFoundPage);
-    }
-  }
-}
-
-function activateNavigation():void {
-  const container = document.querySelector<HTMLDivElement>('.content')!;
+function setupRouterLinkHandler(router: Router, rootQuery: string):void {
+  const container = document.querySelector<HTMLDivElement>(rootQuery)!;
 
   container.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
-    if (target.classList.contains(navigationLinkClassName)) {
+    if (target.hasAttribute('data-router-link')) {
       event.preventDefault();
-      const href:string|null = target.getAttribute('href');
-      if (!href) return;
-      switchPage(href);
+      const path:string|null = target.getAttribute('data-router-link');
+      if (!path) return;
+
+      router.go(path);
     }
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-      <main class="content"></main>
-      <div class="${styles.back}">Back to navigation</div>
-  `;
-
-  switchPage(window.location.pathname);
-
-  const backLink: HTMLDivElement = document.querySelector<HTMLDivElement>(`.${styles.back}`)!;
-  backLink.addEventListener('click', () => {
-    switchPage('/');
-  });
-
-  window.addEventListener('popstate', () => {
-    switchPage(window.location.pathname);
-  });
-
-  activateNavigation();
+const notFoundPage = new errorPage({
+  text: 'Не туда попали',
+  heading: '400',
+  linkPath: '/messenger',
+  linkText: 'Вернуться к чатам',
 });
+
+const logout = new logoutPage({
+  text: 'Вы вышли из аккаунта',
+  heading: '👋',
+  linkPath: '/',
+  linkText: 'Вернуться на главную',
+});
+
+const userController = new UserController();
+userController.checkUser();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const router = new Router(ROOT_QUERY);
+  router
+    .use('/404', notFoundPage)
+    .use('/', signIn)
+    .use('/sign-up', signUp)
+    .use('/settings', profile)
+    .use('/settings/edit', profileEditing)
+    .use('/settings/password', profilePasswordEditing)
+    .use('/messenger', messenger)
+    .use('/logout', logout)
+    .start();
+
+  setupRouterLinkHandler(router, ROOT_QUERY);
+});
+
+const activeChat = sessionStorage.getItem('activeChat');
+if (activeChat) {
+  store.set('chat', {
+    active: JSON.parse(activeChat),
+  });
+
+  if (window.location.pathname === '/messenger') {
+    MessengerController.getMessages();
+  }
+}

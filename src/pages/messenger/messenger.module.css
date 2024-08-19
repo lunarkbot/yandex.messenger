@@ -12,6 +12,7 @@
   padding: 21px 0 0;
   overflow: hidden;
   background-color: #FBFBFB;
+  position: relative;
 }
 
 .profileBar {
@@ -120,12 +121,28 @@
   display: none;
 }
 
-.contactList {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  max-height: 617px;
-  overflow: auto;
+.addChatButton {
+  position: absolute;
+  display: block;
+  right: 10px;
+  bottom: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 70%;
+  border: 2px solid var(--active-color);
+  background-color: var(--default-bg-color);
+  background-image: url('/public/add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
+  cursor: pointer;
+  transition: all 0.3s;
+  filter: grayscale(100%);
+}
+
+.addChatButton:hover {
+  transform: scale(1.2);
+  filter: grayscale(0);
 }
 
 /* main section */
@@ -134,62 +151,26 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
 }
 
-.main:empty {
+.mainEmpty {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 12px;
   color: var(--second-color);
+  height: 610px;
+}
+
+.mainEmpty::before {
+  display: inline;
+  content: 'Выберите чат чтобы отправить сообщение';
 }
 
 .main:empty::before {
   display: inline;
   content: 'Select a chat to start messaging';
-}
-
-.header {
-  display: grid;
-  column-gap: 10px;
-  grid-template-columns: 34px 1fr 25px;
-  align-items: center;
-  padding: 10px 0;
-  box-sizing: border-box;
-  border-bottom: 1px solid var(--second-bg-color);
-}
-
-.headerAvatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background-color: var(--second-bg-color);
-}
-
-.headerName {
-  font: 600 13px/13px Inter, sans-serif;
-  color: #1e1e1e;
-}
-
-.headerMenuButton {
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  background-image: url('/public/dots.svg');
-  background-repeat: no-repeat;
-  background-size: 4px 16px;
-  background-position: center;
-}
-
-.chat {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  box-sizing: border-box;
-  overflow: auto;
-  max-height: 610px;
 }
 
 .chatDate {
@@ -198,76 +179,6 @@
   margin: 30px 0;
   font: 500 12px/12px Inter, sans-serif;
   color: var(--second-color);
-}
-
-.chatMessage {
-  max-width: 380px;
-  position: relative;
-  box-sizing: border-box;
-  padding: 11px 11px 22px;
-  font: 500 12px/15px Inter, sans-serif;
-  color: #1e1e1e;
-  background-color: #f8f8f8;
-  border-radius: 12px 12px 12px 0;
-}
-
-.chatMessage[data-type="outgoing"] {
-  margin-left: auto;
-  background-color: #E4EDFD;
-  border-radius: 12px 12px 0;
-}
-
-.chatMessageText > p:first-child {
-  margin-top: 0;
-}
-
-.chatMessageText > p:last-child {
-  margin-bottom: 0;
-}
-
-.chatMessageTime {
-  position: absolute;
-  bottom: 11px;
-  right: 11px;
-  font: 500 9px/9px Inter, sans-serif;
-  color: var(--second-color);
-  shape-outside: inset(100px 100px 100px 100px);
-  float: right;
-}
-
-.chatMessage[data-type="outgoing"] .chatMessageTime {
-  color: var(--active-color);
-}
-
-.chatMessage[data-type="outgoing"] .chatMessageTime::before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 5px;
-  background-image: url('/public/status.svg');
-  margin-right: 4px;
-}
-
-.chatImage {
-  max-width: 316px;
-  position: relative;
-}
-
-.chatImageItem {
-  display: block;
-  width: 100%;
-  border-radius: 12px;
-}
-
-.chatImageTime {
-  position: absolute;
-  bottom: 11px;
-  right: 11px;
-  font: 500 9px/9px Inter, sans-serif;
-  background-color: rgb(82 82 82 / 50%);
-  padding: 2px 7px;
-  border-radius: 30px;
-  color: #fff;
 }
 
 .messageInputWrap {
@@ -281,6 +192,7 @@
 
 .attach {
   width: 32px;
+  display: none;
 }
 
 .attachInput {
