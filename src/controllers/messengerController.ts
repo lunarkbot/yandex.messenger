@@ -212,12 +212,12 @@ class MessengerController {
 
     const observer = new MutationObserver(this.scrollToEnd.bind(this));
 
-    // @ts-ignore
+    // @ts-expect-error
     observer.observe(this.chat, config);
   }
 
   public scrollToEnd() {
-    // @ts-ignore
+    // @ts-expect-error
     this.chat.scrollTo({ top: this.chat.scrollHeight, behavior: 'instant' });
   }
 
