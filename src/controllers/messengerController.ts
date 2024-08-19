@@ -212,12 +212,14 @@ class MessengerController {
 
     const observer = new MutationObserver(this.scrollToEnd.bind(this));
 
-    // @ts-expect-error
+    // @ts-expect-error: : `observe` может не поддерживать тип `this.chat`
     observer.observe(this.chat, config);
   }
 
   public scrollToEnd() {
     // @ts-expect-error
+    // значение 'instant' для свойства 'behavior' в методе scrollTo
+    // не распознается TypeScript
     this.chat.scrollTo({ top: this.chat.scrollHeight, behavior: 'instant' });
   }
 

@@ -20,7 +20,7 @@ export default function isEqual(lhs: PlainObject, rhs: PlainObject) {
     if (isArrayOrObject(value) && isArrayOrObject(rightValue)) {
       // Здесь value и rightValue может быть только массивом или объектом
       // И TypeScript это обрабатывает
-      // @ts-expect-error
+      // @ts-expect-error: неверно обрабатывает TS
       if (isEqual(value, rightValue)) {
         continue;
       }
