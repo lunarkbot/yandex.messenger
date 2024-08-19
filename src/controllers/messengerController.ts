@@ -217,9 +217,7 @@ class MessengerController {
   }
 
   public scrollToEnd() {
-    // @ts-expect-error
-    // значение 'instant' для свойства 'behavior' в методе scrollTo
-    // не распознается TypeScript
+    // @ts-expect-error: Необходимо для обхода ошибки типов
     this.chat.scrollTo({ top: this.chat.scrollHeight, behavior: 'instant' });
   }
 
