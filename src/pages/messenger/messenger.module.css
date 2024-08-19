@@ -192,6 +192,7 @@
 
 .attach {
   width: 32px;
+  display: none;
 }
 
 .attachInput {

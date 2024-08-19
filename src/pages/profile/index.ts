@@ -7,9 +7,9 @@ import { getProfileAvatar } from '../../utils/helpers/userAvatar.ts';
 class Profile extends Block {
   constructor(props: TProps) {
     super({
-        tagName: 'div',
-        props,
-        type: 'page',
+      tagName: 'div',
+      props,
+      type: 'page',
     });
   }
 
@@ -30,7 +30,7 @@ const context:TProps = {
   phone: '',
 };
 
-const profileWithUser = connect(state => ({
+const profileWithUser = connect((state) => ({
   first_name: state?.user?.first_name,
   email: state?.user?.email,
   login: state?.user?.login,

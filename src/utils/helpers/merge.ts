@@ -1,7 +1,7 @@
 import { Indexed } from 'types';
 
 export default function merge(lhs: Indexed, rhs: Indexed): Indexed {
-  for (let p in rhs) {
+  for (const p in rhs) {
     if (!rhs.hasOwnProperty(p)) {
       continue;
     }
@@ -12,7 +12,7 @@ export default function merge(lhs: Indexed, rhs: Indexed): Indexed {
       } else {
         lhs[p] = rhs[p];
       }
-    } catch(e) {
+    } catch (e) {
       lhs[p] = rhs[p];
     }
   }

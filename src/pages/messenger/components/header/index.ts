@@ -21,8 +21,8 @@ class Header extends Block {
           } else {
             headerButton?.classList?.remove(styles.active);
           }
-        }
-      }
+        },
+      },
     });
   }
 
@@ -32,7 +32,7 @@ class Header extends Block {
 }
 
 const headerWithStore = connect((state) => ({
-    title: state?.chat?.active?.title || '',
+  title: state?.chat?.active?.title || '',
 }))(Header);
 
 const header = new headerWithStore({

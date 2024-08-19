@@ -3,13 +3,12 @@ import renderMessenger from './messenger.tmpl.js';
 import { listItemsClassName } from './components/chatListItem';
 import Block from '../../utils/classes/core/block.ts';
 import styles from './messenger.module.css';
-import MessengerController from '../../controllers/messengerController.ts';
+import MessengerController, { ValidationType } from '../../controllers/messengerController.ts';
 import chatList, { chatListClassName } from './components/chatList/index.ts';
 import chat from './components/chat/index.ts';
 import header from './components/header/index.ts';
 import Modal from './components/modal/index.ts';
 import connect from '../../hoc/connect.ts';
-import { MessageType } from 'pages/messenger/components/message';
 
 export const searchClasses = {
   inputClassName: styles.searchInput,
@@ -18,11 +17,11 @@ export const searchClasses = {
 };
 
 const emptyChat = `<div class="${styles.mainEmpty}"></div>`;
-const emptyHeader = `<div style="border-bottom: 1px solid var(--second-bg-color)"></div>`;
+const emptyHeader = '<div style="border-bottom: 1px solid var(--second-bg-color)"></div>';
 
 class Messenger extends Block {
   constructor(props: TProps) {
-    const modals: Record<string, any> = {}
+    const modals: Record<string, any> = {};
     Object.keys(props.modals).forEach((key) => {
       modals[`modal_${key}`] = props.modals[key];
     });
@@ -45,9 +44,11 @@ class Messenger extends Block {
           if (modalIds.includes(modalId)) {
             props.modals[modalId].showModal();
           }
-        }
-      }
-    })
+
+          MessengerController.setValidation(ValidationType.CHAT_MESSAGE);
+        },
+      },
+    });
   }
 
   render(): string {
@@ -97,11 +98,11 @@ const MessengerWithChat = connect((state) => {
     formState: activeChat?.id
       ? ''
       : 'disabled',
-  }
+  };
 })(Messenger);
 
 const messenger = new MessengerWithChat({
-  chatList: chatList,
+  chatList,
   name: 'Messenger',
   chat: emptyChat,
   modals: {
@@ -112,6 +113,5 @@ const messenger = new MessengerWithChat({
   header: emptyHeader,
   formState: 'disabled',
 });
-
 
 export default messenger;

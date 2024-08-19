@@ -19,6 +19,8 @@
     "@typescript-eslint/no-unused-vars": "off",
     "max-len": ["error", 120],
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/ban-types": "off",
     "import/extensions": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
@@ -28,7 +30,17 @@
     "no-shadow": "off",
     "func-names": "off",
     "consistent-return": "off",
-    "no-restricted-globals": "off"
+    "no-restricted-globals": "off",
+    "import/prefer-default-export": "off",
+    "no-console": "off",
+    "no-prototype-builtins": "off",
+    "new-cap": "off",
+    "no-mixed-operators": "off",
+    "no-use-before-define": "off",
+    "no-constructor-return": "off",
+    "no-continue": "off",
+    "no-restricted-syntax": "off",
+    "no-plusplus": "off"
   },
   "settings": {
     "import/resolver": {

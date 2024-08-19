@@ -6,7 +6,7 @@ import ChatListItem from '../chatListItem/index.ts';
 import connect from '../../../../hoc/connect.ts';
 import MessengerController,
 { ValidationType } from '../../../../controllers/messengerController.ts';
-import store from '../../../../utils/classes/store/store.ts'
+import store from '../../../../utils/classes/store/store.ts';
 
 export const chatListClassName = styles.chatList;
 
@@ -21,21 +21,27 @@ class ChatList extends Block {
           const target = event.target as HTMLElement;
 
           if (target?.hasAttribute('data-id')) {
-            store.set('chat',{
-              active: {
-                id: Number(target.getAttribute('data-id')),
-                title: target.getAttribute('data-title'),
-              },
+            const active = {
+              id: Number(target.getAttribute('data-id')),
+              title: target.getAttribute('data-title'),
+            };
+
+            store.set('chat', {
+              active,
             });
+
+            store.set('messages', []);
+
+            sessionStorage.setItem('activeChat', JSON.stringify(active));
+
+            MessengerController.getMessages();
 
             setTimeout(() => {
               MessengerController.setValidation(ValidationType.CHAT_MESSAGE);
             }, 500);
           }
-
-
-        }
-      }
+        },
+      },
     });
   }
 
@@ -45,22 +51,19 @@ class ChatList extends Block {
 }
 
 const chatListWithStore = connect((state) => {
-  const chatList = state?.chats?.items.map((item: any) => {
-    return new ChatListItem({
-      ...item,
-      unread_count: item.unread_count || '',
-      last_message: item.last_message || '...Напишите свое первое сообщение',
-    })
-  }) || [];
+  const chatList = state?.chats?.items.map((item: any) => new ChatListItem({
+    ...item,
+    unread_count: item?.unread_count || '',
+    last_message: item?.last_message?.content || '...Напишите свое первое сообщение',
+  })) || [];
 
   return {
-    chatList
-  }
+    chatList,
+  };
 })(ChatList);
 
 const chatList = new chatListWithStore({
   chatList: [],
 });
 
-
-export default chatList
+export default chatList;

@@ -29,8 +29,8 @@ export default class Validator {
     form: HTMLFormElement,
     rules: IValidationRule[],
     sumitRequest: (data: any) => void,
-    exceptions?: string[]) {
-
+    exceptions?: string[],
+  ) {
     this.form = form;
     this.rules = rules;
     this.submitRequest = sumitRequest;
@@ -41,7 +41,7 @@ export default class Validator {
     form: HTMLFormElement,
     rules: IValidationRule[],
     submitRequest: (data: any) => void,
-    exceptions?: string[]
+    exceptions?: string[],
   ): Validator {
     if (Validator.instances.has(form)) {
       return Validator.instances.get(form)!;
@@ -90,7 +90,7 @@ export default class Validator {
       this.eventHandlers[`blur-${fieldName}`] = handler;
     });
 
-    //addEventListener('popstate', this.removeAllEventListeners.bind(this), { once: true });
+    // addEventListener('popstate', this.removeAllEventListeners.bind(this), { once: true });
   }
 
   private handleBlur = (fieldName: string) => (event: Event) => {
@@ -146,7 +146,7 @@ export default class Validator {
     }
 
     // eslint-disable-next-line no-console
-    //console.log(this.errors[fieldName]);
+    // console.log(this.errors[fieldName]);
   }
 
   private showValidationResult(fieldName: string | null = null): void {

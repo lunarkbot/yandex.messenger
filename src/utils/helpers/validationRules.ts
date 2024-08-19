@@ -11,8 +11,8 @@ function isTextInputValid(text: string): boolean {
 }
 
 function isChatInputValid(text: string): boolean {
-    const regex = /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё0-9\s]*$/;
-    return regex.test(text);
+  const regex = /^[A-Za-zА-Яа-яЁё][A-Za-zА-Яа-яЁё0-9\s]*$/;
+  return regex.test(text);
 }
 
 function isPhoneInputValid(phone: string): boolean {

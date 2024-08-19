@@ -2,9 +2,13 @@ import Route from './route.ts';
 
 export default class Router {
   private static __instance: Router;
+
   private routes: Route[] = [];
+
   private history: History = window.history;
+
   private _currentRoute: Route | null = null;
+
   private _rootQuery: string = '';
 
   constructor(rootQuery: string) {
@@ -18,7 +22,7 @@ export default class Router {
   }
 
   use(pathname: string, block: any): Router {
-    const route = new Route(pathname, block, {rootQuery: this._rootQuery});
+    const route = new Route(pathname, block, { rootQuery: this._rootQuery });
     this.routes.push(route);
 
     return this;
@@ -45,7 +49,7 @@ export default class Router {
     }
 
     this._currentRoute = route!;
-    //route.render(route, pathname);
+    // route.render(route, pathname);
     route!.render();
   }
 
@@ -63,6 +67,6 @@ export default class Router {
   }
 
   getRoute(pathname: string): Route | undefined {
-    return this.routes.find(route => route.match(pathname));
+    return this.routes.find((route) => route.match(pathname));
   }
 }

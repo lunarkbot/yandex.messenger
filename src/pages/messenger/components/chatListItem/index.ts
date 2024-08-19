@@ -9,8 +9,6 @@ export const listItemsClassName = styles.chatListItem;
 const listItemsActiveClassName = styles.chatListItemActive;
 
 export default class contactListItem extends Block {
-
-
   constructor(props: TProps) {
     super({
       tagName: 'li',
@@ -21,7 +19,7 @@ export default class contactListItem extends Block {
       attributes: {
         id: props.id,
         title: escapeHtml(props.title),
-      }
+      },
     });
   }
 

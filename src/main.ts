@@ -9,8 +9,9 @@ import logoutPage from './pages/logout';
 import PopstateEventManager from './utils/classes/events/popstateEventManager.ts';
 import Router from './utils/classes/routing/router.ts';
 import UserController from './controllers/userController.ts';
-import fillSignUpForm from './utils/helpers/mockSignUp.ts';
 import { ROOT_QUERY } from './constants.ts';
+import store from './utils/classes/store/store.ts';
+import MessengerController from './controllers/messengerController.ts';
 
 PopstateEventManager.getInstance();
 
@@ -30,26 +31,21 @@ function setupRouterLinkHandler(router: Router, rootQuery: string):void {
 }
 
 const notFoundPage = new errorPage({
-        text: 'Не туда попали',
-        heading: '400',
-        linkPath: '/messenger',
-        linkText: 'Вернуться к чатам',
-      });
-
-const logout = new logoutPage({
-        text: 'Вы вышли из аккаунта',
-        heading: '👋',
-        linkPath: '/',
-        linkText: 'Вернуться на главную',
+  text: 'Не туда попали',
+  heading: '400',
+  linkPath: '/messenger',
+  linkText: 'Вернуться к чатам',
 });
 
+const logout = new logoutPage({
+  text: 'Вы вышли из аккаунта',
+  heading: '👋',
+  linkPath: '/',
+  linkText: 'Вернуться на главную',
+});
 
 const userController = new UserController();
 userController.checkUser();
-
-setTimeout(() => {
-  fillSignUpForm()
-}, 1000);
 
 document.addEventListener('DOMContentLoaded', () => {
   const router = new Router(ROOT_QUERY);
@@ -66,3 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setupRouterLinkHandler(router, ROOT_QUERY);
 });
+
+const activeChat = sessionStorage.getItem('activeChat');
+if (activeChat) {
+  store.set('chat', {
+    active: JSON.parse(activeChat),
+  });
+
+  if (window.location.pathname === '/messenger') {
+    MessengerController.getMessages();
+  }
+}

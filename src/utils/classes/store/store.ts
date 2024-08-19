@@ -1,12 +1,12 @@
+import { Indexed } from 'types';
 import EventBus from '../events/eventBus.ts';
 import set from '../../helpers/set.ts';
-import { Indexed } from 'types';
 
 export enum StoreEvents {
   Updated = 'updated',
 }
 
-class Store extends EventBus{
+class Store extends EventBus {
   private state: Indexed = {};
 
   public getState(): Indexed {
@@ -16,7 +16,7 @@ class Store extends EventBus{
   public set(path: string, value: unknown): void {
     set(this.state, path, value);
     this.emit(StoreEvents.Updated);
-  };
+  }
 }
 
 export default new Store();

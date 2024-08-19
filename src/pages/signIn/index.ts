@@ -25,7 +25,7 @@ class SignIn extends Block {
       tagName: 'div',
       props,
       controller: authSignInController,
-      type: 'page'
+      type: 'page',
     });
   }
 

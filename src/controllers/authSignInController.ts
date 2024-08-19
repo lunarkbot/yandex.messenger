@@ -1,10 +1,10 @@
 import { SignInModel } from 'types/models.ts';
+import { IValidationRule } from 'types';
 import AuthSignInAPI from '../api/authSignInApi.ts';
 import {
   getPasswordInputValidationRule,
   loginValidationRule,
 } from '../utils/helpers/validationRules.ts';
-import { IValidationRule } from 'types';
 import Validator from '../utils/classes/validation/validator.ts';
 import Router from '../utils/classes/routing/router.ts';
 import { ROOT_QUERY } from '../constants.ts';

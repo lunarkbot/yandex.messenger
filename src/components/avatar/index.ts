@@ -10,8 +10,8 @@ export default class Avatar extends Block {
       className: styles.avatar,
       props,
       events: {
-        change: handler
-      }
+        change: handler,
+      },
     });
   }
 

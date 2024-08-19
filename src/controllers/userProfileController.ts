@@ -58,7 +58,7 @@ export default class UserProfileController {
         profilePasswordForm,
         profilePasswordEditingValidationRules,
         this.changePassword,
-        ['passwordCheck']
+        ['passwordCheck'],
       );
     }
   }
@@ -77,13 +77,12 @@ export default class UserProfileController {
       });
 
       const router = new Router(ROOT_QUERY);
-        router.go('/settings');
+      router.go('/settings');
 
       return result;
     } catch (error) {
       console.error(error);
       throw new Error('Error saving profile');
-
     }
   }
 

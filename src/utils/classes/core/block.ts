@@ -29,7 +29,7 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
 
   private eventBus: () => EventBus;
 
-  private rootPath= document.querySelector('.content');
+  private rootPath = document.querySelector('.content');
 
   constructor(
     options: TMeta<Props>,
@@ -184,8 +184,8 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
   private _createDocumentElement(
     tagName: string,
     className: string | string[] | undefined,
-    attributes?: Record<string, string>): HTMLElement {
-
+    attributes?: Record<string, string>,
+  ): HTMLElement {
     const element = document.createElement(tagName);
     if (className) {
       if (Array.isArray(className)) {
@@ -224,5 +224,4 @@ export default abstract class Block<Props extends Record<string, any> = Record<s
       if (content) content.classList.add('hidden');
     }
   }
-
 }

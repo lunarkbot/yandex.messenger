@@ -14,7 +14,7 @@
 }
 
 .chatListItemActive {
-  background-color: rgba(189, 197, 238, 0.4);
+  background-color: rgb(189 197 238 / 40%);
 }
 
 .chatListItem:last-child {
@@ -23,7 +23,8 @@
 
 .chatContent {
   display: grid;
-  /*grid-template-columns: 47px 1fr;*/
+
+  /* grid-template-columns: 47px 1fr; */
   grid-template-columns: 0 1fr;
   grid-template-rows: auto 1fr;
   align-items: center;

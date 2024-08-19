@@ -1,8 +1,8 @@
+import { PasswordModel, ProfileModel } from 'types/models.ts';
 import HTTP from '../utils/classes/network/http';
 import { BaseApi } from './baseApi.ts';
-import { PasswordModel, ProfileModel } from 'types/models.ts';
 
-const userAPIInstance = new HTTP(`user`);
+const userAPIInstance = new HTTP('user');
 
 export default class UserProfileApi extends BaseApi {
   async putAvatar(data: FormData) {
@@ -11,7 +11,7 @@ export default class UserProfileApi extends BaseApi {
       {
         data,
         type: 'auto',
-      }
+      },
     );
     return this.parseJSON(response);
   }
@@ -21,7 +21,7 @@ export default class UserProfileApi extends BaseApi {
       '/profile',
       {
         data,
-      }
+      },
     );
     return this.parseJSON(response);
   }
@@ -31,7 +31,7 @@ export default class UserProfileApi extends BaseApi {
       '/password',
       {
         data,
-      }
+      },
     );
     return response;
   }
@@ -41,7 +41,7 @@ export default class UserProfileApi extends BaseApi {
       '/search',
       {
         data,
-      }
+      },
     );
     return this.parseJSON(response);
   }

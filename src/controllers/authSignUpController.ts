@@ -1,11 +1,11 @@
 import { SignUpModel } from 'types/models.ts';
+import { IValidationRule } from 'types';
 import AuthSignUpAPI from '../api/authSignUpApi.ts';
 import {
   emailValidationRule,
   getPasswordInputValidationRule, getTextInputValidationRule,
   loginValidationRule, passwordCheckValidationRule, phoneValidationRule,
 } from '../utils/helpers/validationRules.ts';
-import { IValidationRule } from 'types';
 import Validator from '../utils/classes/validation/validator.ts';
 import Router from '../utils/classes/routing/router.ts';
 import store from '../utils/classes/store/store.ts';
@@ -46,7 +46,7 @@ export default class AuthSignUpController {
 
   public init() {
     const form = document.getElementById(formId) as HTMLFormElement;
-    console.log('form', form);
+
     if (form) {
       Validator.setValidation(form, signUpValidationRules, this.submitRequest, ['passwordCheck']);
     }

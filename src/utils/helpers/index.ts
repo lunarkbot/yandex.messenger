@@ -5,7 +5,7 @@ import Input from '../../components/input';
 import connect from '../../hoc/connect.ts';
 
 export function foundKey(obj: Record<string, any>, targetValue: any): string | null {
-  const result = Object.keys(obj).find(key => obj[key] === targetValue);
+  const result = Object.keys(obj).find((key) => obj[key] === targetValue);
   return result || null;
 }
 
@@ -22,9 +22,13 @@ export function getInput(name:string, placeholder:string, type:string = 'text') 
 }
 
 export function getProfileInput(name:string, value:string, type:string = 'text') {
-  const profileInputWithStore = connect(state => ({
-    value: state.user[name] || '',
-  }))(ProfileInput);
+  const profileInputWithStore = connect((state) => {
+    const value = state?.user ? state?.user[name] : '';
+
+    return {
+      value,
+    };
+  })(ProfileInput);
 
   return new profileInputWithStore({
     name,
@@ -42,7 +46,7 @@ export function render(query: string, block: IBlock) {
   const root = document.querySelector(query);
 
   if (!root) return;
-  //clearNode(root);
+  // clearNode(root);
 
   root.appendChild(block?.getContent());
   block.dispatchComponentDidMount();
@@ -70,11 +74,18 @@ function handleSearch(inputValue: string, listClassName: string, listItemsClassN
 }
 
 export function addSearchChat(inputClassName: string, listClassName: string, listItemsClassName: string) {
-  console.log(listItemsClassName)
   const searchInput = document.querySelector(`.${inputClassName}`) as HTMLInputElement;
   if (searchInput) {
     searchInput.addEventListener('input', function (this: HTMLInputElement) {
       handleSearch(this.value, `.${listClassName}`, `.${listItemsClassName}`);
     });
   }
+}
+
+export function getTime(dateStr: string): string {
+  const date = new Date(dateStr);
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 }

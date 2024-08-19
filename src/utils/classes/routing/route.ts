@@ -7,8 +7,11 @@ type TRouteProps = {
 
 export default class Route {
   private _pathname: string;
+
   private _blockClass: any;
+
   private _block: any | null;
+
   private _props: TRouteProps;
 
   constructor(pathname: string, view: any, props: TRouteProps) {
@@ -48,7 +51,7 @@ export default class Route {
         this._block = new this._blockClass();
         render(this._props.rootQuery, this._block);
       }
-      return
+      return;
     }
 
     this._block.show();

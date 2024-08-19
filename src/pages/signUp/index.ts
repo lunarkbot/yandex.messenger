@@ -30,7 +30,7 @@ class SignUp extends Block {
       tagName: 'div',
       props,
       controller: authSignUpController,
-      type: 'page'
+      type: 'page',
     });
   }
 

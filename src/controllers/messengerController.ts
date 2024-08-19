@@ -1,16 +1,18 @@
-import { MessageModel } from 'types/models.ts';
-import { IValidationRule } from 'types';
+import { IValidationRule, TSocketMessage } from 'types';
 import Validator from '../utils/classes/validation/validator.ts';
-import { chatMessageValidationRule, getTextInputValidationRule } from '../utils/helpers/validationRules.ts';
+import { chatMessageValidationRule, getChatInputValidationRule } from '../utils/helpers/validationRules.ts';
 import { addSearchChat } from '../utils/helpers/index.ts';
-import { modalDeleteUser, searchClasses } from '../pages/messenger/index.ts';
+import {
+  modalDeleteUser, searchClasses,
+  modalNewChat,
+  modalAddUser,
+} from '../pages/messenger/index.ts';
 import { chatClassName } from '../pages/messenger/components/chat/index.ts';
 import ChatsAPI from '../api/chatsApi.ts';
 import UserProfileApi from '../api/userProfileApi.ts';
 import store from '../utils/classes/store/store.ts';
-import { getChatInputValidationRule } from '../utils/helpers/validationRules.ts';
-import { modalNewChat,
-modalAddUser } from '../pages/messenger/index.ts';
+import Socket from '../api/socket.ts';
+import updateLastMessageContent from '../utils/helpers/updateLastMessage.ts';
 
 const messengerValidationRules: IValidationRule[] = [
   chatMessageValidationRule,
@@ -35,8 +37,11 @@ type TSearchUser = Record<string, string | null>;
 class MessengerController {
   private chat: null | HTMLDivElement;
 
+  private attemptCounter: number;
+
   constructor() {
     this.chat = null;
+    this.attemptCounter = 10;
   }
 
   public init() {
@@ -71,7 +76,7 @@ class MessengerController {
       const requestData = {
         users: [userData.userId],
         chatId,
-      }
+      };
 
       await chatsAPI.addUser(JSON.stringify(requestData));
     } else {
@@ -94,7 +99,7 @@ class MessengerController {
       const requestData = {
         users: [userData.userId],
         chatId,
-      }
+      };
 
       await chatsAPI.deleteUser(JSON.stringify(requestData));
     } else {
@@ -119,7 +124,7 @@ class MessengerController {
       if (user[0]?.login === login) {
         result.userId = user[0]?.id;
       } else {
-          result.error = 'Найдено несколько пользователей с таким логином. Уточните запрос';
+        result.error = 'Найдено несколько пользователей с таким логином. Уточните запрос';
       }
     } else {
       result.userId = user[0]?.id;
@@ -132,18 +137,61 @@ class MessengerController {
     return userProfileApi.searchUsers(data);
   }
 
+  public async getMessages(userId?:string | null, chatId?:string | null) {
+    if (!chatId || !userId) {
+      this.getDataForToken();
+      return;
+    }
+
+    let token = null;
+    const data = await this.getToken(chatId);
+    if (data?.token) {
+      token = data.token;
+    } else {
+      throw new Error('Token not found');
+    }
+
+    Socket.connect({
+      chatId, userId, token,
+    });
+  }
+
+  private getToken(chatId: string) {
+    return chatsAPI.getToken(chatId);
+  }
+
+  private getDataForToken() {
+    const { chat, user } = store.getState();
+
+    if (!chat || !user) {
+      setTimeout(() => {
+        this.getDataForToken();
+      }, 200);
+      this.attemptCounter -= 1;
+      return;
+    }
+
+    this.attemptCounter = 10;
+
+    if (!chat || !user) {
+      throw new Error('User or chat id not found');
+    } else if (user?.id && chat?.active?.id) {
+      this.getMessages(user.id, chat.active?.id);
+    }
+  }
+
   private async createChat(data: string) {
     modalNewChat.hideModal();
 
     const json = JSON.parse(data);
     const newChatData = {
-        title: json.title,
-    }
+      title: json.title,
+    };
     const chats = store.getState()?.chats?.items || [];
 
     store.set('chats', {
-        items: [newChatData, ...chats],
-        });
+      items: [newChatData, ...chats],
+    });
 
     await chatsAPI.createChat(data);
     await this.getChats();
@@ -151,7 +199,7 @@ class MessengerController {
 
   private async getChats() {
     const result = await chatsAPI.getChats();
-    console.log(result.response)
+
     if (result.status === 200) {
       store.set('chats', {
         items: result.response,
@@ -170,11 +218,24 @@ class MessengerController {
 
   public scrollToEnd() {
     // @ts-ignore
-    this.chat.scrollTo({ top: this.chat.scrollHeight, behavior: 'smooth' });
+    this.chat.scrollTo({ top: this.chat.scrollHeight, behavior: 'instant' });
   }
 
-  private async sendMessage(message: MessageModel) {
-    console.log(message);
+  private async sendMessage(content: string) {
+    const textArea = document.querySelector(`#${formId} [name="message"]`) as HTMLTextAreaElement;
+    const contentJson = JSON.parse(content);
+
+    updateLastMessageContent(contentJson.message);
+
+    const data: TSocketMessage = {
+      content: contentJson.message,
+      type: 'message',
+    };
+    Socket.send(data);
+
+    if (textArea) {
+      textArea.value = '';
+    }
   }
 
   public setValidation(type: ValidationType) {
@@ -184,7 +245,7 @@ class MessengerController {
         Validator.setValidation(
           newChatForm,
           [getChatInputValidationRule('title')],
-          this.createChat.bind(this)
+          this.createChat.bind(this),
         );
       }
     } else if (type === ValidationType.ADD_USER) {
@@ -193,7 +254,7 @@ class MessengerController {
         Validator.setValidation(
           addUserForm,
           [getChatInputValidationRule('login')],
-          this.addUser.bind(this)
+          this.addUser.bind(this),
         );
       }
     } else if (type === ValidationType.CHAT_MESSAGE) {
@@ -207,7 +268,7 @@ class MessengerController {
         Validator.setValidation(
           deleteUserForm,
           [getChatInputValidationRule('login')],
-          this.deleteUser.bind(this)
+          this.deleteUser.bind(this),
         );
       }
     }

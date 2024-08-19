@@ -17,7 +17,7 @@ type TOptions = {
 
 class TextMessage extends Block {
   constructor(props: TProps) {
-    let className = [styles.chatMessage];
+    const className = [styles.chatMessage];
 
     if (props.isOutgoing) {
       className.push(styles.chatMessageOutgoing);
@@ -26,7 +26,7 @@ class TextMessage extends Block {
     super({
       tagName: 'div',
       props,
-      className: className,
+      className,
     });
   }
 
@@ -40,9 +40,8 @@ export default function createMessageBlock(options: TOptions): Block {
     return new TextMessage({
       text: options.text,
       time: options.time,
-      isOutgoing: options.isOutgoing
+      isOutgoing: options.isOutgoing,
     });
-  } else {
-    throw new Error('Некорректный тип блока сообщения');
   }
+  throw new Error('Некорректный тип блока сообщения');
 }

@@ -42,5 +42,4 @@ const context:TProps = {
 
 const profileEditing = new ProfileEditing(context);
 
-
 export default profileEditing;

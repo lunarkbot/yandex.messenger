@@ -6,7 +6,7 @@ export default class Input extends Block {
   constructor(props: TProps) {
     super({
       tagName: 'div',
-        props,
+      props,
     });
   }
 

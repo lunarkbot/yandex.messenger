@@ -5,6 +5,7 @@ import Block from '../../../../utils/classes/core/block.ts';
 import createMessageBlock, { MessageType } from '../message/index.ts';
 import connect from '../../../../hoc/connect.ts';
 import store from '../../../../utils/classes/store/store.ts';
+import { getTime } from '../../../../utils/helpers';
 
 export const chatClassName = styles.chat;
 
@@ -24,49 +25,30 @@ class Chat extends Block {
 
 const messages: Block[] = [];
 
-messages.push(createMessageBlock({
-  text: 'Привет! Смотри, тут всплыл интересный кусок лунной космической \n' +
-    '                истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. \n' +
-    '                Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер \n' +
-    '                все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.\n' +
-    '                Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и \n' +
-    '                не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.',
-  time: '15:00',
-  isOutgoing: false,
-  type: MessageType.TEXT,
-}));
-
-messages.push(createMessageBlock({
-  text: 'Привет! Смотри, тут всплыл интересный кусок лунной космической \n' +
-    '                истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. \n' +
-    '                Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер \n' +
-    '                все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой.\n' +
-    '                Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и \n' +
-    '                не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.',
-  time: '15:00',
-  isOutgoing: true,
-  type: MessageType.TEXT,
-}));
-
-messages.push(createMessageBlock({
-  text: 'Hello, world!',
-  time: '15:00',
-  isOutgoing: false,
-  type: MessageType.TEXT,
-}));
-
 store.set('chat', {
-  messages: messages
+  messages,
 });
 
-//store.set('messages', messages);
+const chatWithStore = connect((state) => {
+  const userId = state?.user?.id || 0;
+  const messages = state?.messages || [];
 
-const chatWithStore = connect((state) => ({
-  messages: state.chat.messages,
-}))(Chat);
+  return {
+    messages: messages.map((message: Record<string, any>) => {
+      const isOutgoing = message.user_id === userId;
+
+      return createMessageBlock({
+        text: message.content,
+        time: getTime(message.time),
+        isOutgoing,
+        type: MessageType.TEXT,
+      });
+    }),
+  };
+})(Chat);
 
 const chat = new chatWithStore({
-  messages
+  messages,
 });
 
 export default chat;
