@@ -25,9 +25,6 @@ function changeAvatarHandler(event: Event) {
 
 export function getChatAvatar(): Avatar {
   const AvatarWithStore = connect((state) => {
-    console.log(state);
-    console.log('state?.chat?.active?.avatar', !state?.chat?.active?.avatar);
-
     return {
       src: state?.chat?.active?.avatar
         ? `${DEFAULT_RESOURCE_URL}/${state?.chat?.active?.avatar}`
