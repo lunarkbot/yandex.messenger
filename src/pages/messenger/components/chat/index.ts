@@ -29,7 +29,7 @@ store.set('chat', {
   messages,
 });
 
-const chatWithStore = connect((state) => {
+const ChatWithStore = connect((state) => {
   const userId = state?.user?.id || 0;
   const messages = state?.messages || [];
 
@@ -47,7 +47,7 @@ const chatWithStore = connect((state) => {
   };
 })(Chat);
 
-const chat = new chatWithStore({
+const chat = new ChatWithStore({
   messages,
 });
 

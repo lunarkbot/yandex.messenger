@@ -22,7 +22,7 @@ export function getInput(name:string, placeholder:string, type:string = 'text') 
 }
 
 export function getProfileInput(name:string, value:string, type:string = 'text') {
-  const profileInputWithStore = connect((state) => {
+  const ProfileInputWithStore = connect((state) => {
     const value = state?.user ? state?.user[name] : '';
 
     return {
@@ -30,7 +30,7 @@ export function getProfileInput(name:string, value:string, type:string = 'text')
     };
   })(ProfileInput);
 
-  return new profileInputWithStore({
+  return new ProfileInputWithStore({
     name,
     value,
     type,

@@ -31,11 +31,11 @@ class Header extends Block {
   }
 }
 
-const headerWithStore = connect((state) => ({
+const HeaderWithStore = connect((state) => ({
   title: state?.chat?.active?.title || '',
 }))(Header);
 
-const header = new headerWithStore({
+const header = new HeaderWithStore({
   title: '',
 });
 

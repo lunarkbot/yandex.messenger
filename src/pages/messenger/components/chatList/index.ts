@@ -50,7 +50,7 @@ class ChatList extends Block {
   }
 }
 
-const chatListWithStore = connect((state) => {
+const ChatListWithStore = connect((state) => {
   const chatList = state?.chats?.items.map((item: any) => new ChatListItem({
     ...item,
     unread_count: item?.unread_count || '',
@@ -62,7 +62,7 @@ const chatListWithStore = connect((state) => {
   };
 })(ChatList);
 
-const chatList = new chatListWithStore({
+const chatList = new ChatListWithStore({
   chatList: [],
 });
 

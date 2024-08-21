@@ -16,13 +16,13 @@ function changeAvatarHandler(event: Event) {
 }
 
 export function getProfileAvatar() {
-  const avatarWithStore = connect((state) => ({
+  const AvatarWithStore = connect((state) => ({
     src: state?.user?.avatar
       ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}`
       : DEFAULT_AVATAR_URL,
   }))(Avatar);
 
-  return new avatarWithStore({
+  return new AvatarWithStore({
     src: DEFAULT_AVATAR_URL,
   }, changeAvatarHandler);
 }

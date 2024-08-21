@@ -34,8 +34,8 @@ class SignIn extends Block {
   }
 }
 
-const signInWithStore = connect()(SignIn);
+const SignInWithStore = connect()(SignIn);
 
-const signIn = new signInWithStore(context);
+const signIn = new SignInWithStore(context);
 
 export default signIn;
