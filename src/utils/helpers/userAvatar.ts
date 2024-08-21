@@ -1,7 +1,7 @@
 import UserProfileController from '../../controllers/userProfileController.ts';
 import connect from '../../hoc/connect.ts';
 import Avatar from '../../components/avatar';
-import { DEFAULT_AVATAR_URL } from '../../constants.ts';
+import { DEFAULT_AVATAR_URL, DEFAULT_RESOURCE_URL } from '../../constants.ts';
 
 function changeAvatarHandler(event: Event) {
   const formData = new FormData();
@@ -16,13 +16,13 @@ function changeAvatarHandler(event: Event) {
 }
 
 export function getProfileAvatar() {
-  const avatarWithStore = connect((state) => ({
+  const AvatarWithStore = connect((state) => ({
     src: state?.user?.avatar
-      ? `https://ya-praktikum.tech/api/v2/resources/${state.user.avatar}`
+      ? `${DEFAULT_RESOURCE_URL}/${state.user.avatar}`
       : DEFAULT_AVATAR_URL,
   }))(Avatar);
 
-  return new avatarWithStore({
+  return new AvatarWithStore({
     src: DEFAULT_AVATAR_URL,
   }, changeAvatarHandler);
 }

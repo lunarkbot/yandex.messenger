@@ -41,7 +41,6 @@ export default class UserProfileController {
       return result;
     } catch (error) {
       console.error(error);
-      throw new Error('Error changing avatar');
     }
   }
 
@@ -82,7 +81,6 @@ export default class UserProfileController {
       return result;
     } catch (error) {
       console.error(error);
-      throw new Error('Error saving profile');
     }
   }
 
@@ -95,7 +93,6 @@ export default class UserProfileController {
       }
     } catch (error) {
       console.error(error);
-      throw new Error('Error changing password');
     }
   }
 }

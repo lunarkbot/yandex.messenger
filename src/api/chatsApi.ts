@@ -29,4 +29,11 @@ export default class ChatsAPI extends BaseApi {
   async getToken(chatId: string) {
     return this.parseJSON(chatsAPIInstance.post(`/token/${chatId}`));
   }
+
+  async changeChatAvatar(data: FormData) {
+    return chatsAPIInstance.put('/avatar', {
+      data,
+      type: 'auto',
+    });
+  }
 }

@@ -39,8 +39,8 @@ class SignUp extends Block {
   }
 }
 
-const signUpWithStore = connect()(SignUp);
+const SignUpWithStore = connect()(SignUp);
 
-const signUp = new signUpWithStore(context);
+const signUp = new SignUpWithStore(context);
 
 export default signUp;

@@ -30,7 +30,7 @@ const context:TProps = {
   phone: '',
 };
 
-const profileWithUser = connect((state) => ({
+const ProfileWithUser = connect((state) => ({
   first_name: state?.user?.first_name,
   email: state?.user?.email,
   login: state?.user?.login,
@@ -39,6 +39,6 @@ const profileWithUser = connect((state) => ({
   phone: state?.user?.phone,
 }))(Profile);
 
-const profile = new profileWithUser(context);
+const profile = new ProfileWithUser(context);
 
 export default profile;

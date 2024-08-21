@@ -3,7 +3,7 @@ import styles from './header.module.css';
 export default function (context) {
   return `
             <div class="${styles.headerAvatar}">
-                
+                {{{avatar}}}
             </div>
             <div class="${styles.headerName}">{{title}}</div>
             <div class="${styles.headerMenu}">

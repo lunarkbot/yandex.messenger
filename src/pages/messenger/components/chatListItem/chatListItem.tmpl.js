@@ -10,6 +10,7 @@ export default function (props) {
   return `
     <div class="${styles.chatContent}">
       <div class="${styles.chatAvatarWrap}">
+        {{{avatar}}}
       </div>
       <div class="${styles.chatNameWrap}">
           <div class="${styles.chatName}" data-chat-name="{{title}}">{{title}}</div>

@@ -1,7 +1,7 @@
 import { IValidationRule, TSocketMessage } from 'types';
 import Validator from '../utils/classes/validation/validator.ts';
 import { chatMessageValidationRule, getChatInputValidationRule } from '../utils/helpers/validationRules.ts';
-import { addSearchChat } from '../utils/helpers/index.ts';
+import { addSearchChat, parseJSON } from '../utils/helpers/index.ts';
 import {
   modalDeleteUser, searchClasses,
   modalNewChat,
@@ -34,6 +34,8 @@ export enum ValidationType {
 
 type TSearchUser = Record<string, string | null>;
 
+// 👉 This class should be split into several classes to reduce its size, but I will leave it as it is
+// to save time before the deadline
 class MessengerController {
   private chat: null | HTMLDivElement;
 
@@ -66,7 +68,8 @@ class MessengerController {
   }
 
   private async addUser(data: string) {
-    const login = JSON.parse(data)?.login;
+    const userJSON = parseJSON(data);
+    const login = userJSON?.login as string;
     const userData = await this.getUserId(data, login);
 
     if (userData.userId) {
@@ -89,7 +92,8 @@ class MessengerController {
   }
 
   private async deleteUser(data: string) {
-    const login = JSON.parse(data)?.login;
+    const userJSON = parseJSON(data);
+    const login = userJSON?.login as string;
     const userData = await this.getUserId(data, login);
 
     if (userData.userId) {
@@ -180,12 +184,34 @@ class MessengerController {
     }
   }
 
+  public async changeAvatar(data: FormData) {
+    const chatData = await chatsAPI.changeChatAvatar(data);
+    if (chatData.status === 200) {
+      const { response } = chatData;
+      const active = {
+        avatar: response.avatar,
+        id: response.id,
+        title: response.title,
+      };
+
+      store.set('chat', {
+        active,
+      });
+
+      sessionStorage.setItem('activeChat', JSON.stringify(active));
+
+      this.getChats();
+    } else {
+      console.error(chatData.response);
+    }
+  }
+
   private async createChat(data: string) {
     modalNewChat.hideModal();
 
-    const json = JSON.parse(data);
+    const json = parseJSON(data);
     const newChatData = {
-      title: json.title,
+      title: json?.title,
     };
     const chats = store.getState()?.chats?.items || [];
 
@@ -197,7 +223,7 @@ class MessengerController {
     await this.getChats();
   }
 
-  private async getChats() {
+  public async getChats() {
     const result = await chatsAPI.getChats();
 
     if (result.status === 200) {
@@ -223,12 +249,18 @@ class MessengerController {
 
   private async sendMessage(content: string) {
     const textArea = document.querySelector(`#${formId} [name="message"]`) as HTMLTextAreaElement;
-    const contentJson = JSON.parse(content);
+    const contentJson = parseJSON(content);
 
-    updateLastMessageContent(contentJson.message);
+    if (!contentJson) {
+      return;
+    }
+
+    const message = contentJson?.message as string;
+
+    updateLastMessageContent(message);
 
     const data: TSocketMessage = {
-      content: contentJson.message,
+      content: message,
       type: 'message',
     };
     Socket.send(data);

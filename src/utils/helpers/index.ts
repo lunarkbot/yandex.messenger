@@ -22,7 +22,7 @@ export function getInput(name:string, placeholder:string, type:string = 'text') 
 }
 
 export function getProfileInput(name:string, value:string, type:string = 'text') {
-  const profileInputWithStore = connect((state) => {
+  const ProfileInputWithStore = connect((state) => {
     const value = state?.user ? state?.user[name] : '';
 
     return {
@@ -30,7 +30,7 @@ export function getProfileInput(name:string, value:string, type:string = 'text')
     };
   })(ProfileInput);
 
-  return new profileInputWithStore({
+  return new ProfileInputWithStore({
     name,
     value,
     type,
@@ -88,4 +88,28 @@ export function getTime(dateStr: string): string {
   const minutes = date.getUTCMinutes();
 
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+}
+
+export function parseJSON(str: string): Record<string, unknown> | null {
+  let result: Record<string, unknown> | null;
+  try {
+    result = JSON.parse(str);
+  } catch (error) {
+    console.error(error);
+    result = null;
+  }
+
+  return result;
+}
+
+export function findPropertyById(
+  objects: Array<{ id: number, [key: string]: unknown }>,
+  id: string | number,
+  property: string,
+): unknown {
+  const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
+
+  const foundObject = objects.find((obj) => obj.id === numericId);
+
+  return foundObject ? foundObject[property] : undefined;
 }

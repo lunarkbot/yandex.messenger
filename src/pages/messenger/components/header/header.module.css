@@ -1,9 +1,7 @@
 .header {
   display: grid;
   column-gap: 10px;
-
-  /* grid-template-columns: 34px 1fr 25px; */
-  grid-template-columns: 1fr 25px;
+  grid-template-columns: 34px 1fr 25px;
   align-items: center;
   padding: 10px 0;
   box-sizing: border-box;
@@ -11,7 +9,7 @@
 }
 
 .headerAvatar {
-  display: none;
+  display: inline-block;
   width: 34px;
   height: 34px;
   border-radius: 50%;

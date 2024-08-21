@@ -13,7 +13,6 @@ export default class LogoutController {
       }
     } catch (error) {
       console.error(error);
-      throw new Error('Error getting user info');
     }
   }
 }

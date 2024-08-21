@@ -7,6 +7,9 @@ import connect from '../../../../hoc/connect.ts';
 import MessengerController,
 { ValidationType } from '../../../../controllers/messengerController.ts';
 import store from '../../../../utils/classes/store/store.ts';
+import { getChatListAvatar } from '../../../../utils/helpers/chatAvatar.ts';
+import { findPropertyById } from '../../../../utils/helpers/index.ts';
+import { DEFAULT_RESOURCE_URL } from '../../../../constants.ts';
 
 export const chatListClassName = styles.chatList;
 
@@ -21,9 +24,13 @@ class ChatList extends Block {
           const target = event.target as HTMLElement;
 
           if (target?.hasAttribute('data-id')) {
+            const id = target.getAttribute('data-id') as string;
+            const avatar = findPropertyById(store.getState()?.chats?.items, id, 'avatar');
+
             const active = {
-              id: Number(target.getAttribute('data-id')),
+              id: id ? parseInt(id, 10) : 0,
               title: target.getAttribute('data-title'),
+              avatar,
             };
 
             store.set('chat', {
@@ -50,11 +57,15 @@ class ChatList extends Block {
   }
 }
 
-const chatListWithStore = connect((state) => {
+const ChatListWithStore = connect((state) => {
   const chatList = state?.chats?.items.map((item: any) => new ChatListItem({
     ...item,
     unread_count: item?.unread_count || '',
     last_message: item?.last_message?.content || '...Напишите свое первое сообщение',
+    avatar: getChatListAvatar({
+      src: item?.avatar ? `${DEFAULT_RESOURCE_URL}/${item?.avatar}` : '',
+      isAvatarEmpty: !item?.avatar,
+    }),
   })) || [];
 
   return {
@@ -62,7 +73,7 @@ const chatListWithStore = connect((state) => {
   };
 })(ChatList);
 
-const chatList = new chatListWithStore({
+const chatList = new ChatListWithStore({
   chatList: [],
 });
 
