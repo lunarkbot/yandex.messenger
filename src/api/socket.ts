@@ -2,6 +2,7 @@ import { TSocketMessage } from 'types';
 import MessengerController, { ValidationType } from '../controllers/messengerController.ts';
 import store from '../utils/classes/store/store.ts';
 import isPlainObject from '../utils/helpers/isPlainObject.ts';
+import { parseJSON } from '../utils/helpers/index.ts';
 
 type TSocketConnectConfig = {
     chatId?: string;
@@ -82,7 +83,7 @@ class Socket {
   }
 
   private onMessage(event: MessageEvent): void {
-    const data = JSON.parse(event.data);
+    const data = parseJSON(event.data);
     if (Array.isArray(data)) {
       store.set('messages', data.reverse());
     } else if (isPlainObject(data) && data.type === 'message') {

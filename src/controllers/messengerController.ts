@@ -1,7 +1,7 @@
 import { IValidationRule, TSocketMessage } from 'types';
 import Validator from '../utils/classes/validation/validator.ts';
 import { chatMessageValidationRule, getChatInputValidationRule } from '../utils/helpers/validationRules.ts';
-import { addSearchChat } from '../utils/helpers/index.ts';
+import { addSearchChat, parseJSON } from '../utils/helpers/index.ts';
 import {
   modalDeleteUser, searchClasses,
   modalNewChat,
@@ -66,7 +66,8 @@ class MessengerController {
   }
 
   private async addUser(data: string) {
-    const login = JSON.parse(data)?.login;
+    const userJSON = parseJSON(data);
+    const login = userJSON?.login as string;
     const userData = await this.getUserId(data, login);
 
     if (userData.userId) {
@@ -89,7 +90,8 @@ class MessengerController {
   }
 
   private async deleteUser(data: string) {
-    const login = JSON.parse(data)?.login;
+    const userJSON = parseJSON(data);
+    const login = userJSON?.login as string;
     const userData = await this.getUserId(data, login);
 
     if (userData.userId) {
@@ -183,9 +185,9 @@ class MessengerController {
   private async createChat(data: string) {
     modalNewChat.hideModal();
 
-    const json = JSON.parse(data);
+    const json = parseJSON(data);
     const newChatData = {
-      title: json.title,
+      title: json?.title,
     };
     const chats = store.getState()?.chats?.items || [];
 
@@ -223,12 +225,18 @@ class MessengerController {
 
   private async sendMessage(content: string) {
     const textArea = document.querySelector(`#${formId} [name="message"]`) as HTMLTextAreaElement;
-    const contentJson = JSON.parse(content);
+    const contentJson = parseJSON(content);
 
-    updateLastMessageContent(contentJson.message);
+    if (!contentJson) {
+      return;
+    }
+
+    const message = contentJson?.message as string;
+
+    updateLastMessageContent(message);
 
     const data: TSocketMessage = {
-      content: contentJson.message,
+      content: message,
       type: 'message',
     };
     Socket.send(data);

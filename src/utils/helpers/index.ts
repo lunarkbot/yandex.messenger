@@ -89,3 +89,15 @@ export function getTime(dateStr: string): string {
 
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
 }
+
+export function parseJSON(str: string): Record<string, unknown> | null {
+  let result: Record<string, unknown> | null;
+  try {
+    result = JSON.parse(str);
+  } catch (error) {
+    console.error(error);
+    result = null;
+  }
+
+  return result;
+}

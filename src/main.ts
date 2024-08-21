@@ -12,6 +12,7 @@ import UserController from './controllers/userController.ts';
 import { ROOT_QUERY } from './constants.ts';
 import store from './utils/classes/store/store.ts';
 import MessengerController from './controllers/messengerController.ts';
+import { parseJSON } from './utils/helpers';
 
 PopstateEventManager.getInstance();
 
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const activeChat = sessionStorage.getItem('activeChat');
 if (activeChat) {
   store.set('chat', {
-    active: JSON.parse(activeChat),
+    active: parseJSON(activeChat),
   });
 
   if (window.location.pathname === '/messenger') {
