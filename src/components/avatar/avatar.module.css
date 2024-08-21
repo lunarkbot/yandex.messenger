@@ -13,6 +13,11 @@
   position: relative;
   cursor: pointer;
   overflow: hidden;
+  container-type: inline-size;
+}
+
+.uploadDisabled {
+  pointer-events: none;
 }
 
 .image {
@@ -20,6 +25,11 @@
   max-height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.avatarEmpty .image,
+.image[src=''] {
+  display: none;
 }
 
 .edit {
@@ -43,6 +53,11 @@
   pointer-events: none;
 }
 
+.edit::before {
+  content: 'Поменять аватар';
+  display: inline;
+}
+
 .avatar:hover .edit {
   opacity: 1;
   pointer-events: all;
@@ -51,4 +66,20 @@
 
 .input {
   display: none;
+}
+
+@container (max-width: 100px) {
+  .edit {
+    padding: 0;
+  }
+
+  .edit::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url('/public/change_avatar.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }

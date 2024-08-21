@@ -101,3 +101,15 @@ export function parseJSON(str: string): Record<string, unknown> | null {
 
   return result;
 }
+
+export function findPropertyById(
+  objects: Array<{ id: number, [key: string]: unknown }>,
+  id: string | number,
+  property: string,
+): unknown {
+  const numericId = typeof id === 'string' ? parseInt(id, 10) : id;
+
+  const foundObject = objects.find((obj) => obj.id === numericId);
+
+  return foundObject ? foundObject[property] : undefined;
+}

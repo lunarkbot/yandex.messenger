@@ -88,6 +88,7 @@ class Socket {
       store.set('messages', data.reverse());
     } else if (isPlainObject(data) && data.type === 'message') {
       const messages = store.getState()?.messages || [];
+
       store.set('messages', [...messages, data]);
     }
 

@@ -3,6 +3,7 @@ import renderHeader from './header.tmpl.js';
 import styles from './header.module.css';
 import Block from '../../../../utils/classes/core/block.ts';
 import connect from '../../../../hoc/connect.ts';
+import { getChatAvatar } from '../../../../utils/helpers/chatAvatar.ts';
 
 class Header extends Block {
   constructor(props: TProps) {
@@ -31,12 +32,15 @@ class Header extends Block {
   }
 }
 
+const avatar = getChatAvatar();
+
 const HeaderWithStore = connect((state) => ({
   title: state?.chat?.active?.title || '',
 }))(Header);
 
 const header = new HeaderWithStore({
   title: '',
+  avatar,
 });
 
 export default header;

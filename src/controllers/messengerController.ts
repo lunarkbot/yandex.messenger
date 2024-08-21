@@ -34,6 +34,8 @@ export enum ValidationType {
 
 type TSearchUser = Record<string, string | null>;
 
+// 👉 This class should be split into several classes to reduce its size, but I will leave it as it is
+// to save time before the deadline
 class MessengerController {
   private chat: null | HTMLDivElement;
 
@@ -182,6 +184,28 @@ class MessengerController {
     }
   }
 
+  public async changeAvatar(data: FormData) {
+    const chatData = await chatsAPI.changeChatAvatar(data);
+    if (chatData.status === 200) {
+      const { response } = chatData;
+      const active = {
+        avatar: response.avatar,
+        id: response.id,
+        title: response.title,
+      };
+
+      store.set('chat', {
+        active,
+      });
+
+      sessionStorage.setItem('activeChat', JSON.stringify(active));
+
+      this.getChats();
+    } else {
+      console.error(chatData.response);
+    }
+  }
+
   private async createChat(data: string) {
     modalNewChat.hideModal();
 
@@ -199,7 +223,7 @@ class MessengerController {
     await this.getChats();
   }
 
-  private async getChats() {
+  public async getChats() {
     const result = await chatsAPI.getChats();
 
     if (result.status === 200) {
