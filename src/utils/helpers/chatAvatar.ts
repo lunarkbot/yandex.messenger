@@ -24,14 +24,12 @@ function changeAvatarHandler(event: Event) {
 }
 
 export function getChatAvatar(): Avatar {
-  const AvatarWithStore = connect((state) => {
-    return {
-      src: state?.chat?.active?.avatar
-        ? `${DEFAULT_RESOURCE_URL}/${state?.chat?.active?.avatar}`
-        : '',
-      isAvatarEmpty: false,
-    };
-  })(Avatar);
+  const AvatarWithStore = connect((state) => ({
+    src: state?.chat?.active?.avatar
+      ? `${DEFAULT_RESOURCE_URL}/${state?.chat?.active?.avatar}`
+      : '',
+    isAvatarEmpty: false,
+  }))(Avatar);
 
   return new AvatarWithStore({
     src: '',
