@@ -1,13 +1,16 @@
-import { ITemplate, TProps } from 'types';
+import { TProps } from 'types';
 import renderProfile from './profile.tmpl.js';
-import Avatar from '../../components/avatar';
-import Block from '../../utils/block.ts';
-
-const avatar = new Avatar({});
+import Block from '../../utils/classes/core/block.ts';
+import connect from '../../hoc/connect.ts';
+import { getProfileAvatar } from '../../utils/helpers/userAvatar.ts';
 
 class Profile extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+      tagName: 'div',
+      props,
+      type: 'page',
+    });
   }
 
   render(): string {
@@ -15,16 +18,27 @@ class Profile extends Block {
   }
 }
 
-const context:ITemplate = {
-  avatar: avatar.getContent().innerHTML,
-  email: 'pochta@yandex.ru',
-  login: 'ivanovivan',
-  firstName: 'Иван',
-  secondName: 'Иванов',
-  nickname: 'Иван',
-  phone: '+7 (909) 967 30 30',
+const avatar = getProfileAvatar();
+
+const context:TProps = {
+  avatar,
+  email: '',
+  login: '',
+  first_name: '',
+  second_name: '',
+  display_name: '',
+  phone: '',
 };
 
-const profile = new Profile(context);
+const ProfileWithUser = connect((state) => ({
+  first_name: state?.user?.first_name,
+  email: state?.user?.email,
+  login: state?.user?.login,
+  second_name: state?.user?.second_name,
+  display_name: state?.user?.display_name || state?.user?.first_name,
+  phone: state?.user?.phone,
+}))(Profile);
+
+const profile = new ProfileWithUser(context);
 
 export default profile;

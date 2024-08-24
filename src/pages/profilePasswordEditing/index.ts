@@ -1,10 +1,10 @@
-import { IValidationRule, TProps } from 'types';
+import { TProps } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
-import Avatar from '../../components/avatar';
 import Button from '../../components/button';
-import { getProfileInput } from '../../utils';
-import { getPasswordInputValidationRule, passwordCheckValidationRule } from '../../utils/validationRules.ts';
-import Block from '../../utils/block.ts';
+import { getProfileInput } from '../../utils/helpers';
+import Block from '../../utils/classes/core/block.ts';
+import { getProfileAvatar } from '../../utils/helpers/userAvatar.ts';
+import UserProfileController from '../../controllers/userProfileController.ts';
 
 const button = new Button({
   type: 'submit',
@@ -13,11 +13,16 @@ const button = new Button({
 
 const inputType:string = 'password';
 
-const avatar = new Avatar({});
+const avatar = getProfileAvatar();
 
 class ProfilePasswordEditing extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+      tagName: 'div',
+      props,
+      type: 'page',
+      controller: UserProfileController,
+    });
   }
 
   render(): string {
@@ -28,18 +33,12 @@ class ProfilePasswordEditing extends Block {
 const context:TProps = {
   avatar,
   displayNameHeading: 'Иван',
-  oldPassword: getProfileInput('oldPassword', 'pochta@yandex.ru', inputType),
-  newPassword: getProfileInput('newPassword', 'ivanovivan', inputType),
-  passwordCheck: getProfileInput('passwordCheck', 'ivanovivan', inputType),
+  oldPassword: getProfileInput('oldPassword', '', inputType),
+  newPassword: getProfileInput('newPassword', '', inputType),
+  passwordCheck: getProfileInput('passwordCheck', '', inputType),
   saveButton: button.getContent().innerHTML,
 };
 
 const profilePasswordEditing = new ProfilePasswordEditing(context);
-
-export const profilePasswordEditingValidationRules: IValidationRule[] = [
-  getPasswordInputValidationRule('oldPassword'),
-  getPasswordInputValidationRule('newPassword'),
-  passwordCheckValidationRule,
-];
 
 export default profilePasswordEditing;

@@ -1,25 +1,26 @@
-import { IValidationRule, TProps } from 'types';
+import { TProps } from 'types';
 import renderProfileEditing from './profileEditing.tmpl.js';
-import Avatar from '../../components/avatar';
 import Button from '../../components/button';
-import { getProfileInput } from '../../utils';
-import {
-  emailValidationRule,
-  getTextInputValidationRule, loginValidationRule,
-  phoneValidationRule,
-} from '../../utils/validationRules.ts';
-import Block from '../../utils/block.ts';
+import { getProfileInput } from '../../utils/helpers';
+import Block from '../../utils/classes/core/block.ts';
+import { getProfileAvatar } from '../../utils/helpers/userAvatar.ts';
+import UserProfileController from '../../controllers/userProfileController.ts';
 
 const button = new Button({
   type: 'submit',
   text: 'Сохранить',
 });
 
-const avatar = new Avatar({});
+const avatar = getProfileAvatar();
 
 class ProfileEditing extends Block {
   constructor(props: TProps) {
-    super('div', props);
+    super({
+      tagName: 'div',
+      props,
+      type: 'page',
+      controller: UserProfileController,
+    });
   }
 
   render(): string {
@@ -40,13 +41,5 @@ const context:TProps = {
 };
 
 const profileEditing = new ProfileEditing(context);
-
-export const profileEditingValidationRules: IValidationRule[] = [
-  getTextInputValidationRule('first_name'),
-  getTextInputValidationRule('second_name'),
-  loginValidationRule,
-  emailValidationRule,
-  phoneValidationRule,
-];
 
 export default profileEditing;
