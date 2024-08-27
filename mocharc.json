@@ -3,8 +3,5 @@
   "extensions": [
     "ts"
   ],
-  "spec": "src/**/*.test.ts",
-  "require": [
-    "./mochaSetup.js"
-  ]
+  "spec": "src/**/*.test.ts"
 }

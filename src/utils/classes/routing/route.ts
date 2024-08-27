@@ -33,7 +33,7 @@ export default class Route {
   }
 
   leave(): void {
-    if (this._block) {
+    if (this._block && typeof this._block.hide === 'function') {
       this._block.hide();
     }
   }

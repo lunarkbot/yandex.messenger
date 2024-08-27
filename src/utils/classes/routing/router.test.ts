@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
+import jsdomGlobal from 'jsdom-global';
 import Router from './router.ts';
 import Route from './route.ts';
-import jsdomGlobal from 'jsdom-global';
 
 jsdomGlobal(undefined, { url: 'http://localhost' });
 
