@@ -1,4 +1,4 @@
-import { render } from '../../helpers';
+import render from '../../helpers/render.ts';
 import Block from '../core/block.ts';
 
 type TRouteProps = {
