@@ -20,6 +20,18 @@
       "pre-push": "npm test"
     }
   },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@types/chai": "^4.3.17",
     "@types/jsdom": "^21.1.7",
@@ -38,6 +50,7 @@
     "husky": "^7.0.4",
     "jsdom": "^25.0.0",
     "jsdom-global": "^3.0.2",
+    "lint-staged": "^15.2.9",
     "mocha": "^10.7.3",
     "sinon": "^18.0.0",
     "stylelint": "^16.7.0",
