@@ -1,4 +1,4 @@
-import { render } from '../../helpers';
+import render from '../../helpers/render.ts';
 import Block from '../core/block.ts';
 
 type TRouteProps = {
@@ -33,7 +33,7 @@ export default class Route {
   }
 
   leave(): void {
-    if (this._block) {
+    if (this._block && typeof this._block.hide === 'function') {
       this._block.hide();
     }
   }

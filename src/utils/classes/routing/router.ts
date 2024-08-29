@@ -11,6 +11,8 @@ export default class Router {
 
   private _rootQuery: string = '';
 
+  private _isRouting: boolean = false;
+
   constructor(rootQuery: string) {
     if (Router.__instance) {
       return Router.__instance;
@@ -37,10 +39,14 @@ export default class Router {
   }
 
   _onRoute(pathname: string): void {
+    if (this._isRouting) return;
+    this._isRouting = true;
+
     const route: Route | undefined = this.getRoute(pathname);
 
     if (!route) {
       this.go('/404');
+      this._isRouting = false;
       return;
     }
 
@@ -51,6 +57,8 @@ export default class Router {
     this._currentRoute = route!;
     // route.render(route, pathname);
     route!.render();
+
+    this._isRouting = false;
   }
 
   go(pathname: string): void {

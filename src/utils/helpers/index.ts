@@ -1,7 +1,5 @@
-import { IBlock } from 'types';
-
-import ProfileInput from '../../components/profileInput';
-import Input from '../../components/input';
+import ProfileInput from '../../components/profileInput/index.ts';
+import Input from '../../components/input/index.ts';
 import connect from '../../hoc/connect.ts';
 
 export function foundKey(obj: Record<string, any>, targetValue: any): string | null {
@@ -40,18 +38,6 @@ export function getProfileInput(name:string, value:string, type:string = 'text')
 export function clearNode(): void {
   const root = document.querySelector('.content');
   if (root) root.innerHTML = '';
-}
-
-export function render(query: string, block: IBlock) {
-  const root = document.querySelector(query);
-
-  if (!root) return;
-  // clearNode(root);
-
-  root.appendChild(block?.getContent());
-  block.dispatchComponentDidMount();
-
-  return root;
 }
 
 function handleSearch(inputValue: string, listClassName: string, listItemsClassName: string) {

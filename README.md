@@ -1,4 +1,4 @@
-## Messenger [Sprint 3]
+## Messenger [Sprint 4]
 _Study project for [Yandex Practicum](https://practicum.yandex.kz/)_
 
 ### Prototype / Layout:
@@ -12,6 +12,8 @@ https://www.figma.com/proto/4nCFp5KZFZr2T2SjRtW8BL/yandex.messenger?node-id=0-1&
 * npm run lint    - run eslint
 * npm run lint:fix - run eslint with --fix flag
 * npm run stylelint - run stylelint for css files
+* npm run test    - run tests
+* npm run prepare - install husky hooks
 
 ### Deployed version of the project on Netlify
 https://ydxmessenger.netlify.app/

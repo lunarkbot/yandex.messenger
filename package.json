@@ -4,22 +4,59 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
     "dev": "vite",
     "prebuild": "tsc --noEmit",
     "build": "npm run prebuild && vite build",
     "start": "vite build && node server.js",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --ext .js,.ts --fix",
-    "stylelint": "stylelint \"src/**/*.css\" --fix"
+    "stylelint": "stylelint \"src/**/*.css\" --fix",
+    "test": "cross-env NODE_OPTIONS=--experimental-loader=ts-node/esm mocha src/**/*.test.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged && npm test",
+      "pre-push": "npx lint-staged && npm test"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.ts": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   },
   "devDependencies": {
+    "@types/chai": "^4.3.17",
+    "@types/jsdom": "^21.1.7",
+    "@types/jsdom-global": "^3.0.7",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^22.5.0",
+    "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "chai": "^5.1.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",
+    "husky": "^7.0.4",
+    "jsdom": "^25.0.0",
+    "jsdom-global": "^3.0.2",
+    "lint-staged": "^15.2.9",
+    "mocha": "^10.7.3",
+    "sinon": "^18.0.0",
     "stylelint": "^16.7.0",
     "stylelint-config-standard": "^36.0.1",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.7.0",
     "typescript": "^5.5.4",
     "vite": "^5.3.1"
   },

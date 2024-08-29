@@ -1,4 +1,4 @@
-enum METHOD {
+export enum METHOD {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
@@ -19,7 +19,7 @@ type Options = {
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 export default class HTTP {
-  private readonly baseUrl: string;
+  protected readonly baseUrl: string;
 
   constructor(basePath: string) {
     this.baseUrl = `${BASE_URL}/${basePath}`;
